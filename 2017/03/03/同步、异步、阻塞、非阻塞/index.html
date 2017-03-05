@@ -89,12 +89,25 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="nomoshen">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.
+先引用几个别人对此的理解，我觉得他们理解的特别有理;
+
+•    阻塞与非阻塞：区别在于完成一件事情时，当事情还没有完成时，处理这件事情的人除此之外不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同步、异步、阻塞、非阻塞">
+<meta property="og:url" content="http://yoursite.com/2017/03/03/同步、异步、阻塞、非阻塞/index.html">
 <meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.
+先引用几个别人对此的理解，我觉得他们理解的特别有理;
+
+•    阻塞与非阻塞：区别在于完成一件事情时，当事情还没有完成时，处理这件事情的人除此之外不">
+<meta property="og:updated_time" content="2017-03-05T06:12:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nomoshen">
+<meta name="twitter:title" content="同步、异步、阻塞、非阻塞">
+<meta name="twitter:description" content="同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.
+先引用几个别人对此的理解，我觉得他们理解的特别有理;
+
+•    阻塞与非阻塞：区别在于完成一件事情时，当事情还没有完成时，处理这件事情的人除此之外不">
 
 
 
@@ -122,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/03/同步、异步、阻塞、非阻塞/"/>
 
 
 
 
 
-  <title> nomoshen </title>
+  <title> 同步、异步、阻塞、非阻塞 | nomoshen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="english">
@@ -153,9 +166,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,9 +249,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,10 +281,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/03/03/同步、异步、阻塞、非阻塞/" itemprop="url">
-                  同步、异步、阻塞、非阻塞
-                </a>
+                同步、异步、阻塞、非阻塞
               
             
           </h1>
@@ -324,9 +332,7 @@
       
 
       
-        
-          
-            <p>同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.</p>
+        <p>同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.</p>
 <p>先引用几个别人对此的理解，我觉得他们理解的特别有理;</p>
 <blockquote>
 <pre><code>•    阻塞与非阻塞：区别在于完成一件事情时，当事情还没有完成时，处理这件事情的人除此之外不能再做别的事情；
@@ -385,16 +391,20 @@
 <p>和阻塞非阻塞一样，同步与异步的也是有层次的划分的；就目前操作系统来说，真正的异步io就只有AIO，其他的IO都是同步IO，原因是不管怎么样从内核到应用层的内存copy都需要调用者自己也操作，所以都是同步io；但是如果将异步同步这个概念放宽一些，从不同层次上来思考的话，我们发现现在很多市面上的网络框架都能达到异步的一个概念；比如seastar、folly的future，node.js等，这些框架可能在实现上都不一样但是不管怎么样，在概念上都已经是异步了.</p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>个人感觉(对自己而言)思考的已经很清楚了；异步同步、阻塞非阻塞，虽然相关但是其实关注的维度是不一样的，所以谈论的过程中不要尝试混淆.</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -403,147 +413,38 @@
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="nomoshen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nomoshen">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/27/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2017/02/27/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-27T07:54:39+08:00">
-                2017-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -551,6 +452,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -570,8 +475,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -622,6 +536,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#阻塞非阻塞"><span class="nav-number">1.</span> <span class="nav-text">阻塞非阻塞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步与异步"><span class="nav-number">2.</span> <span class="nav-text">同步与异步</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -727,6 +657,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
