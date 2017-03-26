@@ -129,7 +129,7 @@ kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
 
 Byte in rate
 kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
-<meta property="og:updated_time" content="2017-03-26T13:44:52.000Z">
+<meta property="og:updated_time" content="2017-03-26T13:47:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka broker的监控信息">
 <meta name="twitter:description" content="1. broker的监控信息
@@ -464,9 +464,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 </tr>
 <tr>
 <td>Request total time</td>
-<td>`kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>请求所需要的全部时间;根据不同的类型求个不一样的结果</td>
 </tr>
 <tr>
