@@ -129,7 +129,7 @@ kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
 
 Byte in rate
 kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
-<meta property="og:updated_time" content="2017-03-26T13:41:37.000Z">
+<meta property="og:updated_time" content="2017-03-26T13:44:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka broker的监控信息">
 <meta name="twitter:description" content="1. broker的监控信息
@@ -399,9 +399,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 </tr>
 <tr>
 <td>Request rate</td>
-<td>`kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>当前broker的每秒的请求量; 根据request的不同会返回不同类型的数据</td>
 </tr>
 <tr>
@@ -473,16 +471,12 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 </tr>
 <tr>
 <td>Time the request waits in the request queue</td>
-<td>`kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>请求在队列中等待的时间</td>
 </tr>
 <tr>
 <td>Time the request is processed at the leader</td>
-<td>`kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>请求被leader节点处理的时间</td>
 </tr>
 <tr>
@@ -490,23 +484,17 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 <td>Time the request waits for the follower</td>
 </tr>
 <tr>
-<td>`kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>一个请求等待follower的时间;假如ack=all，那么这个值就是非0</td>
 </tr>
 <tr>
 <td>Time the request waits in the response queue</td>
-<td>`kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>一个请求在response队列中的时间</td>
 </tr>
 <tr>
 <td>Time to send the response</td>
-<td>`kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce</td>
-<td>FetchConsumer</td>
-<td>FetchFollower}`</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
 <td>发送请求的时间</td>
 </tr>
 <tr>
