@@ -129,7 +129,7 @@ kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
 
 Byte in rate
 kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
-<meta property="og:updated_time" content="2017-03-26T13:36:09.000Z">
+<meta property="og:updated_time" content="2017-03-26T13:41:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka broker的监控信息">
 <meta name="twitter:description" content="1. broker的监控信息
@@ -384,103 +384,103 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 <tbody>
 <tr>
 <td>Message in rate</td>
-<td>kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec</code></td>
 <td>当前broker每秒的消息个数</td>
 </tr>
 <tr>
 <td>Byte in rate</td>
-<td>kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec</code></td>
 <td>当前broker的每秒的入口流量</td>
 </tr>
 <tr>
 <td>Byte out rate</td>
-<td>kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec</code></td>
 <td>当前broker的每秒的出口流量</td>
 </tr>
 <tr>
 <td>Request rate</td>
-<td>kafka.network:type=RequestMetrics,name=RequestsPerSec,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>当前broker的每秒的请求量; 根据request的不同会返回不同类型的数据</td>
 </tr>
 <tr>
 <td>Log flush rate and time</td>
-<td>kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs</td>
+<td><code>kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs</code></td>
 <td>日志刷盘的频率和时间；其中<em>OneMinuteRate:表示一分钟内每秒钟的刷盘次数; </em>999thPercentile:99.9%的刷盘需要的时间</td>
 </tr>
 <tr>
 <td>of under replicated partitions</td>
-<td>kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions</td>
+<td><code>kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions</code></td>
 <td>ISR &lt; 备份次数的分区个数，这样的分区应该=0，如果大于0就进行报警最好;</td>
 </tr>
 <tr>
 <td>Is controller active on broker</td>
-<td>kafka.controller:type=KafkaController,name=ActiveControllerCount</td>
+<td><code>kafka.controller:type=KafkaController,name=ActiveControllerCount</code></td>
 <td>当前集群中controller的个数,一个集群只能有一个controller</td>
 </tr>
 <tr>
 <td>Leader election rate</td>
-<td>kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs</td>
+<td><code>kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs</code></td>
 <td>leader选举的频率和需要的时间；其中<em>OneMinuteRate:表示一分钟内出现选举的次数; </em>999thPercentile:99.9%的选举需要的时间</td>
 </tr>
 <tr>
 <td>Unclean leader election rate</td>
-<td>kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec</td>
+<td><code>kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec</code></td>
 <td>非正常的备份被选举成leader的频率;</td>
 </tr>
 <tr>
 <td>Partition counts</td>
-<td>kafka.server:type=ReplicaManager,name=PartitionCount</td>
+<td><code>kafka.server:type=ReplicaManager,name=PartitionCount</code></td>
 <td>当前broker的分区个数,就是在存储数据的目录下面的分区个数;</td>
 </tr>
 <tr>
 <td>Leader replica counts</td>
-<td>kafka.server:type=ReplicaManager,name=LeaderCount</td>
+<td><code>kafka.server:type=ReplicaManager,name=LeaderCount</code></td>
 <td>当前broker中的leader分区的个数</td>
 </tr>
 <tr>
 <td>ISR shrink rate</td>
-<td>kafka.server:type=ReplicaManager,name=IsrShrinksPerSec</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrShrinksPerSec</code></td>
 <td>当前broker每分钟分区缩减的频率;</td>
 </tr>
 <tr>
 <td>ISR expansion rate</td>
-<td>kafka.server:type=ReplicaManager,name=IsrExpandsPerSec</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrExpandsPerSec</code></td>
 <td>当前broker每分钟分区扩展的频率;</td>
 </tr>
 <tr>
 <td>Max lag in messages btw follower and leader replicas</td>
-<td>kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica</td>
+<td><code>kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica</code></td>
 <td>当前broker中分区与leader之前同步的最大lag数</td>
 </tr>
 <tr>
 <td>Lag in messages per follower replica</td>
-<td>kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=([-.\w]+),topic=([-.\w]+),partition=([0-9]+)</td>
+<td><code>kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=([-.\w]+),topic=([-.\w]+),partition=([0-9]+)</code></td>
 <td>当前broker中备本分区与leader之间的lag数</td>
 </tr>
 <tr>
 <td>Requests waiting in the producer purgatory</td>
-<td>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</td>
+<td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
 <td>broker中，在等待ack的producer请求个数;</td>
 </tr>
 <tr>
 <td>Request total time</td>
-<td>kafka.network:type=RequestMetrics,name=TotalTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>请求所需要的全部时间;根据不同的类型求个不一样的结果</td>
 </tr>
 <tr>
 <td>Time the request waits in the request queue</td>
-<td>kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>请求在队列中等待的时间</td>
 </tr>
 <tr>
 <td>Time the request is processed at the leader</td>
-<td>kafka.network:type=RequestMetrics,name=LocalTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>请求被leader节点处理的时间</td>
@@ -490,21 +490,21 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 <td>Time the request waits for the follower</td>
 </tr>
 <tr>
-<td>kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>一个请求等待follower的时间;假如ack=all，那么这个值就是非0</td>
 </tr>
 <tr>
 <td>Time the request waits in the response queue</td>
-<td>kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>一个请求在response队列中的时间</td>
 </tr>
 <tr>
 <td>Time to send the response</td>
-<td>kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=`{Produce</td>
+<td>`kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce</td>
 <td>FetchConsumer</td>
 <td>FetchFollower}`</td>
 <td>发送请求的时间</td>
@@ -516,22 +516,22 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 </tr>
 <tr>
 <td>The average fraction of time the network processors are idle</td>
-<td>kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent</td>
+<td><code>kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent</code></td>
 <td>网络处理空闲的因子，在0，1之间，通常是&gt; 0.3</td>
 </tr>
 <tr>
 <td>The average fraction of time the request handler threads are idle</td>
-<td>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</td>
+<td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
 <td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
 </tr>
 <tr>
 <td>number in the producer purgatory</td>
-<td>kafka.server:type=ProducerRequestPurgatory,name=PurgatorySize</td>
+<td><code>kafka.server:type=ProducerRequestPurgatory,name=PurgatorySize</code></td>
 <td>有多少请求等待在broker中的producer的purgatory(炼狱)中；如果ack=all，那么这个通常是非0</td>
 </tr>
 <tr>
 <td>number in the fetch purgatory</td>
-<td>kafka.server:type=FetchRequestPurgatory,name=PurgatorySize</td>
+<td><code>kafka.server:type=FetchRequestPurgatory,name=PurgatorySize</code></td>
 <td>有多少请求处于broker的fetch的purgatory中</td>
 </tr>
 </tbody>
@@ -545,27 +545,27 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 </thead>
 <tbody>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectedPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectedPerSec</code></td>
 <td>当前broker与zk之间的每秒断链的次数；也就是频率</td>
 </tr>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectedPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectedPerSec</code></td>
 <td>ZooKeeper client is connected to the ensemble and ready to execute operations</td>
 </tr>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailedPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailedPerSec</code></td>
 <td>与zk进行连接并且是因为认证失败的每秒的次数</td>
 </tr>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperConnectedReadOnlyPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperConnectedReadOnlyPerSec</code></td>
 <td>The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING. Consequently, the client can only read the ZooKeeper state, but not make any changes (create, delete, or set the data of znodes).</td>
 </tr>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticatedPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticatedPerSec</code></td>
 <td>zkclient被验证成功每秒的次数</td>
 </tr>
 <tr>
-<td>kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec</td>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec</code></td>
 <td>当前zkclient被过期的每秒次数</td>
 </tr>
 </tbody>
