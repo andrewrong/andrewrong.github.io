@@ -76,6 +76,8 @@
 
 
 
+  
+
 
   <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml" />
 
@@ -127,7 +129,7 @@ kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
 
 Byte in rate
 kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
-<meta property="og:updated_time" content="2017-03-27T06:26:22.000Z">
+<meta property="og:updated_time" content="2017-03-27T06:32:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka broker的监控信息">
 <meta name="twitter:description" content="1. broker的监控信息
@@ -246,7 +248,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -256,7 +258,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -333,7 +335,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-26T21:35:09+08:00">
                 2017-03-26
@@ -458,7 +460,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 <tr>
 <td>Requests waiting in the producer purgatory</td>
 <td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
-<td>broker中，在等待ack的producer请求个数;</td>
+<td>broker中，在等待ack的producer请求个数;还有Fetch、topic、Rebalance、Heartbeat请求</td>
 </tr>
 <tr>
 <td>Request total time</td>
@@ -504,16 +506,6 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 <td>The average fraction of time the request handler threads are idle</td>
 <td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
 <td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
-</tr>
-<tr>
-<td>number in the producer purgatory</td>
-<td><code>kafka.server:type=ProducerRequestPurgatory,name=PurgatorySize</code></td>
-<td>有多少请求等待在broker中的producer的purgatory(炼狱)中；如果ack=all，那么这个通常是非0</td>
-</tr>
-<tr>
-<td>number in the fetch purgatory</td>
-<td><code>kafka.server:type=FetchRequestPurgatory,name=PurgatorySize</code></td>
-<td>有多少请求处于broker的fetch的purgatory中</td>
 </tr>
 </tbody>
 </table>
@@ -648,10 +640,10 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -672,7 +664,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -683,7 +675,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -756,7 +748,7 @@ kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

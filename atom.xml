@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-27T06:26:22.000Z</updated>
+  <updated>2017-03-27T06:32:50.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/03/26/kafka-broker%E7%9A%84%E7%9B%91%E6%8E%A7%E4%BF%A1%E6%81%AF/"/>
     <id>http://yoursite.com/2017/03/26/kafka-broker的监控信息/</id>
     <published>2017-03-26T13:35:09.000Z</published>
-    <updated>2017-03-27T06:26:22.000Z</updated>
+    <updated>2017-03-27T06:32:50.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-broker的监控信息"><a href="#1-broker的监控信息" class="headerlink" title="1. broker的监控信息"></a>1. broker的监控信息</h3><table>
 <thead>
@@ -109,7 +109,7 @@
 <tr>
 <td>Requests waiting in the producer purgatory</td>
 <td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
-<td>broker中，在等待ack的producer请求个数;</td>
+<td>broker中，在等待ack的producer请求个数;还有Fetch、topic、Rebalance、Heartbeat请求</td>
 </tr>
 <tr>
 <td>Request total time</td>
@@ -155,16 +155,6 @@
 <td>The average fraction of time the request handler threads are idle</td>
 <td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
 <td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
-</tr>
-<tr>
-<td>number in the producer purgatory</td>
-<td><code>kafka.server:type=ProducerRequestPurgatory,name=PurgatorySize</code></td>
-<td>有多少请求等待在broker中的producer的purgatory(炼狱)中；如果ack=all，那么这个通常是非0</td>
-</tr>
-<tr>
-<td>number in the fetch purgatory</td>
-<td><code>kafka.server:type=FetchRequestPurgatory,name=PurgatorySize</code></td>
-<td>有多少请求处于broker的fetch的purgatory中</td>
 </tr>
 </tbody>
 </table>
