@@ -196,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -206,7 +206,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -286,7 +286,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T19:56:06+08:00">
                 2017-04-04
@@ -818,68 +818,62 @@
 </ol>
 <p>其实监控安装比较简单，但是由于网络问题安装就变成很蛋疼的过程;</p>
 <ul>
-<li>首先通过mac翻墙下载docker 镜像; <code>prom/prometheus</code> and <code>grafana/grafana</code>;</li>
+<li><p>首先通过mac翻墙下载docker 镜像; <code>prom/prometheus</code> and <code>grafana/grafana</code></p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">			docker pull prom/prometheus:v1.5.2</div><div class="line">			docker pull grafana/grafana:4.1.1</div><div class="line">		``` </div><div class="line">	</div><div class="line">* 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
+
+    docker save imageid -o xxx.tar
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">镜像id可以通过`docker images`来得到</div></pre></td></tr></table></figure>
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+grafana/grafana     latest              a892c250adfa        11 days ago         266.2 MB
+prom/prometheus     latest              bdeacb538ef9        2 weeks ago         79.25 MB
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 将tar文件上传到服务器，然后导入服务器的docker</div></pre></td></tr></table></figure>
+<pre><code>docker load -i xxx.tar
+#修改对应的name和版本
+docker tag imageId name:tag
+
+sudo docker tag  047fd14b7251 prom/prometheus:v1.0.0
+sudo docker tag d7528263f75a grafana/grafana:3.1.0
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 下载 scylla-grafana-monitoring 项目</div></pre></td></tr></table></figure>
+<pre><code>git clone https://github.com/scylladb/scylla-grafana-monitoring.git
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 修改prometheus的配置文件</div></pre></td></tr></table></figure>
+<pre><code>global:
+# 采集周期
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: &apos;scylla-monitor&apos;
+
+scrape_configs:
+    - job_name: scylla
+  honor_labels: true
+  static_configs:
+  # 这个是scylladb服务的地址，这边是主动采集为主，不是被动上报，主要收集scylla的metric信息
+      - targets: [&quot;10.19.11.23:9180&quot;]
+    - job_name: node_exporter
+  honor_labels: true
+  static_configs:
+  # 这部分主要是收集scylla的机器的信息，需要通过node_exporter 来开启这个上报;
+      - targets: [&apos;10.19.11.23:9100&apos;]
+
+## two servers example: - targets: [&quot;172.17.0.3:9103&quot;,&quot;172.17.0.2:9103&quot;]
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">* 用启动脚本启动</div></pre></td></tr></table></figure>
+<pre><code>sudo sh start-all.sh -d data_dir -v 1.6
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">data路径最好要配置一个，不然两次启动会把数据删除</div><div class="line">-v: 用来表示加载哪个系统版本</div><div class="line"></div><div class="line">这个可能会碰到一个问题，</div></pre></td></tr></table></figure>
+<pre><code>598cf3f9e16f0e5df2a1f0cf79df8be2ee0909f80307e392911d140b2ff6dac8
+Wait for Prometheus container to start..        4721e32c86ea09f1e16d270a194eb979cbf61f249c066435234e7d5cafee8631
+Wait for Grafana container to start........curl: (7) Failed connect to localhost:3000; Connection refused
+curl: (7) Failed connect to localhost:3000; Connection refused
+curl: (7) Failed connect to localhost:3000; Connection refused        curl: (7) Failed connect to localhost:3000; Connection refused
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Grafana 没有起来 或者起来，但是还没有监听端口，然后脚本最多只是重试7次，这个时候就会报错，其实后期grafana是成功起来的；</div><div class="line"></div><div class="line">解决方式有两个：</div><div class="line"></div><div class="line">	1. 先执行脚本，然后等到grafana起来，然后关掉prometheus,然后修改start-all.sh中的脚本，把docker run grafana那个部分去掉，然后在执行start-all.sh, 这样就ok了</div><div class="line">	2. 将重试几次增大</div><div class="line"></div><div class="line"></div><div class="line">* 关闭监控</div></pre></td></tr></table></figure>
+<pre><code>sudo sh kill-all.sh
+</code></pre><p>  ```</p>
+</li>
 </ul>
-<pre><code>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">			docker pull prom/prometheus:v1.5.2</div><div class="line">			docker pull grafana/grafana:4.1.1</div><div class="line">		``` </div><div class="line">	</div><div class="line">* 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
 
-        docker save imageid -o xxx.tar
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">镜像id可以通过`docker images`来得到</div></pre></td></tr></table></figure>
-
-    $ docker images
-    REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-    grafana/grafana     latest              a892c250adfa        11 days ago         266.2 MB
-    prom/prometheus     latest              bdeacb538ef9        2 weeks ago         79.25 MB
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 将tar文件上传到服务器，然后导入服务器的docker</div></pre></td></tr></table></figure>
-
-    docker load -i xxx.tar
-    #修改对应的name和版本
-    docker tag imageId name:tag
-
-    sudo docker tag  047fd14b7251 prom/prometheus:v1.0.0
-    sudo docker tag d7528263f75a grafana/grafana:3.1.0
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 下载 scylla-grafana-monitoring 项目</div></pre></td></tr></table></figure>
-
-    git clone https://github.com/scylladb/scylla-grafana-monitoring.git
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 修改prometheus的配置文件</div></pre></td></tr></table></figure>
-
-    global:
-    # 采集周期
-      scrape_interval: 15s # By default, scrape targets every 15 seconds.
-
-      # Attach these labels to any time series or alerts when communicating with
-      # external systems (federation, remote storage, Alertmanager).
-      external_labels:
-        monitor: &apos;scylla-monitor&apos;
-
-    scrape_configs:
-        - job_name: scylla
-      honor_labels: true
-      static_configs:
-      # 这个是scylladb服务的地址，这边是主动采集为主，不是被动上报，主要收集scylla的metric信息
-          - targets: [&quot;10.19.11.23:9180&quot;]
-        - job_name: node_exporter
-      honor_labels: true
-      static_configs:
-      # 这部分主要是收集scylla的机器的信息，需要通过node_exporter 来开启这个上报;
-          - targets: [&apos;10.19.11.23:9100&apos;]
-
-    ## two servers example: - targets: [&quot;172.17.0.3:9103&quot;,&quot;172.17.0.2:9103&quot;]
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">* 用启动脚本启动</div></pre></td></tr></table></figure>
-
-    sudo sh start-all.sh -d data_dir -v 1.6
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">data路径最好要配置一个，不然两次启动会把数据删除</div><div class="line">-v: 用来表示加载哪个系统版本</div><div class="line"></div><div class="line">这个可能会碰到一个问题，</div></pre></td></tr></table></figure>
-
-    598cf3f9e16f0e5df2a1f0cf79df8be2ee0909f80307e392911d140b2ff6dac8
-    Wait for Prometheus container to start..        4721e32c86ea09f1e16d270a194eb979cbf61f249c066435234e7d5cafee8631
-    Wait for Grafana container to start........curl: (7) Failed connect to localhost:3000; Connection refused
-    curl: (7) Failed connect to localhost:3000; Connection refused
-    curl: (7) Failed connect to localhost:3000; Connection refused        curl: (7) Failed connect to localhost:3000; Connection refused
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Grafana 没有起来 或者起来，但是还没有监听端口，然后脚本最多只是重试7次，这个时候就会报错，其实后期grafana是成功起来的；</div><div class="line"></div><div class="line">解决方式有两个：</div><div class="line"></div><div class="line">	1. 先执行脚本，然后等到grafana起来，然后关掉prometheus,然后修改start-all.sh中的脚本，把docker run grafana那个部分去掉，然后在执行start-all.sh, 这样就ok了</div><div class="line">	2. 将重试几次增大</div><div class="line"></div><div class="line"></div><div class="line">* 关闭监控</div></pre></td></tr></table></figure>
-
-    sudo sh kill-all.sh
-```
-</code></pre>
           
         
       
@@ -956,7 +950,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-27T21:52:00+08:00">
                 2017-03-27
@@ -1135,7 +1129,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-26T21:35:09+08:00">
                 2017-03-26
@@ -1426,7 +1420,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-03T17:35:52+08:00">
                 2017-03-03
@@ -1603,7 +1597,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">4</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -1614,7 +1608,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -1671,7 +1665,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
