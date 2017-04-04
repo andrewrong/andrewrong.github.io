@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-04T12:30:19.000Z</updated>
+  <updated>2017-04-04T12:38:29.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/04/04/scylladb-%E5%AE%98%E6%96%87%E5%AE%89%E8%A3%85%E8%AF%91%E6%96%87/"/>
     <id>http://yoursite.com/2017/04/04/scylladb-官文安装译文/</id>
     <published>2017-04-04T11:56:06.000Z</published>
-    <updated>2017-04-04T12:30:19.000Z</updated>
+    <updated>2017-04-04T12:38:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>主要的依赖于官方的教程，这边主要是将一些细节进行串联描述，下次安装的时候会更加自动化;</p>
 <p>我的安装环境如下：</p>
@@ -516,9 +516,8 @@
 <ul>
 <li>首先通过mac翻墙下载docker 镜像; prom/prometheus and grafana/grafana</li>
 </ul>
-<pre><code>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">			docker pull prom/prometheus:v1.5.2</div><div class="line">			docker pull grafana/grafana:4.1.1</div><div class="line">		``` </div><div class="line">	</div><div class="line">* 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
-
-        docker save imageid -o xxx.tar
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">			docker pull prom/prometheus:v1.5.2</div><div class="line">			docker pull grafana/grafana:4.1.1</div><div class="line">``` </div><div class="line">	</div><div class="line">* 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
+<pre><code>        docker save imageid -o xxx.tar
     <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">镜像id可以通过`docker images`来得到</div></pre></td></tr></table></figure>
 
     $ docker images
