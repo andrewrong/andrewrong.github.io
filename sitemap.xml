@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/04/04/scylladb-%E5%AE%98%E6%96%87%E5%AE%89%E8%A3%85%E8%AF%91%E6%96%87/</loc>
+    
+    <lastmod>2017-04-04T11:57:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/03/27/%E4%B8%BA%E6%96%B0%E7%9A%84jmxtrans%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84outputwriter/</loc>
     
     <lastmod>2017-03-27T14:59:07.000Z</lastmod>
