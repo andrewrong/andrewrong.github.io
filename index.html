@@ -818,18 +818,22 @@
 </ol>
 <p>其实监控安装比较简单，但是由于网络问题安装就变成很蛋疼的过程;</p>
 <ol>
-<li><p>首先通过mac翻墙下载docker 镜像; <code>prom/prometheus</code> and <code>grafana/grafana</code>；</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">	docker pull prom/prometheus:v1.5.2</div><div class="line">	docker pull grafana/grafana:4.1.1</div><div class="line">	``` </div><div class="line"></div><div class="line">2. 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
-<p> docker save imageid -o xxx.tar</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">镜像id可以通过`docker images`来得到</div></pre></td></tr></table></figure>
-<p> $ docker images<br> REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE<br> grafana/grafana     latest              a892c250adfa        11 days ago         266.2 MB</p>
-<pre><code>prom/prometheus     latest              bdeacb538ef9        2 weeks ago         79.25 MB
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">3. 将tar文件上传到服务器，然后导入服务器的docker</div></pre></td></tr></table></figure>
-</li>
+<li>首先通过mac翻墙下载docker 镜像; <code>prom/prometheus</code> and <code>grafana/grafana</code>；</li>
 </ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">	docker pull prom/prometheus:v1.5.2</div><div class="line">	docker pull grafana/grafana:4.1.1</div><div class="line">	``` </div><div class="line">	</div><div class="line">2. 将镜像导出成tar格式的文件</div></pre></td></tr></table></figure>
+
+docker save imageid -o xxx.tar
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">镜像id可以通过`docker images`来得到</div></pre></td></tr></table></figure>
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+grafana/grafana     latest              a892c250adfa        11 days ago         266.2 MB
+    prom/prometheus     latest              bdeacb538ef9        2 weeks ago         79.25 MB
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">3. 将tar文件上传到服务器，然后导入服务器的docker</div></pre></td></tr></table></figure>
 <p>docker load -i xxx.tar</p>
 <p>#修改对应的name和版本<br>docker tag imageId name:tag</p>
-<p>sudo docker tag  047fd14b7251 prom/prometheus:v1.0.0<br>sudo docker tag d7528263f75a grafana/grafana:3.1.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">4. 下载 scylla-grafana-monitoring 项目</div></pre></td></tr></table></figure></p>
+<p>sudo docker tag  047fd14b7251 prom/prometheus:v1.0.0<br>sudo docker tag d7528263f75a grafana/grafana:3.1.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">4. 下载 scylla-grafana-monitoring 项目</div></pre></td></tr></table></figure>
 <p>git clone <a href="https://github.com/scylladb/scylla-grafana-monitoring.git" target="_blank" rel="external">https://github.com/scylladb/scylla-grafana-monitoring.git</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">5. 修改prometheus的配置文件</div></pre></td></tr></table></figure></p>
 <p>global:</p>
 <pre><code># 采集周期
@@ -846,9 +850,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="two-servers-example-targets-“172-17-0-3-9103”-”172-17-0-2-9103”"><a href="#two-servers-example-targets-“172-17-0-3-9103”-”172-17-0-2-9103”" class="headerlink" title="two servers example: - targets: [“172.17.0.3:9103”,”172.17.0.2:9103”]"></a>two servers example: - targets: [“172.17.0.3:9103”,”172.17.0.2:9103”]</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">6. 用启动脚本启动</div></pre></td></tr></table></figure>
+<h2 id="two-servers-example-targets-“172-17-0-3-9103”-”172-17-0-2-9103”"><a href="#two-servers-example-targets-“172-17-0-3-9103”-”172-17-0-2-9103”" class="headerlink" title="two servers example: - targets: [“172.17.0.3:9103”,”172.17.0.2:9103”]"></a>two servers example: - targets: [“172.17.0.3:9103”,”172.17.0.2:9103”]</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">6. 用启动脚本启动</div></pre></td></tr></table></figure>
 <p>sudo sh start-all.sh -d data_dir -v 1.6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">data路径最好要配置一个，不然两次启动会把数据删除</div><div class="line">-v: 用来表示加载哪个系统版本</div><div class="line"></div><div class="line">这个可能会碰到一个问题，</div></pre></td></tr></table></figure></p>
-<p>598cf3f9e16f0e5df2a1f0cf79df8be2ee0909f80307e392911d140b2ff6dac8<br>Wait for Prometheus container to start..4721e32c86ea09f1e16d270a194eb979cbf61f249c066435234e7d5cafee8631<br>Wait for Grafana container to start……..curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Grafana 没有起来 或者起来，但是还没有监听端口，然后脚本最多只是重试7次，这个时候就会报错，其实后期grafana是成功起来的；</div><div class="line"></div><div class="line">解决方式有两个：</div><div class="line"></div><div class="line">	1. 先执行脚本，然后等到grafana起来，然后关掉prometheus,然后修改start-all.sh中的脚本，把docker run grafana那个部分去掉，然后在执行start-all.sh, 这样就ok了</div><div class="line">	2. 将重试几次增大</div><div class="line"></div><div class="line">7. 关闭监控</div></pre></td></tr></table></figure></p>
+<p>598cf3f9e16f0e5df2a1f0cf79df8be2ee0909f80307e392911d140b2ff6dac8<br>Wait for Prometheus container to start..4721e32c86ea09f1e16d270a194eb979cbf61f249c066435234e7d5cafee8631<br>Wait for Grafana container to start……..curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br>curl: (7) Failed connect to localhost:3000; Connection refused<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Grafana 没有起来 或者起来，但是还没有监听端口，然后脚本最多只是重试7次，这个时候就会报错，其实后期grafana是成功起来的；</div><div class="line"></div><div class="line">解决方式有两个：</div><div class="line"></div><div class="line">	1. 先执行脚本，然后等到grafana起来，然后关掉prometheus,然后修改start-all.sh中的脚本，把docker run grafana那个部分去掉，然后在执行start-all.sh, 这样就ok了</div><div class="line">	2. 将重试几次增大</div><div class="line"></div><div class="line"></div><div class="line">7. 关闭监控</div></pre></td></tr></table></figure></p>
 <p>sudo sh kill-all.sh<br>```</p>
 
           
