@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-10T13:48:43.000Z</updated>
+  <updated>2019-01-10T09:15:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,133 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>整理</title>
+    <link href="http://yoursite.com/2019/01/10/%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2019/01/10/整理/</id>
+    <published>2019-01-10T02:11:15.000Z</published>
+    <updated>2019-01-10T09:15:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;</p>
+<h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h3><ul>
+<li>面试题: 对于一个有序数组，找到第一个大于等于目标value的index; </li>
+</ul>
+<blockquote>
+<p>一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知道怎么办; 这个对二分法需要进行改造，主要是在小于等于中间值的时候，需要去比较前面一个值的大小，如果小那就指定的值，如果大于目标值那就在二分查找一下;</p>
+</blockquote>
+<ul>
+<li><p>C++系列的问题</p>
+<ul>
+<li><p>new、delete和free、malloc的区别; 为什么对于数组new和delete需要加上<code>[]</code>来做区别</p>
+<ol>
+<li>new 除了可以在堆上使用，也可以用户自定义内存地址来申请;</li>
+<li>new即会申请内存空间也会调用数据类型的构造函数初始化;</li>
+<li>为什么数组new需要带上<code>[]</code>, 本质上依然还是需要告诉编译器去调用构造函数; 而delete带有<code>[]</code>则是为了调用析构函数</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 右值引用是什么? 推出的目的又是什么?
+* vector的push_back的时间复杂度是多少? O(1), 均摊下来应该是常量
+* C++ 6种内存模型;
+
+    * 内存模型用来解决什么问题
+    * 具体的区别什么
+</code></pre><ul>
+<li><p>linux的问题</p>
+<ul>
+<li>进程、线程、协程之前的区别点;<ul>
+<li>进程、线程、协程切换上下文切换需要保存哪些信息</li>
+</ul>
+</li>
+<li>load定义</li>
+<li>虚拟地址空间的排布</li>
+</ul>
+</li>
+<li><p>网络</p>
+<ul>
+<li>tcp三次握手和断开的4次握手;  这边深究了一下为什么三次握手需要三次而不是二次或者其他</li>
+<li>epoll的作用，实现原理，为什么高效</li>
+</ul>
+</li>
+<li><p>存储</p>
+<ul>
+<li>介绍一下LSM-Tree结构</li>
+<li><p>rocksdb查询过程; </p>
+<ul>
+<li>假如没有分层会怎么样,都聚集在L0层查询效率会变差很多</li>
+<li>compaction的过程？写放大是如何计算方式?</li>
+<li>writeBatch的作用</li>
+<li>writeBatch的原子性是如何实现的</li>
+<li>rocksdb对读优化有哪些   </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>共识</p>
+<ul>
+<li>raft整体过程</li>
+</ul>
+</li>
+<li><p>事务</p>
+<ul>
+<li>acid</li>
+<li>隔离性的几种</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;&lt;/p&gt;
+&lt;h3 id=&quot;1-问题
+    
+    </summary>
+    
+      <category term="interview" scheme="http://yoursite.com/categories/interview/"/>
+    
+    
+      <category term="存储" scheme="http://yoursite.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进程调度之死循环</title>
+    <link href="http://yoursite.com/2017/04/12/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B9%8B%E6%AD%BB%E5%BE%AA%E7%8E%AF/"/>
+    <id>http://yoursite.com/2017/04/12/进程调度之死循环/</id>
+    <published>2017-04-12T14:21:34.000Z</published>
+    <updated>2017-04-13T01:52:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
+<blockquote>
+<p>个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系统的基础;</p>
+</blockquote>
+<p>貌似很复杂难懂的调度系统有着一个非常简单的目标: <strong>最大限度利用CPU的处理时间</strong>; 调度系统的基本任务就是: <strong>从多个可运行状态的进程中挑选出一个合适的进程来运行</strong>, 这里的<strong>合适</strong>也是调度系统的核心算法.</p>
+<h4 id="1-提问"><a href="#1-提问" class="headerlink" title="1. 提问"></a>1. 提问</h4><p><em>为什么死循环能让CPU利用达到100%呢?</em> </p>
+<p>这个问题也是困扰我多年的问题，当然可能就是因为对Linux操作系统的进程调度没有学好才导致这个问题一直困扰我. 针对上面的问题还能引出几个其他的问题?</p>
+<ul>
+<li>死循环是否会导致系统响应速度下降;</li>
+<li></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="进程调度" scheme="http://yoursite.com/tags/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux进程管理</title>
@@ -746,9 +873,9 @@ curl: (7) Failed connect to localhost:3000; Connection refused        curl: (7) 
       <category term="kafka" scheme="http://yoursite.com/categories/kafka/"/>
     
     
-      <category term="monitor" scheme="http://yoursite.com/tags/monitor/"/>
-    
       <category term="jmxtrans" scheme="http://yoursite.com/tags/jmxtrans/"/>
+    
+      <category term="monitor" scheme="http://yoursite.com/tags/monitor/"/>
     
   </entry>
   

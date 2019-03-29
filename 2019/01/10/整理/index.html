@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="进程,书笔记," />
+  <meta name="keywords" content="存储," />
 
 
 
@@ -89,19 +89,31 @@
 
 
 
-<meta name="description" content="Linux系统本身没有对线程做出特殊的改造，在Linux中线程本身与创建进程的流程是一样的；唯一与进程的区别是在创建过程中，进程的创建是资源独立的，而线程在创建的过程中，会与其他的进程共享一些资源；所以在Linux中，线程本就是进程，一个有着一点点不同的进程.
-Linux中每一个进程都会有一个统一的结构task_struct(进程描述符), 这个结构包含了进程的所有的信息，包括状态、占有的资源、内">
+<meta name="description" content="2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;
+1. 问题
+面试题: 对于一个有序数组，找到第一个大于等于目标value的index; 
+
+
+一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux进程管理">
-<meta property="og:url" content="http://yoursite.com/2017/04/07/Linux之进程管理/index.html">
+<meta property="og:title" content="整理">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/整理/index.html">
 <meta property="og:site_name" content="nomoshen">
-<meta property="og:description" content="Linux系统本身没有对线程做出特殊的改造，在Linux中线程本身与创建进程的流程是一样的；唯一与进程的区别是在创建过程中，进程的创建是资源独立的，而线程在创建的过程中，会与其他的进程共享一些资源；所以在Linux中，线程本就是进程，一个有着一点点不同的进程.
-Linux中每一个进程都会有一个统一的结构task_struct(进程描述符), 这个结构包含了进程的所有的信息，包括状态、占有的资源、内">
-<meta property="og:updated_time" content="2017-04-10T13:48:43.000Z">
+<meta property="og:description" content="2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;
+1. 问题
+面试题: 对于一个有序数组，找到第一个大于等于目标value的index; 
+
+
+一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知">
+<meta property="og:updated_time" content="2019-01-10T09:15:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux进程管理">
-<meta name="twitter:description" content="Linux系统本身没有对线程做出特殊的改造，在Linux中线程本身与创建进程的流程是一样的；唯一与进程的区别是在创建过程中，进程的创建是资源独立的，而线程在创建的过程中，会与其他的进程共享一些资源；所以在Linux中，线程本就是进程，一个有着一点点不同的进程.
-Linux中每一个进程都会有一个统一的结构task_struct(进程描述符), 这个结构包含了进程的所有的信息，包括状态、占有的资源、内">
+<meta name="twitter:title" content="整理">
+<meta name="twitter:description" content="2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;
+1. 问题
+面试题: 对于一个有序数组，找到第一个大于等于目标value的index; 
+
+
+一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知">
 
 
 
@@ -129,13 +141,13 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/07/Linux之进程管理/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/整理/"/>
 
 
 
 
 
-  <title> Linux进程管理 | nomoshen </title>
+  <title> 整理 | nomoshen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="english">
@@ -254,7 +266,7 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/07/Linux之进程管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="nomoshen">
@@ -275,7 +287,7 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
             
             
               
-                Linux进程管理
+                整理
               
             
           </h1>
@@ -290,8 +302,8 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-07T07:16:14+08:00">
-                2017-04-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T10:11:15+08:00">
+                2019-01-10
               </time>
             
 
@@ -313,8 +325,8 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/interview/" itemprop="url" rel="index">
+                    <span itemprop="name">interview</span>
                   </a>
                 </span>
 
@@ -348,41 +360,74 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
       
 
       
-        <p>Linux系统本身没有对线程做出特殊的改造，在Linux中线程本身与创建进程的流程是一样的；唯一与进程的区别是在创建过程中，进程的创建是资源独立的，而线程在创建的过程中，会与其他的进程共享一些资源；所以在Linux中，线程本就是进程，一个有着一点点不同的进程.</p>
-<p>Linux中每一个进程都会有一个统一的结构<code>task_struct(进程描述符)</code>, 这个结构包含了进程的所有的信息，包括状态、占有的资源、内存空间等一些; Linux将这些进程描述符放在任务队列中来分别进行调用.</p>
-<h4 id="1-进程的状态"><a href="#1-进程的状态" class="headerlink" title="1. 进程的状态"></a>1. 进程的状态</h4><ul>
-<li>TASK_RUNNING(运行 or 就绪): 这个状态的进程要不就是正在运行或者在运行队列中等待运行; </li>
-<li>TASK_INTERRUPTIBLE(中断): 表示当前进程处于等待状态，直到某一个条件为真或者传递一个信号都能唤醒进程;</li>
-<li>TASK_UNINTERRUPTIBLE:与TASK_INTERRUPTIBLE类似，只是这个状态的进程不会因为信号而被唤醒;</li>
-<li>TASK_STOPPED:进程执行被暂停，当收到到SIGSTOP、SIGTSTP、SIGTTIN、SIGTTOU等信号的时候;</li>
-<li>TASK_ZOMBIE: 进程执行被终止，但是父进程还没有调用wait4或waitpid来收集信息;</li>
-<li>TASK_DEAD:进程彻底死亡状态</li>
-<li>TASK_TRACED:跟踪状态，用于debug</li>
+        <p>2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;</p>
+<h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h3><ul>
+<li>面试题: 对于一个有序数组，找到第一个大于等于目标value的index; </li>
 </ul>
-<h4 id="2-进程的创建"><a href="#2-进程的创建" class="headerlink" title="2. 进程的创建"></a>2. 进程的创建</h4><p>上面已经说了，Linux的进程和线程的创建几乎是一模一样的，只是后面会有点点小小的区别;Linux创建进程的过程主要依赖两个系统调用fork+exec; </p>
-<h5 id="2-1-fork"><a href="#2-1-fork" class="headerlink" title="2.1 fork"></a>2.1 fork</h5><p>进程调用fork就可以创建子进程；之前的fork是比较粗暴，直接复制所有的资源给子进程，但是这样效率比较低效，因为子进程通过会通过exec来加载另外的程序，那么之前的copy过程就是无用功. 所谓的<code>copy-on-write</code>，就是在调用fork的时候只分配一些进程与进程之间必须独立的资源，比如task_struct结构体、页表(内容是copy父进程的)、内核栈等，其他的资源都是父进程的引用而已;通过这种方式来提高性能.</p>
-<p>fork的基本流程是如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">fork=&gt;operation: fork</div><div class="line">clone=&gt;operation: clone</div><div class="line">dofork=&gt;operation: do_fork</div><div class="line">dup=&gt;operation: copy一个父进程的进程描述符(比如内核栈、task_struct、thread_info，这些可能是每一个进程所必须的结构)</div><div class="line">setstate=&gt;operation: 设置子进程状态，并且修改进程描述符做区别</div><div class="line">copy=&gt;operation: 根据clone传入的参数来进行资源copy</div><div class="line">run=&gt;operation: 平分时间片，然后将子进程唤醒</div><div class="line"></div><div class="line">st-&gt;fork-&gt;clone-&gt;dofork-&gt;dup-&gt;setstate-&gt;copy-&gt;run-&gt;e</div></pre></td></tr></table></figure>
-<h5 id="2-2-关于Linux中的线程"><a href="#2-2-关于Linux中的线程" class="headerlink" title="2.2 关于Linux中的线程"></a>2.2 关于Linux中的线程</h5><p>上面说了，Linux的线程其实就是linux的进程，只是在创建的时候传给<code>clone</code>函数的参数上有一些不一样的; </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clone(CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND, 0);</div></pre></td></tr></table></figure>
-<p>线程在创建的时候通过传入以上的几个参数，这可能就是与进程创建区别了，这样创建的进程与父进程是共享地址空间、文件系统、打开的文件、信号处理函数；所以从这看出，Linux所谓的线程本质其实就是进程。</p>
-<h5 id="2-3-内核线程-Kernal-thread"><a href="#2-3-内核线程-Kernal-thread" class="headerlink" title="2.3 内核线程(Kernal thread)"></a>2.3 内核线程(Kernal thread)</h5><p>内核线程与普通的进程的区别在于</p>
-<pre><code>* 内核线程没有独立的地址空间
-* 只运行在内核态，从不切换到用户态
-</code></pre><p>其他是类似的，可以被抢占，也可以被调度;</p>
-<h4 id="3-进程死亡"><a href="#3-进程死亡" class="headerlink" title="3. 进程死亡"></a>3. 进程死亡</h4><p>每一个进程总会面临死亡的过程，那么进程的死亡要经过哪几个步骤呢？一个进程的创建的过程是赋予资源，那么进程死亡就是归还资源的过程;</p>
-<p>什么时候进程会面临终结呢? 显示的调用了<code>exit()</code>这个系统调用，或者是被动总结，不管怎么样触发，这个过程都有<code>do_exit</code>完成;</p>
+<blockquote>
+<p>一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知道怎么办; 这个对二分法需要进行改造，主要是在小于等于中间值的时候，需要去比较前面一个值的大小，如果小那就指定的值，如果大于目标值那就在二分查找一下;</p>
+</blockquote>
 <ul>
-<li>释放各种资源</li>
-<li>设置进程的状态为TASK_ZOMBIE</li>
-<li>发送信号给父进程，说我快终结了</li>
-<li>调用schedule函数，主动的放弃cpu</li>
+<li><p>C++系列的问题</p>
+<ul>
+<li><p>new、delete和free、malloc的区别; 为什么对于数组new和delete需要加上<code>[]</code>来做区别</p>
+<ol>
+<li>new 除了可以在堆上使用，也可以用户自定义内存地址来申请;</li>
+<li>new即会申请内存空间也会调用数据类型的构造函数初始化;</li>
+<li>为什么数组new需要带上<code>[]</code>, 本质上依然还是需要告诉编译器去调用构造函数; 而delete带有<code>[]</code>则是为了调用析构函数</li>
+</ol>
+</li>
 </ul>
-<p>到此为止，进程已经释放了大部分的资源，不过还保存着进程描述符、内核栈、thread_info等一些必要的数据结构，直到父进程调用<code>wait4()</code>系统收集子进程的一些状态，那么这进程就真正的终结;Linux将资源清理与进程描述符清理分开执行;</p>
-<h4 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h4><ul>
-<li>进程状态</li>
-<li>Linux 进程与线程是同样的东西;</li>
-<li>进程的创建与死亡</li>
+</li>
+</ul>
+<pre><code>* 右值引用是什么? 推出的目的又是什么?
+* vector的push_back的时间复杂度是多少? O(1), 均摊下来应该是常量
+* C++ 6种内存模型;
+
+    * 内存模型用来解决什么问题
+    * 具体的区别什么
+</code></pre><ul>
+<li><p>linux的问题</p>
+<ul>
+<li>进程、线程、协程之前的区别点;<ul>
+<li>进程、线程、协程切换上下文切换需要保存哪些信息</li>
+</ul>
+</li>
+<li>load定义</li>
+<li>虚拟地址空间的排布</li>
+</ul>
+</li>
+<li><p>网络</p>
+<ul>
+<li>tcp三次握手和断开的4次握手;  这边深究了一下为什么三次握手需要三次而不是二次或者其他</li>
+<li>epoll的作用，实现原理，为什么高效</li>
+</ul>
+</li>
+<li><p>存储</p>
+<ul>
+<li>介绍一下LSM-Tree结构</li>
+<li><p>rocksdb查询过程; </p>
+<ul>
+<li>假如没有分层会怎么样,都聚集在L0层查询效率会变差很多</li>
+<li>compaction的过程？写放大是如何计算方式?</li>
+<li>writeBatch的作用</li>
+<li>writeBatch的原子性是如何实现的</li>
+<li>rocksdb对读优化有哪些   </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>共识</p>
+<ul>
+<li>raft整体过程</li>
+</ul>
+</li>
+<li><p>事务</p>
+<ul>
+<li>acid</li>
+<li>隔离性的几种</li>
+</ul>
+</li>
 </ul>
 
       
@@ -407,9 +452,7 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
       
         <div class="post-tags">
           
-            <a href="/tags/进程/" rel="tag"># 进程</a>
-          
-            <a href="/tags/书笔记/" rel="tag"># 书笔记</a>
+            <a href="/tags/存储/" rel="tag"># 存储</a>
           
         </div>
       
@@ -422,8 +465,8 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/04/scylladb-官文安装译文/" rel="next" title="scylladb 官文安装译文">
-                <i class="fa fa-chevron-left"></i> scylladb 官文安装译文
+              <a href="/2017/04/12/进程调度之死循环/" rel="next" title="进程调度之死循环">
+                <i class="fa fa-chevron-left"></i> 进程调度之死循环
               </a>
             
           </div>
@@ -431,10 +474,6 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/12/进程调度之死循环/" rel="prev" title="进程调度之死循环">
-                进程调度之死循环 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -566,7 +605,7 @@ Linux中每一个进程都会有一个统一的结构task_struct(进程描述符
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-进程的状态"><span class="nav-number">1.</span> <span class="nav-text">1. 进程的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-进程的创建"><span class="nav-number">2.</span> <span class="nav-text">2. 进程的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-fork"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 fork</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-关于Linux中的线程"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 关于Linux中的线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-内核线程-Kernal-thread"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 内核线程(Kernal thread)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-进程死亡"><span class="nav-number">3.</span> <span class="nav-text">3. 进程死亡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-问题"><span class="nav-number">1.</span> <span class="nav-text">1. 问题</span></a></li></ol></div>
             
 
           </div>
