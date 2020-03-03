@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="进程调度," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -89,22 +89,12 @@
 
 
 
-<meta name="description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
-<meta property="og:type" content="article">
-<meta property="og:title" content="进程调度之死循环">
-<meta property="og:url" content="http://yoursite.com/2017/04/12/进程调度之死循环/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="nomoshen">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="nomoshen">
-<meta property="og:description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
-<meta property="og:updated_time" content="2017-04-13T01:52:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进程调度之死循环">
-<meta name="twitter:description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
+<meta name="twitter:title" content="nomoshen">
 
 
 
@@ -132,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/12/进程调度之死循环/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title> 进程调度之死循环 | nomoshen </title>
+  <title> nomoshen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="english">
@@ -163,7 +153,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -257,7 +249,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/进程调度之死循环/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/03/同步、异步、阻塞、非阻塞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="nomoshen">
@@ -278,7 +270,10 @@
             
             
               
-                进程调度之死循环
+                
+                <a class="post-title-link" href="/2017/03/03/同步、异步、阻塞、非阻塞/" itemprop="url">
+                  同步、异步、阻塞、非阻塞
+                </a>
               
             
           </h1>
@@ -293,8 +288,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T22:21:34+08:00">
-                2017-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-03T17:35:52+08:00">
+                2017-03-03
               </time>
             
 
@@ -351,82 +346,106 @@
       
 
       
-        <p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
+        
+          
+            <p>同步异步阻塞非阻塞这几个概念其实很早就出现在我的脑中，但是到现在为止都还是很难把它理解清楚，尤其是这几个概念总是会被混淆一起来讲。最近算是工作比较闲，在网上查询了大量的文章，发现一些人对这几个概念有着与众不同的解释，也正好能完美的解决我心中的疑云.</p>
+<p>先引用几个别人对此的理解，我觉得他们理解的特别有理;</p>
 <blockquote>
-<p>个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系统的基础;</p>
-</blockquote>
-<p>貌似很复杂难懂的调度系统有着一个非常简单的目标: <strong>最大限度利用CPU的处理时间</strong>; 调度系统的基本任务就是: <strong>从多个可运行状态的进程中挑选出一个合适的进程来运行</strong>, 这里的<strong>合适</strong>也是调度系统的核心算法.</p>
-<h4 id="1-提问"><a href="#1-提问" class="headerlink" title="1. 提问"></a>1. 提问</h4><p><em>为什么死循环能让CPU利用达到100%呢?</em> </p>
-<p>这个问题也是困扰我多年的问题，当然可能就是因为对Linux操作系统的进程调度没有学好才导致这个问题一直困扰我. 针对上面的问题还能引出几个其他的问题?</p>
-<ul>
-<li>死循环是否会导致系统响应速度下降;</li>
-<li></li>
+<pre><code>•    阻塞与非阻塞：区别在于完成一件事情时，当事情还没有完成时，处理这件事情的人除此之外不能再做别的事情；
+•    同步与异步：是自己去做这件事情，还是等别人做好了来通知有结果，然后再自己去拿结果。注意这里说的是拿结果，如果只是别人告诉你可以做某事，然后自己去操作，这种情况下也是同步的操作;[link](http://h2ex.com/639)
+</code></pre></blockquote>
+<p>还有一个知乎上的回答，觉得<a href="https://www.zhihu.com/question/19732473" target="_blank" rel="external">严肃回答</a>的也是特别好.</p>
+<h5 id="阻塞非阻塞"><a href="#阻塞非阻塞" class="headerlink" title="阻塞非阻塞"></a>阻塞非阻塞</h5><p>是程序在等待调用的时候的状态; 说大白话就是: 程序调用了某一个接口的时候，他是否还有<strong>可能</strong>去做其他的事情, 如果有可能那就是非阻塞，如果没有可能那就是阻塞; 这里举个大家都知道的例子,比如<code>read</code>(反正大家都喜欢用这个例子):</p>
+<p>这有两个角色:</p>
+<pre><code>* 调用者: 调用read的线程或者进程
+* 被调用者: read本身
+</code></pre><p>Linux文件在open的过程可以选择(block | noblock)两种方式，而这两种方式的最大区别点在于：block模式下，调用read之后会阻塞(阻塞的原因在<a href="http://blog.csdn.net/historyasamirror/article/details/5778378" target="_blank" rel="external">这篇文章</a>中有很详细的介绍), 就调用者在此时此刻它是会被操作系统挂起，它在此刻没有<strong>可能</strong>去做其他的事情, 这就是阻塞(<strong>没有可能性</strong>).</p>
+<p>如果是在非阻塞的模式下，调用read之后会很快的返回, 这个返回有两种可能: error 或者 读到了数据; 虽然我们在使用非阻塞的时候，总是在外围加上while循环,类似于:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">do &#123;</div><div class="line">	read(fd, buf, count);</div><div class="line">&#125;while(errno == EWOULDBLOCK);</div></pre></td></tr></table></figure>
+<p>通过这种方式去不断询问内核是否已经把数据准备好，而这个过程中，虽然大部分用法是选择不停的询问，但是这只是一种做法，调用者还是其他的更多的方式可以选择，比如调用者发现数据还没有准备好，那它可以把之前的数据排一个序什么的，这表示调用者在此刻是有选择做其他的事情的<strong>可能性</strong>的;</p>
+<p>在思考阻塞和非阻塞的时候，需要先把角色分成为调用者与被调用者，这是一个很简单的一点，不要去思考被调用者内部是如何实现的，只需要在调用者与被调用者这个层面: <em>思考调用者调用的时候是否还有可能去做其他的事情为依据来进行区别</em>; 为什么要在同一个层面来看呢？因为层次不同得到的结果也不一样; 这里在举一个例子: 我封装了一个函数A，A内部的实现就是上面的实例代码，那A本身是否是阻塞呢？回答是:YES, 因为其他人在调用A时候，没有可能去做其他的事情了，这个时候它整体都在等待A的返回，所以这就是阻塞.</p>
+<h5 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h5><ul>
+<li>同步: 调用者为了获得结果，主动等待结果的返回(<strong>结果已经完成</strong>);</li>
+<li>异步: 调用者获得的结果的方式被动通知，当接受到通知的时候就表示调用者需要的<strong>结果已经完成</strong>;</li>
 </ul>
+<p><code>结果已经完成</code>的定义是:调用者获得了一开始就想要的结果;</p>
+<p>所以区别同步异步的关键点是在于:</p>
+<ul>
+<li>调用者是否主动等待</li>
+<li>在被通知获得结果的时候，调用者想要获得结果是否已经完成</li>
+</ul>
+<p>按照上面的理论我们来分析几个调用是同步还是异步？还是分为两个角色:</p>
+<ul>
+<li>调用者</li>
+<li>被调用者</li>
+</ul>
+<ol>
+<li><p>read</p>
+<p> 依然是上面的那个例子；当调用者调用read(被调用者)，这个时候调用者就主动在等待结果的返回，直到read返回，调用者才得到自己想要的东西; 所以是主动等待，所以这是同步操作</p>
+</li>
+<li><p>AIO(异步IO)</p>
+<p> 应用层发起AIO操作之后，被调用者直接返回; 调用者这个时候就不在关心这个事情了; 当操作系统把数据准备好并且copy到对应的应用层内存之后，就会通过类似于事件通知的方式来通知应用程序; 这个过程中</p>
+<ul>
+<li>调用者是被动通知结果</li>
+<li><p>调用者在收到通知的那时它想获得结果已经完成(需要读取的数据已经放在对应的应用层的内存中了)</p>
+<p>所以AIO是异步的</p>
+</li>
+</ul>
+</li>
+<li><p>多路复用IO</p>
+</li>
+</ol>
+<p>select、poll、epoll都是多路IO; 那么它们是同步还是异步呢？这可能是大部分人难以弄清楚的事情；而且很多文章本身也是没有搞清楚或者是错误的理论; 先说一个结果</p>
+<blockquote>
+<p>多路IO都是同步的</p>
+</blockquote>
+<p>下面分析一下原因:</p>
+<p>通过多路IO本身是通过将读写事件注册到统一的地方，有内核通过某一种方式(select、poll、epoll的实现方式都不一样)来统一的做轮训，这样的好处就是一个线程管理多个连接; 如果不是这样的话每一个链接都需要阻塞，非常浪费资源; 但是从异步的两个关键点来说:</p>
+<ul>
+<li>多路IO是通知调用者的</li>
+<li>多路IO在通知的时候，只是告诉你可以读写了，但没有真正的读写操作完成，还是需要调用者自己去完成读写操作;</li>
+</ul>
+<p>所以多路IO是同步,而非异步;</p>
+<p>和阻塞非阻塞一样，同步与异步的也是有层次的划分的；就目前操作系统来说，真正的异步io就只有AIO，其他的IO都是同步IO，原因是不管怎么样从内核到应用层的内存copy都需要调用者自己也操作，所以都是同步io；但是如果将异步同步这个概念放宽一些，从不同层次上来思考的话，我们发现现在很多市面上的网络框架都能达到异步的一个概念；比如seastar、folly的future，node.js等，这些框架可能在实现上都不一样但是不管怎么样，在概念上都已经是异步了.</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>个人感觉(对自己而言)思考的已经很清楚了；异步同步、阻塞非阻塞，虽然相关但是其实关注的维度是不一样的，所以谈论的过程中不要尝试混淆.</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/进程调度/" rel="tag"># 进程调度</a>
-          
-        </div>
+
       
 
       
-        
-      
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/04/07/Linux之进程管理/" rel="next" title="Linux进程管理">
-                <i class="fa fa-chevron-left"></i> Linux进程管理
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/10/整理/" rel="prev" title="整理">
-                整理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
           
           </div>
@@ -434,10 +453,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -457,17 +472,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -532,22 +538,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-提问"><span class="nav-number">1.</span> <span class="nav-text">1. 提问</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -653,10 +643,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
