@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="进程调度," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -89,22 +89,19 @@
 
 
 
-<meta name="description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
+<meta name="description" content="今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;
+去年9月来了阿里，超过半年了; 我虽然觉得我做的东西并不多的，但是3.25总觉得有点过不去吧; 和新老板聊了一下，大概原因估计在与：和我层级不匹配之类的；还有没有主动的提意见并且没有作为技术专家的气势; 当然我觉得，主动、能提出意见、还有气势的什么的，都是不咋靠">
 <meta property="og:type" content="article">
-<meta property="og:title" content="进程调度之死循环">
-<meta property="og:url" content="http://yoursite.com/2017/04/12/进程调度之死循环/index.html">
+<meta property="og:title" content="第一次3.25">
+<meta property="og:url" content="http://yoursite.com/2020/04/23/第一次3-25/index.html">
 <meta property="og:site_name" content="nomoshen">
-<meta property="og:description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
-<meta property="og:updated_time" content="2017-04-13T01:52:30.000Z">
+<meta property="og:description" content="今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;
+去年9月来了阿里，超过半年了; 我虽然觉得我做的东西并不多的，但是3.25总觉得有点过不去吧; 和新老板聊了一下，大概原因估计在与：和我层级不匹配之类的；还有没有主动的提意见并且没有作为技术专家的气势; 当然我觉得，主动、能提出意见、还有气势的什么的，都是不咋靠">
+<meta property="og:updated_time" content="2020-04-23T14:59:57.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进程调度之死循环">
-<meta name="twitter:description" content="这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？
-
-个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系">
+<meta name="twitter:title" content="第一次3.25">
+<meta name="twitter:description" content="今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;
+去年9月来了阿里，超过半年了; 我虽然觉得我做的东西并不多的，但是3.25总觉得有点过不去吧; 和新老板聊了一下，大概原因估计在与：和我层级不匹配之类的；还有没有主动的提意见并且没有作为技术专家的气势; 当然我觉得，主动、能提出意见、还有气势的什么的，都是不咋靠">
 
 
 
@@ -132,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/12/进程调度之死循环/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/23/第一次3-25/"/>
 
 
 
 
 
-  <title> 进程调度之死循环 | nomoshen </title>
+  <title> 第一次3.25 | nomoshen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="english">
@@ -257,7 +254,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/进程调度之死循环/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/第一次3-25/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="nomoshen">
@@ -278,7 +275,7 @@
             
             
               
-                进程调度之死循环
+                第一次3.25
               
             
           </h1>
@@ -293,8 +290,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T22:21:34+08:00">
-                2017-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-23T22:27:05+08:00">
+                2020-04-23
               </time>
             
 
@@ -316,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/心情/" itemprop="url" rel="index">
+                    <span itemprop="name">心情</span>
                   </a>
                 </span>
 
@@ -351,17 +348,37 @@
       
 
       
-        <p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
-<blockquote>
-<p>个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系统的基础;</p>
-</blockquote>
-<p>貌似很复杂难懂的调度系统有着一个非常简单的目标: <strong>最大限度利用CPU的处理时间</strong>; 调度系统的基本任务就是: <strong>从多个可运行状态的进程中挑选出一个合适的进程来运行</strong>, 这里的<strong>合适</strong>也是调度系统的核心算法.</p>
-<h4 id="1-提问"><a href="#1-提问" class="headerlink" title="1. 提问"></a>1. 提问</h4><p><em>为什么死循环能让CPU利用达到100%呢?</em> </p>
-<p>这个问题也是困扰我多年的问题，当然可能就是因为对Linux操作系统的进程调度没有学好才导致这个问题一直困扰我. 针对上面的问题还能引出几个其他的问题?</p>
+        <p>今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;</p>
+<p>去年9月来了阿里，超过半年了; 我虽然觉得我做的东西并不多的，但是3.25总觉得有点过不去吧; 和新老板聊了一下，大概原因估计在与：和我层级不匹配之类的；还有没有主动的提意见并且没有作为技术专家的气势; 当然我觉得，主动、能提出意见、还有气势的什么的，都是不咋靠谱的；我毕竟只是一个新来的，在不熟悉系统、不熟悉人员的个性、不熟悉我们遇到了什么问题的情况下，你能我怎么样才能说到你想要的呢；</p>
+<p>我自己其实承认这半年没有很主动的去承担这团队内的核心C位，但是我来这个团队的时候，团队是很稳定的，并且每一个位置都有人做了很久，我能做的只是帮他们负担一些需求；现在看来这样的方式其实并不是很好，因为这样我虽然做了很多的工作，但是得不到老板们的认可；真尼玛坑爹; 最近还为了别人的一个项目忙死忙活的，我实在是有点气愤；</p>
+<p>当然我隐性的猜测到有一点是：前老板的这份评价有点针对我，而保护了其他人；其他人毕竟都是自己带出来的，而且跟了很多年；而且现在他要走了，估计后面也没有相处的机会，那就让我这个新人来背一个3.25的位置; 哎…当然这是我臆测；但是我估计从人性角度上来说，这个事情是肯定会在主观上去影响的，即使他觉得他没有; </p>
+<p>哎..这3.25的锅一背上, 少说亏个10w块还是有的，真尼玛的不舍得; 哎…涨薪水 + 年终奖都泡汤了, 本来还想用这笔钱来抄个底之类的，现在什么都没有了…有点心烦意乱.</p>
+<h3 id="教训是什么"><a href="#教训是什么" class="headerlink" title="教训是什么"></a>教训是什么</h3><p>与老板的聊天过程中，我自己多多少少能感悟到一些东西，这些东西是老板看重的，也是我需要做的一些:</p>
 <ul>
-<li>死循环是否会导致系统响应速度下降;</li>
-<li></li>
+<li><p>绩效考核的是在你这个层级，你在半年中，核心价值是什么; 核心价值是指你在某一块内容中承担了什么样的责任，并且你的核心价值解决的是什么样子的问题;这边需要明确的是，你的核心是解决什么问题，用了什么手段，达到了什么样子的效果；</p>
+<ul>
+<li>解决什么问题</li>
+<li>使用什么手段</li>
+<li><p>达到怎么样的效果</p>
+<p>在设定自己的kpi的时候就需要思考好这个思路，并且按照这个思路去思考自己解决这个难题的方式是否是正确的，是否能达到自己的层级; </p>
+</li>
 </ul>
+</li>
+<li><p>老板其实不关心你做了多少事情；这边的事情指的是和你核心事情无关的其他的事情；这半年，我做了很多事情，比如输出、报警、sso登录其他的乱七八糟的事情，我都是做过，但是，老板基本不认可你这事情；他更加关心你的核心事情完成的怎么样? 所以后面要时刻要与老板聊这块的东西,要保证自己能有足够的时间来做自己的本职的事情;</p>
+</li>
+<li>多给老板做选择题，而非问答题; 因为这样会让老板觉得你比较有能力;</li>
+<li>多提出意见和解决方案; 其实这块我觉得可以试试;</li>
+<li>和老板多聊聊进度什么的, 让老板能时时刻刻知道目前的状态进度和你的想法;</li>
+<li>最后最后，一定要记住自己的核心职责是什么？</li>
+</ul>
+<h3 id="机会"><a href="#机会" class="headerlink" title="机会"></a>机会</h3><p>说机会也是有的; 目前其实我们部门也不是没有危机，很多产品都在竞争，要做到在这个地方能脱引而出，还是需要做点手段的; 首先：</p>
+<ul>
+<li>你要解决的问题是什么？</li>
+<li>你面向的场景是什么？</li>
+<li>你要如何解决这个问题？</li>
+<li>解决了这个问题之后会达到什么样子的成果?</li>
+</ul>
+<p>敏捷paas版本，我个人感觉还是机会，虽然不一定能赚钱什么的，但是推出之后可用的范围可以很大…</p>
 
       
     </div>
@@ -383,12 +400,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/进程调度/" rel="tag"># 进程调度</a>
-          
-        </div>
-      
 
       
         
@@ -398,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/07/Linux之进程管理/" rel="next" title="Linux进程管理">
-                <i class="fa fa-chevron-left"></i> Linux进程管理
+              <a href="/2020/03/03/何为国债/" rel="next" title="何为债券">
+                <i class="fa fa-chevron-left"></i> 何为债券
               </a>
             
           </div>
@@ -407,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/10/整理/" rel="prev" title="整理">
-                整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-提问"><span class="nav-number">1.</span> <span class="nav-text">1. 提问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#教训是什么"><span class="nav-number">1.</span> <span class="nav-text">教训是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机会"><span class="nav-number">2.</span> <span class="nav-text">机会</span></a></li></ol></div>
             
 
           </div>
