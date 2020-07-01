@@ -1,144 +1,499 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
+
+
+
   
-  <title>nomoshen</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+
+
+<html class="theme-next muse use-motion" lang="english">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
+
+
+
+
+
+
+<meta property="og:type" content="website">
 <meta property="og:title" content="nomoshen">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="nomoshen">
 <meta property="og:locale" content="english">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nomoshen">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+
+
+  <title>nomoshen</title>
   
-    <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+
+
+
+
+
+
+
 
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">nomoshen</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">尽可能努力一点点</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-LevelDB源码-二、leveldb-option分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/" class="article-date">
-  <time datetime="2020-06-28T15:35:23.000Z" itemprop="datePublished">2020-06-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+<body itemscope itemtype="http://schema.org/WebPage" lang="english">
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">LevelDB源码(二、leveldb option分析)</a>
-    </h1>
+  
+    
   
 
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nomoshen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">尽可能努力一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/28/LevelDB源码-二、leveldb-option分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/28/LevelDB源码-二、leveldb-option分析/" itemprop="url">LevelDB源码(二、leveldb option分析)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-28T23:35:23+08:00">
+                2020-06-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-06-29T00:59:10+08:00">
+                2020-06-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>本系列的第二篇文章主要是针对leveldb的option的参数进行介绍，option的参数其实不多，但是相对很重要，因为可以让用户进行自定义的一些操作; 了解清楚这些参数的含义就可以更加好的使用leveldb;</p>
+      
+
+      
+        
+          
+            <p>本系列的第二篇文章主要是针对leveldb的option的参数进行介绍，option的参数其实不多，但是相对很重要，因为可以让用户进行自定义的一些操作; 了解清楚这些参数的含义就可以更加好的使用leveldb;</p>
 <h3 id="1-option"><a href="#1-option" class="headerlink" title="1. option"></a>1. option</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> LEVELDB_EXPORT Options &#123;</span><br><span class="line">  <span class="comment">// Create an Options object with default values for all fields.</span></span><br><span class="line">  Options();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//自定义比较器，默认使用字节序的方式进行排序比较</span></span><br><span class="line">  <span class="keyword">const</span> Comparator* comparator;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 假如leveldb对应的目录不存在就创建 </span></span><br><span class="line">  <span class="keyword">bool</span> create_if_missing = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 假如对应的目录存在的时候就报错</span></span><br><span class="line">  <span class="keyword">bool</span> error_if_exists = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If true, the implementation will do aggressive checking of the</span></span><br><span class="line">  <span class="comment">// data it is processing and will stop early if it detects any</span></span><br><span class="line">  <span class="comment">// errors.  This may have unforeseen ramifications: for example, a</span></span><br><span class="line">  <span class="comment">// corruption of one DB entry may cause a large number of entries to</span></span><br><span class="line">  <span class="comment">// become unreadable or for the entire DB to become unopenable.</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//在打开leveldb的时候是否检测db，如果有数据损坏的话就直接报错；但是通常默认false；因为大部分情况下即使数据损坏也可以用;</span></span><br><span class="line">  <span class="keyword">bool</span> paranoid_checks = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 默认Env::default(), Env封装的是操作系统相关的操作;</span></span><br><span class="line">  Env* env;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//leveldb自己的日志文件对象，用来记录leveldb本身在处理过程中的信息</span></span><br><span class="line">  Logger* info_log = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * memetable的大小;默认4MB</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">size_t</span> write_buffer_size = <span class="number">4</span> * <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * db能最大打开文件的个数;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">int</span> max_open_files = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Control over blocks (user data is stored in a set of blocks, and</span></span><br><span class="line">  <span class="comment">// a block is the unit of reading from disk).</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// If non-null, use the specified cache for blocks.</span></span><br><span class="line">  <span class="comment">// If null, leveldb will automatically create and use an 8MB internal cache.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * block缓存，如果为null，使用的是leveldb自己的lRU的缓存，默认8MB</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  Cache* block_cache = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//默认block的大小为4KB,真实数据为4KB，非压缩数据</span></span><br><span class="line">  <span class="keyword">size_t</span> block_size = <span class="number">4</span> * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 类似与时间戳的压缩算法一下，通过保存一个完整的时间戳，后面的时间戳用偏移量来存储，这样的好处就可以压缩空间</span></span><br><span class="line"><span class="comment">   * 问题在于如果数据损毁的话会损失很多数据，所以会每n隔时间戳重新记录一个完整时间戳，这样即使数据顺坏也不会丢失</span></span><br><span class="line"><span class="comment">   * 很多数据；，这个参数是key前缀压缩的方式;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">int</span> block_restart_interval = <span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//sstable的大小为2M,除了0层是4M，其他的level都是2M的大小</span></span><br><span class="line">  <span class="keyword">size_t</span> max_file_size = <span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Compress blocks using the specified compression algorithm.  This</span></span><br><span class="line">  <span class="comment">// parameter can be changed dynamically.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Default: kSnappyCompression, which gives lightweight but fast</span></span><br><span class="line">  <span class="comment">// compression.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Typical speeds of kSnappyCompression on an Intel(R) Core(TM)2 2.4GHz:</span></span><br><span class="line">  <span class="comment">//    ~200-500MB/s compression</span></span><br><span class="line">  <span class="comment">//    ~400-800MB/s decompression</span></span><br><span class="line">  <span class="comment">// Note that these speeds are significantly faster than most</span></span><br><span class="line">  <span class="comment">// persistent storage speeds, and therefore it is typically never</span></span><br><span class="line">  <span class="comment">// worth switching to kNoCompression.  Even if the input data is</span></span><br><span class="line">  <span class="comment">// incompressible, the kSnappyCompression implementation will</span></span><br><span class="line">  <span class="comment">// efficiently detect that and will switch to uncompressed mode.</span></span><br><span class="line">  CompressionType compression = kSnappyCompression;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 通过判断来发现manifest是否可以重用之前的；还不确定？？</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">bool</span> reuse_logs = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 设置一个过滤器能用来减少磁盘的访问次数，默认用bloomfilter</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">const</span> FilterPolicy* filter_policy = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="2-ReadOptions"><a href="#2-ReadOptions" class="headerlink" title="2. ReadOptions"></a>2. ReadOptions</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Options that control read operations</span></span><br><span class="line"><span class="keyword">struct</span> LEVELDB_EXPORT ReadOptions &#123;</span><br><span class="line">  ReadOptions() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If true, all data read from underlying storage will be</span></span><br><span class="line">  <span class="comment">// verified against corresponding checksums.</span></span><br><span class="line">  <span class="comment">//是否对结果进行checksum检查</span></span><br><span class="line">  <span class="keyword">bool</span> verify_checksums = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Should the data read for this iteration be cached in memory?</span></span><br><span class="line">  <span class="comment">// Callers may wish to set this field to false for bulk scans.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//是否将读出来数据缓存在内存里，如果你读很大的数据的时候，希望它不污染cache的话，可以设置false</span></span><br><span class="line">  <span class="keyword">bool</span> fill_cache = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If "snapshot" is non-null, read as of the supplied snapshot</span></span><br><span class="line">  <span class="comment">// (which must belong to the DB that is being read and which must</span></span><br><span class="line">  <span class="comment">// not have been released).  If "snapshot" is null, use an implicit</span></span><br><span class="line">  <span class="comment">// snapshot of the state at the beginning of this read operation.</span></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 对于db的getSnapshot的函数返回的对象，可以读指定snapshot的数据，如果为null，就读当前读操作最新的snapshot的数据</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">const</span> Snapshot* snapshot = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="3-WriteOptions"><a href="#3-WriteOptions" class="headerlink" title="3. WriteOptions"></a>3. WriteOptions</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Options that control write operations</span></span><br><span class="line"><span class="keyword">struct</span> LEVELDB_EXPORT WriteOptions &#123;</span><br><span class="line">  WriteOptions() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If true, the write will be flushed from the operating system</span></span><br><span class="line">  <span class="comment">// buffer cache (by calling WritableFile::Sync()) before the write</span></span><br><span class="line">  <span class="comment">// is considered complete.  If this flag is true, writes will be</span></span><br><span class="line">  <span class="comment">// slower.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// If this flag is false, and the machine crashes, some recent</span></span><br><span class="line">  <span class="comment">// writes may be lost.  Note that if it is just the process that</span></span><br><span class="line">  <span class="comment">// crashes (i.e., the machine does not reboot), no writes will be</span></span><br><span class="line">  <span class="comment">// lost even if sync==false.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// In other words, a DB write with sync==false has similar</span></span><br><span class="line">  <span class="comment">// crash semantics as the "write()" system call.  A DB write</span></span><br><span class="line">  <span class="comment">// with sync==true has similar crash semantics to a "write()"</span></span><br><span class="line">  <span class="comment">// system call followed by "fsync()".</span></span><br><span class="line">  <span class="comment">//性能考虑，不会设置true</span></span><br><span class="line">  <span class="keyword">bool</span> sync = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/28/LevelDB源码-二、leveldb-option分析/" data-id="ckc3zejl70001byhbmr56ohtt" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leveldb/">leveldb</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-leveldb源码分析-db接口分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/27/leveldb源码分析-db接口分析/" class="article-date">
-  <time datetime="2020-06-27T15:28:31.000Z" itemprop="datePublished">2020-06-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/27/leveldb源码分析-db接口分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/27/leveldb源码分析-db接口分析/">LevelDB源码(一、leveldb接口分析)</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/27/leveldb源码分析-db接口分析/" itemprop="url">LevelDB源码(一、leveldb接口分析)</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-27T23:28:31+08:00">
+                2020-06-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-06-28T23:38:41+08:00">
+                2020-06-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识;</p>
+      
+
+      
+        
+          
+            <p>本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识;</p>
 <h3 id="1-基本接口"><a href="#1-基本接口" class="headerlink" title="1. 基本接口"></a>1. 基本接口</h3><p><a href="https://github.com/google/leveldb/blob/master/include/leveldb/db.h" target="_blank" rel="noopener">db.h</a>这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">/**</span><br><span class="line"> * 打开leveldb,</span><br><span class="line"> * @param options: 打开leveldb的一些参数</span><br><span class="line"> * @param name: 路径</span><br><span class="line"> * @param dbptr: 返回值,如果成功打开就会在这个参数中返回;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">static Status Open(const Options&amp; options, const std::string&amp; name,</span><br><span class="line">                   DB** dbptr);</span><br><span class="line"></span><br><span class="line">DB() = default;</span><br><span class="line"></span><br><span class="line">//db不能被copy或者赋值</span><br><span class="line">DB(const DB&amp;) = delete;</span><br><span class="line">DB&amp; operator=(const DB&amp;) = delete;</span><br><span class="line"></span><br><span class="line">virtual ~DB();</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 将key和value存储到db里面；</span><br><span class="line"> * @param options ： 写参数设置，默认可以空对象</span><br><span class="line"> * @param key </span><br><span class="line"> * @param value </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Put(const WriteOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   const Slice&amp; value) = 0;</span><br><span class="line"> </span><br><span class="line">//删除key</span><br><span class="line">virtual Status Delete(const WriteOptions&amp; options, const Slice&amp; key) = 0;</span><br><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> * 批量写的接口; </span><br><span class="line"> * @param options: 同Put接口 </span><br><span class="line"> * @param updates : 批量参数，里面可以包含有写、delete的操作; </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Write(const WriteOptions&amp; options, WriteBatch* updates) = 0;</span><br><span class="line"></span><br><span class="line">//查询接口，指定key,返回结果在value中；状态看Status，如果为ok的话，value就是取到的值;</span><br><span class="line">virtual Status Get(const ReadOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 返回一个iterator，这个需要调用者自己去清理掉的,</span><br><span class="line"> * 返回的iterator通常是无效的，需要在调用seek之后才有效</span><br><span class="line"> * @param options</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual Iterator* NewIterator(const ReadOptions&amp; options) = 0;</span><br></pre></td></tr></table></figure>
 <p>上面这些接口机会是最为常用的接口,提供了打开db、读key、存储key的功能；存储引擎的功能就在于：</p>
@@ -152,48 +507,159 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获得快照; 需要调用者负责清理;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual const Snapshot* GetSnapshot() = 0;</span><br><span class="line"></span><br><span class="line">// Release a previously acquired snapshot.  The caller must not</span><br><span class="line">// use &quot;snapshot&quot; after this call.</span><br><span class="line">virtual void ReleaseSnapshot(const Snapshot* snapshot) = 0;</span><br><span class="line"></span><br><span class="line">// DB implementations can export properties about their state</span><br><span class="line">// via this method.  If &quot;property&quot; is a valid property understood by this</span><br><span class="line">// DB implementation, fills &quot;*value&quot; with its current value and returns</span><br><span class="line">// true.  Otherwise returns false.</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">// Valid property names include:</span><br><span class="line">//</span><br><span class="line">//  &quot;leveldb.num-files-at-level&lt;N&gt;&quot; - return the number of files at level &lt;N&gt;,</span><br><span class="line">//     where &lt;N&gt; is an ASCII representation of a level number (e.g. &quot;0&quot;).</span><br><span class="line">//  &quot;leveldb.stats&quot; - returns a multi-line string that describes statistics</span><br><span class="line">//     about the internal operation of the DB.</span><br><span class="line">//  &quot;leveldb.sstables&quot; - returns a multi-line string that describes all</span><br><span class="line">//     of the sstables that make up the db contents.</span><br><span class="line">//  &quot;leveldb.approximate-memory-usage&quot; - returns the approximate number of</span><br><span class="line">//     bytes of memory in use by the DB.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * leveldb会有自己的统计信息，这个函数可以获得这些信息;</span><br><span class="line"> * @param property</span><br><span class="line"> * @param value</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual bool GetProperty(const Slice&amp; property, std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">// For each i in [0,n-1], store in &quot;sizes[i]&quot;, the approximate</span><br><span class="line">// file system space used by keys in &quot;[range[i].start .. range[i].limit)&quot;.</span><br><span class="line">//</span><br><span class="line">// Note that the returned sizes measure file system space usage, so</span><br><span class="line">// if the user data compresses by a factor of ten, the returned</span><br><span class="line">// sizes will be one-tenth the size of the corresponding user data size.</span><br><span class="line">//</span><br><span class="line">// The results may not include the sizes of recently written data.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 给key的范围、给level的层数，获得这些key大概的磁盘占用空间</span><br><span class="line"> * @param range</span><br><span class="line"> * @param n</span><br><span class="line"> * @param sizes</span><br><span class="line"> */</span><br><span class="line">virtual void GetApproximateSizes(const Range* range, int n,</span><br><span class="line">                                 uint64_t* sizes) = 0;</span><br><span class="line"></span><br><span class="line">// Compact the underlying storage for the key range [*begin,*end].</span><br><span class="line">// In particular, deleted and overwritten versions are discarded,</span><br><span class="line">// and the data is rearranged to reduce the cost of operations</span><br><span class="line">// needed to access the data.  This operation should typically only</span><br><span class="line">// be invoked by users who understand the underlying implementation.</span><br><span class="line">//</span><br><span class="line">// begin==nullptr is treated as a key before all keys in the database.</span><br><span class="line">// end==nullptr is treated as a key after all keys in the database.</span><br><span class="line">// Therefore the following call will compact the entire database:</span><br><span class="line">//    db-&gt;CompactRange(nullptr, nullptr);</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 手动触发指定key范围的compaction</span><br><span class="line"> * @param begin</span><br><span class="line"> * @param end</span><br><span class="line"> */</span><br><span class="line">virtual void CompactRange(const Slice* begin, const Slice* end) = 0;</span><br></pre></td></tr></table></figure>
 <p><code>ReleaseSnapshot</code>这个也可以通过<code>shared_ptr</code>来进行封装，这样就省的自己操作了; <code>GetProperty</code>这个函数对后期真正线上使用的时候会特别有用，因为可以让leveldb吐出来很多leveldb自身的信息，方便查问题并且调整leveldb; 对于db来说，能清楚的知道db的状态是非常重要的;</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/27/leveldb源码分析-db接口分析/" data-id="ckc3zejld0005byhbmhrf8ln6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leveldb/">leveldb</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-想好要去试试看了" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/12/想好要去试试看了/" class="article-date">
-  <time datetime="2020-06-12T15:48:26.000Z" itemprop="datePublished">2020-06-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/思考/">思考</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/12/想好要去试试看了/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/12/想好要去试试看了/">想好要去试试看了</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/12/想好要去试试看了/" itemprop="url">想好要去试试看了</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-12T23:48:26+08:00">
+                2020-06-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-06-13T01:06:30+08:00">
+                2020-06-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/思考/" itemprop="url" rel="index">
+                    <span itemprop="name">思考</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="1-这段时间的思考"><a href="#1-这段时间的思考" class="headerlink" title="1. 这段时间的思考"></a>1. 这段时间的思考</h3><p>上一个文章讲了我得到325这个事情；这个事情给我的打击和压力很大很大，我几乎有半个月的时间意志一直很低迷; 不过慢慢的我也看开了，而且开始专注于做新的事情，并且新老板还比较合得来，所以慢慢的好起来来的.</p>
+      
+
+      
+        
+          
+            <h3 id="1-这段时间的思考"><a href="#1-这段时间的思考" class="headerlink" title="1. 这段时间的思考"></a>1. 这段时间的思考</h3><p>上一个文章讲了我得到325这个事情；这个事情给我的打击和压力很大很大，我几乎有半个月的时间意志一直很低迷; 不过慢慢的我也看开了，而且开始专注于做新的事情，并且新老板还比较合得来，所以慢慢的好起来来的.</p>
 <p>但是从那之后我还是从各方面打听了不少消息过来的；也找了一些朋友交心的聊了一下；感觉自己的处境的确还是比较尴尬的，而且最为主要的是我发现大老板这边我可能不大被看好，我做的事情其实不咋关心，他更加关心的是在另外场景下面的东西落地；但是按照我的想法，这个东西在一个环境没能很好的跑起来，马上就到内部使用，估计到时候会变得骑虎难下哦。</p>
 <p>当然其实大老板怎么想和我关心不大，但是相对而言的是我做的事情对他而言无价值的话，就会导致后面325又落我头上，这不是坑爹吗. 而且我在和同事聊天的过程中发现，325是谁可周旋的余地太大了，和老板关系好一些，估计325就能变成3.5甚至于375; 所以，像我这种新人估计有点艰难..</p>
 <p>第二点思考在于目前我的组织比较奇葩；我和我团队分割两地，团队几乎全在北京，而我一人在杭州；按照常规分析来说，可能不是一个很好的现象; 而且组织架构也很奇怪，估计后面绩效的还是有这边的大老板来确定，哎想想就有点怕;</p>
@@ -323,46 +789,159 @@
 </ul>
 <h3 id="4-给自己的时间"><a href="#4-给自己的时间" class="headerlink" title="4. 给自己的时间"></a>4. 给自己的时间</h3><p>目前准备给自己大概是1～1.5个月的时间; 因为内容还是比较多的，需要充分的准备时间；而且目前我手头项目有点忙，可能大部分时间都是课外时间；希望自己能慢慢坚持下来，最后能从多个选择中选择一些比较好的机会; 太难了..</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/12/想好要去试试看了/" data-id="ckc3zejln000dbyhb5dk84l9q" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-第一次3-25" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/23/第一次3-25/" class="article-date">
-  <time datetime="2020-04-23T14:27:05.000Z" itemprop="datePublished">2020-04-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/心情/">心情</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/第一次3-25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/23/第一次3-25/">第一次3.25</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/23/第一次3-25/" itemprop="url">第一次3.25</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-23T22:27:05+08:00">
+                2020-04-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-04-23T22:59:57+08:00">
+                2020-04-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/心情/" itemprop="url" rel="index">
+                    <span itemprop="name">心情</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;</p>
+      
+
+      
+        
+          
+            <p>今天早上，新老板找我过一下绩效什么的; 我想总算是到了聊绩效的，我等年终奖等了好久呢；可是等来的是一个3.25；搞得我心情一天都很失落;</p>
 <p>去年9月来了阿里，超过半年了; 我虽然觉得我做的东西并不多的，但是3.25总觉得有点过不去吧; 和新老板聊了一下，大概原因估计在与：和我层级不匹配之类的；还有没有主动的提意见并且没有作为技术专家的气势; 当然我觉得，主动、能提出意见、还有气势的什么的，都是不咋靠谱的；我毕竟只是一个新来的，在不熟悉系统、不熟悉人员的个性、不熟悉我们遇到了什么问题的情况下，你能我怎么样才能说到你想要的呢；</p>
 <p>我自己其实承认这半年没有很主动的去承担这团队内的核心C位，但是我来这个团队的时候，团队是很稳定的，并且每一个位置都有人做了很久，我能做的只是帮他们负担一些需求；现在看来这样的方式其实并不是很好，因为这样我虽然做了很多的工作，但是得不到老板们的认可；真尼玛坑爹; 最近还为了别人的一个项目忙死忙活的，我实在是有点气愤；</p>
 <p>当然我隐性的猜测到有一点是：前老板的这份评价有点针对我，而保护了其他人；其他人毕竟都是自己带出来的，而且跟了很多年；而且现在他要走了，估计后面也没有相处的机会，那就让我这个新人来背一个3.25的位置; 哎…当然这是我臆测；但是我估计从人性角度上来说，这个事情是肯定会在主观上去影响的，即使他觉得他没有; </p>
@@ -394,46 +973,159 @@
 </ul>
 <p>敏捷paas版本，我个人感觉还是机会，虽然不一定能赚钱什么的，但是推出之后可用的范围可以很大…</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/23/第一次3-25/" data-id="ckc3zejll000bbyhbet6ep8n9" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-何为国债" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/03/何为国债/" class="article-date">
-  <time datetime="2020-03-03T10:51:53.000Z" itemprop="datePublished">2020-03-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/财经/">财经</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/何为国债/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/03/何为国债/">何为债券</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/03/何为国债/" itemprop="url">何为债券</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-03T18:51:53+08:00">
+                2020-03-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-03T20:36:32+08:00">
+                2020-03-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/财经/" itemprop="url" rel="index">
+                    <span itemprop="name">财经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="1-债券"><a href="#1-债券" class="headerlink" title="1. 债券"></a>1. 债券</h3><ul>
+      
+
+      
+        
+          
+            <h3 id="1-债券"><a href="#1-债券" class="headerlink" title="1. 债券"></a>1. 债券</h3><ul>
 <li>wiki-定义</li>
 </ul>
 <blockquote>
@@ -515,46 +1207,159 @@
 <li>那么B总共赚的钱是 10 + 5 = 15; 那么他的年华收益率100 <em> (1 + x) </em> (1 + x) = 115; 年化利率大概是7%； 这个利率比银行高好多啊; </li>
 </ol>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/03/何为国债/" data-id="ckc3zejlh0008byhb155oj720" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-2019年-年终总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/20/2019年-年终总结/" class="article-date">
-  <time datetime="2020-01-20T08:54:29.000Z" itemprop="datePublished">2020-01-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/总结/">总结</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/2019年-年终总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/20/2019年-年终总结/">2019年-年终总结</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/20/2019年-年终总结/" itemprop="url">2019年-年终总结</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-20T16:54:29+08:00">
+                2020-01-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-01-28T12:36:18+08:00">
+                2020-01-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>2019年过完了; 今天离农历过年还有几天，属于很明显的垃圾时间,大家都比较轻松，并且事情也都能拖到年后来做，所以就找了今天下午出来酱油写一下去年的年终总结；其实每年的年终总结都挺水的，所以今年就稍微不同一下，总结一下去年的好的，今年想要做的；简单一些，不罗列太多无用的东西;</p>
+      
+
+      
+        
+          
+            <p>2019年过完了; 今天离农历过年还有几天，属于很明显的垃圾时间,大家都比较轻松，并且事情也都能拖到年后来做，所以就找了今天下午出来酱油写一下去年的年终总结；其实每年的年终总结都挺水的，所以今年就稍微不同一下，总结一下去年的好的，今年想要做的；简单一些，不罗列太多无用的东西;</p>
 <h3 id="1-去年总结"><a href="#1-去年总结" class="headerlink" title="1. 去年总结"></a>1. 去年总结</h3><p>去年做了几个选择，想了很久但是一直没有行动，去年一年就做了不少的改变，我觉得还挺好的，佩服自己的抉择;有的改变是主动的、有的是被动的，但是从目前来看都挺好的，就类似于伯爵说的，老天永远在往好的方向在推动我; 在这边谢谢老天爷;</p>
 <h4 id="1-1-换了工作"><a href="#1-1-换了工作" class="headerlink" title="1.1 换了工作"></a>1.1 换了工作</h4><p>从1年多前就开始尝试出去面试，目标是阿里；总的来说，其实面的并不是很好；除了自己水平原因之外，很重要的一点在于我想做的一直是存储，导致面试阿里存储的时候我的水平一直没到位；后期，自己一直也在思考是否合适，并且也有补习相关的知识，慢慢的就转变了方向；开始面试自己比较擅长的监控领域，这个决策还是很ok的，一下子面试就进步很快; 可能是运气真的很好，来的这个部门刚刚有人走; 当时阿里的招聘的策略是走一个才能进一个，而且必须是7的层级; </p>
 <p>面试过程比较顺利，并且进度也很快; 当然真的拿到offer的过程是挺漫长的；中间还去了一家神奇的公司，让我对小公司一下子就没有了好感；索性的是它在去年11月份就倒闭了，说真的心里挺开心的；因为这家公司真的很糟糕;</p>
@@ -612,42 +1417,137 @@
 <h3 id="3-写给下一次看的自己"><a href="#3-写给下一次看的自己" class="headerlink" title="3. 写给下一次看的自己"></a>3. 写给下一次看的自己</h3><p>目标每年都定，不知道每年是否有回顾过自己的目标完成的程度; 希望每个一段时间都来回顾自己的计划，然后总结一下自己是否偏离目标，如果偏离合理，那么目标是否要调整; 2019年是一个不错的开始也有一个不错的结尾，后面就靠自己努力进步; 加油加油…</p>
 <p>感情这个东西，对我来说真的很难驾驭，本身的性格缺陷，让我有的时候程度很难把握..哎.. 2020年我希望自己能大方一些，不要太在意很多小东西；并且主动去交流，我想这样一定会有点改善;</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/20/2019年-年终总结/" data-id="ckc3zejlb0003byhbwh554xba" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-关于Linux内存的一些知识" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/04/关于Linux内存的一些知识/" class="article-date">
-  <time datetime="2019-04-04T03:50:57.000Z" itemprop="datePublished">2019-04-04</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/04/关于Linux内存的一些知识/">关于Linux内存的一些知识</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/关于Linux内存的一些知识/" itemprop="url">关于Linux内存的一些知识</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T11:50:57+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-04-18T14:24:26+08:00">
+                2019-04-18
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <ol>
+      
+
+      
+        
+          
+            <ol>
 <li><p>页表</p>
 <p> 每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：</p>
 <p> <img src="media/9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E.png" alt="9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E"></p>
@@ -704,42 +1604,137 @@
 </li>
 </ol>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/" data-id="ckc3zejlr000gbyhbgpmy198z" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-关于线程、进程、协程的了解" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/29/关于线程、进程、协程的了解/" class="article-date">
-  <time datetime="2019-03-29T03:02:16.000Z" itemprop="datePublished">2019-03-29</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/关于线程、进程、协程的了解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/29/关于线程、进程、协程的了解/">关于线程、进程、协程的了解</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/29/关于线程、进程、协程的了解/" itemprop="url">关于线程、进程、协程的了解</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-29T11:02:16+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-04-02T23:11:10+08:00">
+                2019-04-02
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <ol>
+      
+
+      
+        
+          
+            <ol>
 <li><p>虚拟地址、物理地址</p>
 <p> linux的内存管理模块将物理地址封装到了底层，也就是说物理地址只有操作系统内核在管理，而程序员或者程序本身能获得的地址都是虚拟地址； 这么做的好处是:</p>
 <ul>
@@ -865,46 +1860,159 @@
 </li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/关于线程、进程、协程的了解/" data-id="ckc3zejlj0009byhbah2n2tv9" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-整理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/10/整理/" class="article-date">
-  <time datetime="2019-01-10T02:11:15.000Z" itemprop="datePublished">2019-01-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/interview/">interview</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/10/整理/">整理</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/整理/" itemprop="url">整理</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T10:11:15+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-03-29T11:00:40+08:00">
+                2019-03-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/interview/" itemprop="url" rel="index">
+                    <span itemprop="name">interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;</p>
+      
+
+      
+        
+          
+            <p>2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;</p>
 <h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h3><ul>
 <li>面试题: 对于一个有序数组，找到第一个大于等于目标value的index; </li>
 </ul>
@@ -975,48 +2083,159 @@
 </li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/10/整理/" data-id="ckc3zejll000cbyhbbwqdk0pw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/存储/">存储</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-进程调度之死循环" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/12/进程调度之死循环/" class="article-date">
-  <time datetime="2017-04-12T14:21:34.000Z" itemprop="datePublished">2017-04-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/进程调度之死循环/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/进程调度之死循环/">进程调度之死循环</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/12/进程调度之死循环/" itemprop="url">进程调度之死循环</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T22:21:34+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2017-04-13T09:52:30+08:00">
+                2017-04-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
+      
+
+      
+        
+          
+            <p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
 <blockquote>
 <p>个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系统的基础;</p>
 </blockquote>
@@ -1028,131 +2247,336 @@
 <li></li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/12/进程调度之死循环/" data-id="ckc3zejlo000ebyhb0nik9ukl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进程调度/">进程调度</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+  </section>
 
   
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
-</section>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
         
-          <aside id="sidebar">
+          
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/scylladb/">scylladb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/思考/">思考</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/总结/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码分析/">源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/财经/">财经</a></li></ul>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
 
-
-  
+  <aside id="sidebar" class="sidebar">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmxtrans/">jmxtrans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leveldb/">leveldb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scylladb/">scylladb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书笔记/">书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步同步/">异步同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程调度/">进程调度</a></li></ul>
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">nomoshen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
     </div>
-  </div>
+  </aside>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/jmxtrans/" style="font-size: 10px;">jmxtrans</a> <a href="/tags/leveldb/" style="font-size: 20px;">leveldb</a> <a href="/tags/monitor/" style="font-size: 20px;">monitor</a> <a href="/tags/scylladb/" style="font-size: 10px;">scylladb</a> <a href="/tags/书笔记/" style="font-size: 10px;">书笔记</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/异步同步/" style="font-size: 10px;">异步同步</a> <a href="/tags/进程/" style="font-size: 10px;">进程</a> <a href="/tags/进程调度/" style="font-size: 10px;">进程调度</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">LevelDB源码(二、leveldb option分析)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/27/leveldb源码分析-db接口分析/">LevelDB源码(一、leveldb接口分析)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/12/想好要去试试看了/">想好要去试试看了</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/23/第一次3-25/">第一次3.25</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/03/何为国债/">何为债券</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nomoshen</span>
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 nomoshen<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
