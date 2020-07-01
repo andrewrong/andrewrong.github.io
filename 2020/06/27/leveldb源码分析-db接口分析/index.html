@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>LevelDB源码(一、leveldb接口分析) | nomoshen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识; 1. 基本接口db.h这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能; 123456789101112131415161718192021222324252627">
+<meta name="keywords" content="leveldb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LevelDB源码(一、leveldb接口分析)">
+<meta property="og:url" content="http://yoursite.com/2020/06/27/leveldb源码分析-db接口分析/index.html">
+<meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识; 1. 基本接口db.h这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能; 123456789101112131415161718192021222324252627">
+<meta property="og:locale" content="english">
+<meta property="og:updated_time" content="2020-06-28T15:38:41.706Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LevelDB源码(一、leveldb接口分析)">
+<meta name="twitter:description" content="本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识; 1. 基本接口db.h这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能; 123456789101112131415161718192021222324252627">
+  
+    <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">nomoshen</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">尽可能努力一点点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-leveldb源码分析-db接口分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/27/leveldb源码分析-db接口分析/" class="article-date">
+  <time datetime="2020-06-27T15:28:31.000Z" itemprop="datePublished">2020-06-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LevelDB源码(一、leveldb接口分析)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识;</p>
+<h3 id="1-基本接口"><a href="#1-基本接口" class="headerlink" title="1. 基本接口"></a>1. 基本接口</h3><p><a href="https://github.com/google/leveldb/blob/master/include/leveldb/db.h" target="_blank" rel="noopener">db.h</a>这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">/**</span><br><span class="line"> * 打开leveldb,</span><br><span class="line"> * @param options: 打开leveldb的一些参数</span><br><span class="line"> * @param name: 路径</span><br><span class="line"> * @param dbptr: 返回值,如果成功打开就会在这个参数中返回;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">static Status Open(const Options&amp; options, const std::string&amp; name,</span><br><span class="line">                   DB** dbptr);</span><br><span class="line"></span><br><span class="line">DB() = default;</span><br><span class="line"></span><br><span class="line">//db不能被copy或者赋值</span><br><span class="line">DB(const DB&amp;) = delete;</span><br><span class="line">DB&amp; operator=(const DB&amp;) = delete;</span><br><span class="line"></span><br><span class="line">virtual ~DB();</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 将key和value存储到db里面；</span><br><span class="line"> * @param options ： 写参数设置，默认可以空对象</span><br><span class="line"> * @param key </span><br><span class="line"> * @param value </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Put(const WriteOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   const Slice&amp; value) = 0;</span><br><span class="line"> </span><br><span class="line">//删除key</span><br><span class="line">virtual Status Delete(const WriteOptions&amp; options, const Slice&amp; key) = 0;</span><br><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> * 批量写的接口; </span><br><span class="line"> * @param options: 同Put接口 </span><br><span class="line"> * @param updates : 批量参数，里面可以包含有写、delete的操作; </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Write(const WriteOptions&amp; options, WriteBatch* updates) = 0;</span><br><span class="line"></span><br><span class="line">//查询接口，指定key,返回结果在value中；状态看Status，如果为ok的话，value就是取到的值;</span><br><span class="line">virtual Status Get(const ReadOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 返回一个iterator，这个需要调用者自己去清理掉的,</span><br><span class="line"> * 返回的iterator通常是无效的，需要在调用seek之后才有效</span><br><span class="line"> * @param options</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual Iterator* NewIterator(const ReadOptions&amp; options) = 0;</span><br></pre></td></tr></table></figure>
+<p>上面这些接口机会是最为常用的接口,提供了打开db、读key、存储key的功能；存储引擎的功能就在于：</p>
+<ul>
+<li>存储数据</li>
+<li>读取数据</li>
+</ul>
+<p>关于<code>NewIterator</code>接口需要注意的在于返回是一个指针类型的<code>Iterator*</code>,这个指针内存释放需要调用者来执行的，所以如果每次调用之后不调用delete的话，会出现内存泄露; 这是我第一次注意到这个问题，我发现自己在其他的代码中几乎都没有显示的delete的; 用shared_ptr来封装掉这个过程,这样就不需要手动去delete这个指针;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;Iterator&gt; tmp = new std::shared_ptr&lt;Iterator&gt;(db-&gt;NewIterator(options), [](void* raw)&#123;</span><br><span class="line">  if (raw != nullptr) &#123;</span><br><span class="line">    delete static_cast&lt;Iterator*&gt;(raw);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">tmp-&gt;SeekToFirst();</span><br></pre></td></tr></table></figure>
+<h3 id="2-附加接口"><a href="#2-附加接口" class="headerlink" title="2. 附加接口"></a>2. 附加接口</h3><p>附加接口主要是一些其他功能的介绍；比如快照、如何获得leveldb的监控信息等等;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获得快照; 需要调用者负责清理;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual const Snapshot* GetSnapshot() = 0;</span><br><span class="line"></span><br><span class="line">// Release a previously acquired snapshot.  The caller must not</span><br><span class="line">// use &quot;snapshot&quot; after this call.</span><br><span class="line">virtual void ReleaseSnapshot(const Snapshot* snapshot) = 0;</span><br><span class="line"></span><br><span class="line">// DB implementations can export properties about their state</span><br><span class="line">// via this method.  If &quot;property&quot; is a valid property understood by this</span><br><span class="line">// DB implementation, fills &quot;*value&quot; with its current value and returns</span><br><span class="line">// true.  Otherwise returns false.</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">// Valid property names include:</span><br><span class="line">//</span><br><span class="line">//  &quot;leveldb.num-files-at-level&lt;N&gt;&quot; - return the number of files at level &lt;N&gt;,</span><br><span class="line">//     where &lt;N&gt; is an ASCII representation of a level number (e.g. &quot;0&quot;).</span><br><span class="line">//  &quot;leveldb.stats&quot; - returns a multi-line string that describes statistics</span><br><span class="line">//     about the internal operation of the DB.</span><br><span class="line">//  &quot;leveldb.sstables&quot; - returns a multi-line string that describes all</span><br><span class="line">//     of the sstables that make up the db contents.</span><br><span class="line">//  &quot;leveldb.approximate-memory-usage&quot; - returns the approximate number of</span><br><span class="line">//     bytes of memory in use by the DB.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * leveldb会有自己的统计信息，这个函数可以获得这些信息;</span><br><span class="line"> * @param property</span><br><span class="line"> * @param value</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual bool GetProperty(const Slice&amp; property, std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">// For each i in [0,n-1], store in &quot;sizes[i]&quot;, the approximate</span><br><span class="line">// file system space used by keys in &quot;[range[i].start .. range[i].limit)&quot;.</span><br><span class="line">//</span><br><span class="line">// Note that the returned sizes measure file system space usage, so</span><br><span class="line">// if the user data compresses by a factor of ten, the returned</span><br><span class="line">// sizes will be one-tenth the size of the corresponding user data size.</span><br><span class="line">//</span><br><span class="line">// The results may not include the sizes of recently written data.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 给key的范围、给level的层数，获得这些key大概的磁盘占用空间</span><br><span class="line"> * @param range</span><br><span class="line"> * @param n</span><br><span class="line"> * @param sizes</span><br><span class="line"> */</span><br><span class="line">virtual void GetApproximateSizes(const Range* range, int n,</span><br><span class="line">                                 uint64_t* sizes) = 0;</span><br><span class="line"></span><br><span class="line">// Compact the underlying storage for the key range [*begin,*end].</span><br><span class="line">// In particular, deleted and overwritten versions are discarded,</span><br><span class="line">// and the data is rearranged to reduce the cost of operations</span><br><span class="line">// needed to access the data.  This operation should typically only</span><br><span class="line">// be invoked by users who understand the underlying implementation.</span><br><span class="line">//</span><br><span class="line">// begin==nullptr is treated as a key before all keys in the database.</span><br><span class="line">// end==nullptr is treated as a key after all keys in the database.</span><br><span class="line">// Therefore the following call will compact the entire database:</span><br><span class="line">//    db-&gt;CompactRange(nullptr, nullptr);</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 手动触发指定key范围的compaction</span><br><span class="line"> * @param begin</span><br><span class="line"> * @param end</span><br><span class="line"> */</span><br><span class="line">virtual void CompactRange(const Slice* begin, const Slice* end) = 0;</span><br></pre></td></tr></table></figure>
+<p><code>ReleaseSnapshot</code>这个也可以通过<code>shared_ptr</code>来进行封装，这样就省的自己操作了; <code>GetProperty</code>这个函数对后期真正线上使用的时候会特别有用，因为可以让leveldb吐出来很多leveldb自身的信息，方便查问题并且调整leveldb; 对于db来说，能清楚的知道db的状态是非常重要的;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/27/leveldb源码分析-db接口分析/" data-id="ckc3zejld0005byhbmhrf8ln6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leveldb/">leveldb</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LevelDB源码(二、leveldb option分析)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/12/想好要去试试看了/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">想好要去试试看了</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/scylladb/">scylladb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/思考/">思考</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/总结/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码分析/">源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/财经/">财经</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmxtrans/">jmxtrans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leveldb/">leveldb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scylladb/">scylladb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书笔记/">书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步同步/">异步同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程调度/">进程调度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/jmxtrans/" style="font-size: 10px;">jmxtrans</a> <a href="/tags/leveldb/" style="font-size: 20px;">leveldb</a> <a href="/tags/monitor/" style="font-size: 20px;">monitor</a> <a href="/tags/scylladb/" style="font-size: 10px;">scylladb</a> <a href="/tags/书笔记/" style="font-size: 10px;">书笔记</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/异步同步/" style="font-size: 10px;">异步同步</a> <a href="/tags/进程/" style="font-size: 10px;">进程</a> <a href="/tags/进程调度/" style="font-size: 10px;">进程调度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">LevelDB源码(二、leveldb option分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/27/leveldb源码分析-db接口分析/">LevelDB源码(一、leveldb接口分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/12/想好要去试试看了/">想好要去试试看了</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/23/第一次3-25/">第一次3.25</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/03/何为国债/">何为债券</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 nomoshen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>kafka broker的监控信息 | nomoshen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. broker的监控信息   标题 mbean name 解释     Message in rate kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec 当前broker每秒的消息个数   Byte in rate kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
+<meta name="keywords" content="monitor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka broker的监控信息">
+<meta property="og:url" content="http://yoursite.com/2017/03/26/kafka-broker的监控信息/index.html">
+<meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="1. broker的监控信息   标题 mbean name 解释     Message in rate kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec 当前broker每秒的消息个数   Byte in rate kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
+<meta property="og:locale" content="english">
+<meta property="og:updated_time" content="2017-04-06T23:17:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka broker的监控信息">
+<meta name="twitter:description" content="1. broker的监控信息   标题 mbean name 解释     Message in rate kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec 当前broker每秒的消息个数   Byte in rate kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
+  
+    <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">nomoshen</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">尽可能努力一点点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kafka-broker的监控信息" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/26/kafka-broker的监控信息/" class="article-date">
+  <time datetime="2017-03-26T13:35:09.000Z" itemprop="datePublished">2017-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/kafka/">kafka</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kafka broker的监控信息
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-broker的监控信息"><a href="#1-broker的监控信息" class="headerlink" title="1. broker的监控信息"></a>1. broker的监控信息</h3><table>
+<thead>
+<tr>
+<th>标题</th>
+<th>mbean name</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message in rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec</code></td>
+<td>当前broker每秒的消息个数</td>
+</tr>
+<tr>
+<td>Byte in rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec</code></td>
+<td>当前broker的每秒的入口流量</td>
+</tr>
+<tr>
+<td>Byte out rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec</code></td>
+<td>当前broker的每秒的出口流量</td>
+</tr>
+<tr>
+<td>Request rate</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>当前broker的每秒的请求量; 根据request的不同会返回不同类型的数据</td>
+</tr>
+<tr>
+<td>Log flush rate and time</td>
+<td><code>kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs</code></td>
+<td>日志刷盘的频率和时间；其中<em>OneMinuteRate:表示一分钟内每秒钟的刷盘次数; </em>999thPercentile:99.9%的刷盘需要的时间</td>
+</tr>
+<tr>
+<td>of under replicated partitions</td>
+<td><code>kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions</code></td>
+<td>ISR &lt; 备份次数的分区个数，这样的分区应该=0，如果大于0就进行报警最好;</td>
+</tr>
+<tr>
+<td>Is controller active on broker</td>
+<td><code>kafka.controller:type=KafkaController,name=ActiveControllerCount</code></td>
+<td>当前集群中controller的个数,一个集群只能有一个controller</td>
+</tr>
+<tr>
+<td>Leader election rate</td>
+<td><code>kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs</code></td>
+<td>leader选举的频率和需要的时间；其中<em>OneMinuteRate:表示一分钟内出现选举的次数; </em>999thPercentile:99.9%的选举需要的时间</td>
+</tr>
+<tr>
+<td>Unclean leader election rate</td>
+<td><code>kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec</code></td>
+<td>非正常的备份被选举成leader的频率;</td>
+</tr>
+<tr>
+<td>Partition counts</td>
+<td><code>kafka.server:type=ReplicaManager,name=PartitionCount</code></td>
+<td>当前broker的分区个数,就是在存储数据的目录下面的分区个数;</td>
+</tr>
+<tr>
+<td>Leader replica counts</td>
+<td><code>kafka.server:type=ReplicaManager,name=LeaderCount</code></td>
+<td>当前broker中的leader分区的个数</td>
+</tr>
+<tr>
+<td>ISR shrink rate</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrShrinksPerSec</code></td>
+<td>当前broker每分钟分区缩减的频率;</td>
+</tr>
+<tr>
+<td>ISR expansion rate</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrExpandsPerSec</code></td>
+<td>当前broker每分钟分区扩展的频率;</td>
+</tr>
+<tr>
+<td>Max lag in messages btw follower and leader replicas</td>
+<td><code>kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica</code></td>
+<td>当前broker中分区与leader之前同步的最大lag数</td>
+</tr>
+<tr>
+<td>Lag in messages per follower replica</td>
+<td><code>kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=([-.\w]+),topic=([-.\w]+),partition=([0-9]+)</code></td>
+<td>当前broker中备本分区与leader之间的lag数</td>
+</tr>
+<tr>
+<td>Requests waiting in the producer purgatory</td>
+<td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
+<td>broker中，在等待ack的producer请求个数;还有Fetch、topic、Rebalance、Heartbeat请求</td>
+</tr>
+<tr>
+<td>Request total time</td>
+<td><code>kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求所需要的全部时间;根据不同的类型求个不一样的结果</td>
+</tr>
+<tr>
+<td>Time the request waits in the request queue</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求在队列中等待的时间</td>
+</tr>
+<tr>
+<td>Time the request is processed at the leader</td>
+<td><code>kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求被leader节点处理的时间</td>
+</tr>
+<tr>
+<td>Time the request waits for the follower</td>
+<td><code>kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>一个请求等待follower的时间;假如ack=all，那么这个值就是非0</td>
+</tr>
+<tr>
+<td>Time the request waits in the response queue</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>一个请求在response队列中的时间</td>
+</tr>
+<tr>
+<td>Time to send the response</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>发送请求的时间</td>
+</tr>
+<tr>
+<td>Number of messages the consumer lags behind the producer by. Published by the consumer, not broker.</td>
+<td><code>Old consumer: kafka.consumer:type=ConsumerFetcherManager,name=MaxLag,clientId=([-.\w]+) New consumer: kafka.consumer:type=consumer-fetch-manager-metrics,client-id={client-id} Attribute: records-lag-max</code></td>
+<td>consumer落后producer的lag</td>
+</tr>
+<tr>
+<td>The average fraction of time the network processors are idle</td>
+<td><code>kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent</code></td>
+<td>网络处理空闲的因子，在0，1之间，通常是&gt; 0.3</td>
+</tr>
+<tr>
+<td>The average fraction of time the request handler threads are idle</td>
+<td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
+<td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-关于zookeeper相关的监控信息"><a href="#2-关于zookeeper相关的监控信息" class="headerlink" title="2. 关于zookeeper相关的监控信息"></a>2. 关于zookeeper相关的监控信息</h3><table>
+<thead>
+<tr>
+<th>mbean name</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectedPerSec</code></td>
+<td>当前broker与zk之间的每秒断链的次数；也就是频率</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectedPerSec</code></td>
+<td>ZooKeeper client is connected to the ensemble and ready to execute operations</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailedPerSec</code></td>
+<td>与zk进行连接并且是因为认证失败的每秒的次数</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperConnectedReadOnlyPerSec</code></td>
+<td>The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING. Consequently, the client can only read the ZooKeeper state, but not make any changes (create, delete, or set the data of znodes).</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticatedPerSec</code></td>
+<td>zkclient被验证成功每秒的次数</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec</code></td>
+<td>当前zkclient被过期的每秒次数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-consumer和producer的监控信息"><a href="#3-consumer和producer的监控信息" class="headerlink" title="3. consumer和producer的监控信息"></a>3. consumer和producer的监控信息</h3><ul>
+<li><a href="http://docs.confluent.io/3.0.0/kafka/monitoring.html#producer-global-request-metrics" target="_blank" rel="noopener">confluent doc</a></li>
+<li><a href="https://kafka.apache.org/documentation/#monitoring" target="_blank" rel="noopener">kafka doc</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/26/kafka-broker的监控信息/" data-id="ckc3zejla0002byhb9wuj5zbt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/monitor/">monitor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/27/为新的jmxtrans添加新的outputwriter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          为新的jmxtrans添加新的outputwriter
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/03/同步、异步、阻塞、非阻塞/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">同步、异步、阻塞、非阻塞</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/scylladb/">scylladb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/思考/">思考</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/总结/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码分析/">源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/财经/">财经</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmxtrans/">jmxtrans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leveldb/">leveldb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scylladb/">scylladb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书笔记/">书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步同步/">异步同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程调度/">进程调度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/jmxtrans/" style="font-size: 10px;">jmxtrans</a> <a href="/tags/leveldb/" style="font-size: 20px;">leveldb</a> <a href="/tags/monitor/" style="font-size: 20px;">monitor</a> <a href="/tags/scylladb/" style="font-size: 10px;">scylladb</a> <a href="/tags/书笔记/" style="font-size: 10px;">书笔记</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/异步同步/" style="font-size: 10px;">异步同步</a> <a href="/tags/进程/" style="font-size: 10px;">进程</a> <a href="/tags/进程调度/" style="font-size: 10px;">进程调度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">LevelDB源码(二、leveldb option分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/27/leveldb源码分析-db接口分析/">LevelDB源码(一、leveldb接口分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/12/想好要去试试看了/">想好要去试试看了</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/23/第一次3-25/">第一次3.25</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/03/何为国债/">何为债券</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 nomoshen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

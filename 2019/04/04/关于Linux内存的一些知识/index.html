@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>关于Linux内存的一些知识 | nomoshen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="页表  每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：     有三个部分组成 * 页表目录 * 页表 * 偏移量 多级的好处是节省内存占用率，如果只有一级的话，那么即使不用全部的线程地址，也会占用很多无效内存; 所以多级可以有效的介绍这部分的开销; 那不同进程是如何找到自己的页表的物理地址呢？那么就要靠cr3(控制寄存器)，每次进程切换会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Linux内存的一些知识">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/index.html">
+<meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="页表  每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：     有三个部分组成 * 页表目录 * 页表 * 偏移量 多级的好处是节省内存占用率，如果只有一级的话，那么即使不用全部的线程地址，也会占用很多无效内存; 所以多级可以有效的介绍这部分的开销; 那不同进程是如何找到自己的页表的物理地址呢？那么就要靠cr3(控制寄存器)，每次进程切换会">
+<meta property="og:locale" content="english">
+<meta property="og:image" content="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/media/9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E.png">
+<meta property="og:updated_time" content="2019-04-18T06:24:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Linux内存的一些知识">
+<meta name="twitter:description" content="页表  每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：     有三个部分组成 * 页表目录 * 页表 * 偏移量 多级的好处是节省内存占用率，如果只有一级的话，那么即使不用全部的线程地址，也会占用很多无效内存; 所以多级可以有效的介绍这部分的开销; 那不同进程是如何找到自己的页表的物理地址呢？那么就要靠cr3(控制寄存器)，每次进程切换会">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/media/9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E.png">
+  
+    <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">nomoshen</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">尽可能努力一点点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-关于Linux内存的一些知识" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/04/关于Linux内存的一些知识/" class="article-date">
+  <time datetime="2019-04-04T03:50:57.000Z" itemprop="datePublished">2019-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于Linux内存的一些知识
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>页表</p>
+<p> 每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：</p>
+<p> <img src="media/9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E.png" alt="9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E"></p>
+</li>
+</ol>
+<p>有三个部分组成</p>
+<pre><code>* 页表目录
+* 页表
+* 偏移量
+</code></pre><p>多级的好处是节省内存占用率，如果只有一级的话，那么即使不用全部的线程地址，也会占用很多无效内存; 所以多级可以有效的介绍这部分的开销;</p>
+<p>那不同进程是如何找到自己的页表的物理地址呢？那么就要靠<code>cr3(控制寄存器)</code>，每次进程切换会把这个寄存器恢复，那么每次查找页表的时候就可以轻而易举的找到页表；</p>
+<ol start="2">
+<li><p>页表和页的权限控制</p>
+<p> 根据User/Supervisor这个flag来设置权限;这个flag是存在页表项的;</p>
+<ul>
+<li>0: 必须是内核态才能访问</li>
+<li><p>1: 总能访问</p>
+<p>通过这个就可以保护内存的访问，有的只有内核态的进程才能访问;</p>
+</li>
+</ul>
+</li>
+<li><p>PAE（物理地址扩展）</p>
+<p> 明明地址空间只有32bit，如何能使用超过4GB的物理内存空间呢；就出现了PAE了; 其本质在于在cr3这个寄存器上做了手段；cr3本身指向页表的物理地址，所以cr3可以变化，可以指向多个页表的物理地址就可以访问多个物理地址了；<br> 寻址空间依然是4GB，只不过通过切换来使用更多的内存；但是由于用户态的进程不能修改页表，所以它无法使用超过4GB的物理内存；</p>
+</li>
+<li><p>高速缓存和TLB</p>
+<p> 高速缓存主要解决的是cpu与ram速度的巨大差异，用来缓解这个过程；在cpu和ram之间加入高速缓存，cpu直接访问cache而不是RAM；使用的原理当时就是局部性原理；</p>
+<pre><code>* 时间局部性: 在一定返回内会重复执行某一些东西
+* 空间局部性: 访问了一个地址空间的内容，有极大的概率会访问周边的内存
+</code></pre><p> 高速缓存的组成是cacheline，每一个cacheline大概是64kb; 那么如果确定当前地址是否在cache中呢，其实方式依然还是用虚拟地址中的各个地址位来进行判断;目前有三种；</p>
+<p> TLB: 我们知道虚拟地址转为物理地址需要通过查找页表来进行；那么我们也知道RAM的速率和cpu相比很慢，如果每次都走一次RAM那基本上就没得玩了；所以TLB就是一个保存virtual-&gt;phyical的一个kv硬件缓存；但是当cr3这个寄存器修改的时候，TLB就会失效；so 切换进程是多么耗时的事情;</p>
+</li>
+<li><p>物理内存分布</p>
+<p> 内核会将下面的页框保留下来，不会被动态分配和交换到磁盘上去 </p>
+<ul>
+<li>在不可用的物理地址范围内的页框</li>
+<li><p>含有内核代码和已初始化的数据结构的页框</p>
+<p>内核通常为了能保存在物理内存上连续存储，会选择跳过第一个MB，从0x00100000的物理地址开始使用;</p>
+</li>
+</ul>
+</li>
+<li><p>内核页表</p>
+<p> 进程的页表在内核部分的页表是公用的；通过的方式是每次生成一个新的进程的时候，新的页表中内核页表是指向原来的进程是一样的；而用户态的页表是使用cow的方式，虽然也是一样的，从一开始来说;</p>
+</li>
+<li><p>缓存和tlb</p>
+<ul>
+<li><p>TLB高速缓存的刷新是内核而不是硬件；</p>
+<p>  通常情况来说，进程切换的时候就会让tlb失效；内核在进行cr3变更的时候就会触发这个操作; 下面的几个情况，内核会避免TLB切换:</p>
+<ul>
+<li>当两个使用相同页表集的普通进程之间执行切换的时候；比如线程的切换</li>
+<li>当一个普通进程和一个内核线程间进行切换的时候；因为内核线程是没有自己单独的页表的，而是内核统一的页表；所以切换的时候内核其实还是用进程之前的页表;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/04/关于Linux内存的一些知识/" data-id="ckc3zejlr000gbyhbgpmy198z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/20/2019年-年终总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2019年-年终总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/29/关于线程、进程、协程的了解/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于线程、进程、协程的了解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/scylladb/">scylladb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/思考/">思考</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/总结/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码分析/">源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/财经/">财经</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmxtrans/">jmxtrans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leveldb/">leveldb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scylladb/">scylladb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书笔记/">书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步同步/">异步同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程调度/">进程调度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/jmxtrans/" style="font-size: 10px;">jmxtrans</a> <a href="/tags/leveldb/" style="font-size: 20px;">leveldb</a> <a href="/tags/monitor/" style="font-size: 20px;">monitor</a> <a href="/tags/scylladb/" style="font-size: 10px;">scylladb</a> <a href="/tags/书笔记/" style="font-size: 10px;">书笔记</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/异步同步/" style="font-size: 10px;">异步同步</a> <a href="/tags/进程/" style="font-size: 10px;">进程</a> <a href="/tags/进程调度/" style="font-size: 10px;">进程调度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">LevelDB源码(二、leveldb option分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/27/leveldb源码分析-db接口分析/">LevelDB源码(一、leveldb接口分析)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/12/想好要去试试看了/">想好要去试试看了</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/23/第一次3-25/">第一次3.25</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/03/何为国债/">何为债券</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 nomoshen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
