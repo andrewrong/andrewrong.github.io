@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="nomoshen">
 <meta property="og:description" content="系列第三章，主要分析核心DBImpl的数据成员的含义, 并且会包含讲到Version、VersionSet、VersionEdit这几个版本管理的核心大类；为什么先讲这些呢？因为我在看后面的读写流程的时候，发现如果事先把这些定义都能理解清楚了，对流程上的关键点会更加清晰；尤其在于Leveldb在被打开瞬间，数据如何恢复特别的重要. 1. DBImpl类的数据成员123456789101112131">
 <meta property="og:locale" content="english">
-<meta property="og:updated_time" content="2020-07-02T16:11:26.423Z">
+<meta property="og:updated_time" content="2020-07-02T23:53:46.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LevelDB源码(三、leveldb DBImpl成员分析)">
 <meta name="twitter:description" content="系列第三章，主要分析核心DBImpl的数据成员的含义, 并且会包含讲到Version、VersionSet、VersionEdit这几个版本管理的核心大类；为什么先讲这些呢？因为我在看后面的读写流程的时候，发现如果事先把这些定义都能理解清楚了，对流程上的关键点会更加清晰；尤其在于Leveldb在被打开瞬间，数据如何恢复特别的重要. 1. DBImpl类的数据成员123456789101112131">
@@ -280,7 +280,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-07-03T00:11:26+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2020-07-03T07:53:46+08:00">
                 2020-07-03
               </time>
             
@@ -418,6 +418,20 @@
 </ul>
 <p>从数据结构来说，Version包含了当前这个版本整体的文件结构，比如每次包含了哪些文件，哪些文件就可能需要进行compaction之类的; 上下版本的list;</p>
 <h5 id="VersionSet"><a href="#VersionSet" class="headerlink" title="VersionSet"></a>VersionSet</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> VersionSet &#123;</span><br><span class="line">  Env* <span class="keyword">const</span> env_;</span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> dbname_;</span><br><span class="line">  <span class="keyword">const</span> Options* <span class="keyword">const</span> options_;</span><br><span class="line">  TableCache* <span class="keyword">const</span> table_cache_;</span><br><span class="line">  <span class="keyword">const</span> InternalKeyComparator icmp_;</span><br><span class="line">  <span class="keyword">uint64_t</span> next_file_number_;</span><br><span class="line">  <span class="keyword">uint64_t</span> manifest_file_number_;</span><br><span class="line">  <span class="keyword">uint64_t</span> last_sequence_;</span><br><span class="line">  <span class="keyword">uint64_t</span> log_number_;</span><br><span class="line">  <span class="keyword">uint64_t</span> prev_log_number_;  <span class="comment">// 0 or backing store for memtable being compacted</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Opened lazily</span></span><br><span class="line">  WritableFile* descriptor_file_;</span><br><span class="line">  <span class="built_in">log</span>::Writer* descriptor_log_;</span><br><span class="line">  Version dummy_versions_;  <span class="comment">// Head of circular doubly-linked list of versions.</span></span><br><span class="line">  Version* current_;        <span class="comment">// == dummy_versions_.prev_</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Per-level key at which the next compaction at that level should start.</span></span><br><span class="line">  <span class="comment">// Either an empty string, or a valid InternalKey.</span></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> compact_pointer_[config::kNumLevels]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>env_: 同上</li>
+<li>dbname_: leveldb路径</li>
+<li>options_： 同上dbimpl_</li>
+<li>icmp_: 同上</li>
+<li>next_file_number_: 下一个文件id; 这个文件可能指sstable，目前还不确定</li>
+<li>manifest_file_number_: manifest文件的ID</li>
+<li>last_sequence_：最大序列号</li>
+<li>log_number_： wal文件id</li>
+<li>prev_log_number_： 同上</li>
+<li>dummy_versions_: version双向链表的头</li>
+<li>current_: dummy_versions_.prev_，表示当前version</li>
+<li>compact_pointer_：TODO 未知</li>
+</ul>
 
       
     </div>
