@@ -231,6 +231,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/进程调度之死循环/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/12/进程调度之死循环/" itemprop="url">进程调度之死循环</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T22:21:34+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2017-04-13T09:52:30+08:00">
+                2017-04-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这篇文章主要讲的是Linux的进程调度问题，但是能形象的解释其中的一系列的观点，所以找了一个比较经典问题来做载体. 在具体开始之前，先了解一下什么是进程调度呢？</p>
+<blockquote>
+<p>个人的理解是: 目前操作系统基本都是多任务操作系统，也就是说一个操作系统中存在有多个进程，但是CPU资源是有限的，不能让所有的进程都能一直在运行；所以调度系统就是一个将cpu资源合理分配给各个可运行状态的进程的内核子系统,是多任务操作系统的基础;</p>
+</blockquote>
+<p>貌似很复杂难懂的调度系统有着一个非常简单的目标: <strong>最大限度利用CPU的处理时间</strong>; 调度系统的基本任务就是: <strong>从多个可运行状态的进程中挑选出一个合适的进程来运行</strong>, 这里的<strong>合适</strong>也是调度系统的核心算法.</p>
+<h4 id="1-提问"><a href="#1-提问" class="headerlink" title="1. 提问"></a>1. 提问</h4><p><em>为什么死循环能让CPU利用达到100%呢?</em> </p>
+<p>这个问题也是困扰我多年的问题，当然可能就是因为对Linux操作系统的进程调度没有学好才导致这个问题一直困扰我. 针对上面的问题还能引出几个其他的问题?</p>
+<ul>
+<li>死循环是否会导致系统响应速度下降;</li>
+<li></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/07/Linux之进程管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1927,7 +2091,7 @@ curl: (7) Failed connect to localhost:3000; Connection refused        curl: (7) 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
