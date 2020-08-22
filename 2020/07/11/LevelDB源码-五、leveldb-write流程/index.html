@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+    <head><meta name="generator" content="Hexo 3.9.0">
+		
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content>
+        <link rel="shortcut icon" href="/asset/guolin.png">
+        <link rel="canonical" href="http://guolinn.com/">
+        <link rel="alternate" type="application/rss+xml" title="nomoshen" href="/atom.xml">
+        <title>LevelDB源码(五、leveldb write流程) | nomoshen</title>
+        <meta name="description" content="{{meta_description}}">
+
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/crisp.css">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    
+		<body class="post-template">
+	
+
+        <header id="header">
+            <a id="logo" href="/"><img src="/asset/guolin.png" alt="nomoshen"></a>
+            <h1><a href="/">nomoshen</a></h1>
+            <p>尽可能努力一点点</p>
+            <div id="follow-icons">
+                  <a href="/atom.xml"><i class="fa fa-rss-square fa-2x"></i></a>
+  </div>
+<h6><a href="/about">About</a></h6>
+        </header>
+
+        <main id="content">
+        
+
+<article class="post">
+  July 11, 2020
+  
+    <span class="taglist">  &middot; 
+    
+    
+      <a href="/tags/leveldb/">leveldb</a> 
+    
+    </span>
+  
+
+  <h1 class="post-title">LevelDB源码(五、leveldb write流程)</h1>
+  <section class="post-content article-entry">
+    <p>Leveldb的写流程分析，这个过程对比读来说已经简单很多，但是里面也涉及到很多的点；尤其是如果在线程安全的情况下进行批量写，如何保证多版本等; </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">Status DBImpl::Write(const WriteOptions&amp; options, WriteBatch* updates) &#123;</span><br><span class="line">  Writer w(&amp;mutex_);</span><br><span class="line">  w.batch = updates;</span><br><span class="line">  w.sync = options.sync;</span><br><span class="line">  w.done = false;</span><br><span class="line"></span><br><span class="line">  MutexLock l(&amp;mutex_);</span><br><span class="line">  writers_.push_back(&amp;w);</span><br><span class="line">  /**</span><br><span class="line">   * w.done: 表示是否完成</span><br><span class="line">   * writers_.front: 表示当前write是否是最前面的writer</span><br><span class="line">   *</span><br><span class="line">   * 如果未完成并且当前写入不是最久未完成的write，就进行等待;</span><br><span class="line">   */</span><br><span class="line">  while (!w.done &amp;&amp; &amp;w != writers_.front()) &#123;</span><br><span class="line">    w.cv.Wait();</span><br><span class="line">  &#125;</span><br><span class="line">  if (w.done) &#123;</span><br><span class="line">    return w.status;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //当前的writer是最前面的writer，有他来完成整体写入</span><br><span class="line">  // May temporarily unlock and wait.</span><br><span class="line">  Status status = MakeRoomForWrite(updates == nullptr);</span><br><span class="line">  uint64_t last_sequence = versions_-&gt;LastSequence();</span><br><span class="line">  Writer* last_writer = &amp;w;</span><br><span class="line">  if (status.ok() &amp;&amp; updates != nullptr) &#123;  // nullptr batch is for compactions</span><br><span class="line">    WriteBatch* write_batch = BuildBatchGroup(&amp;last_writer);</span><br><span class="line">    //设置了一个新的seqId</span><br><span class="line">    WriteBatchInternal::SetSequence(write_batch, last_sequence + 1);</span><br><span class="line">    //seq跳变到很大, 这是因为这里面包含了多个写操作，每一个put操作都会对应一个seqId</span><br><span class="line">    last_sequence += WriteBatchInternal::Count(write_batch);</span><br><span class="line"></span><br><span class="line">    // Add to log and apply to memtable.  We can release the lock</span><br><span class="line">    // during this phase since &amp;w is currently responsible for logging</span><br><span class="line">    // and protects against concurrent loggers and concurrent writes</span><br><span class="line">    // into mem_.</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 为什么可以释放的原因在于：即使释放了，只是让更多的数据进入队列，但是put线程都会堵在获得mutex_上面</span><br><span class="line">     * 所以这里不会有并发问题，释放了可以让更多的数据进来;</span><br><span class="line">     */</span><br><span class="line">    &#123;</span><br><span class="line">      mutex_.Unlock();</span><br><span class="line">      //1. 写wal，写成功了才返回</span><br><span class="line">      status = log_-&gt;AddRecord(WriteBatchInternal::Contents(write_batch));</span><br><span class="line">      bool sync_error = false;</span><br><span class="line">      if (status.ok() &amp;&amp; options.sync) &#123;</span><br><span class="line">        status = logfile_-&gt;Sync();</span><br><span class="line">        if (!status.ok()) &#123;</span><br><span class="line">          sync_error = true;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (status.ok()) &#123;</span><br><span class="line">        //2. 写memtable</span><br><span class="line">        status = WriteBatchInternal::InsertInto(write_batch, mem_);</span><br><span class="line">      &#125;</span><br><span class="line">      mutex_.Lock();</span><br><span class="line">      if (sync_error) &#123;</span><br><span class="line">        // The state of the log file is indeterminate: the log record we</span><br><span class="line">        // just added may or may not show up when the DB is re-opened.</span><br><span class="line">        // So we force the DB into a mode where all future writes fail.</span><br><span class="line">        RecordBackgroundError(status);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 因为返回的write_batch可能本身就有可能不是与tmp_batch_一样的，所以就需要</span><br><span class="line">     */</span><br><span class="line">    if (write_batch == tmp_batch_) tmp_batch_-&gt;Clear();</span><br><span class="line">    //跳变的序列号</span><br><span class="line">    versions_-&gt;SetLastSequence(last_sequence);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 自己不需要唤醒自己</span><br><span class="line">   */</span><br><span class="line">  while (true) &#123;</span><br><span class="line">    Writer* ready = writers_.front();</span><br><span class="line">    writers_.pop_front();</span><br><span class="line">    if (ready != &amp;w) &#123;</span><br><span class="line">      //唤醒其他的等待写入的线程</span><br><span class="line">      ready-&gt;status = status;</span><br><span class="line">      ready-&gt;done = true;</span><br><span class="line">      ready-&gt;cv.Signal();</span><br><span class="line">    &#125;</span><br><span class="line">    if (ready == last_writer) break;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Notify new head of write queue</span><br><span class="line">  if (!writers_.empty()) &#123;</span><br><span class="line">    //如果队列非空就发消息给头部，让他来做写入操作</span><br><span class="line">    writers_.front()-&gt;cv.Signal();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-大致流程"><a href="#1-大致流程" class="headerlink" title="1. 大致流程"></a>1. 大致流程</h3><p><code>DB::put-&gt;DBImpl:Write</code>,其实写的流程大致是这样，把握这个细节可以让你在看源码的过程中不会太迷茫；</p>
+<ol>
+<li>构建<code>WriteBatch</code>实例，这个类作用就是用来合并写操作的，构建出一个批量写入的对象；这个对象也挺有意思的，后面会分析</li>
+<li>将<code>WriteBatch</code>放到一个队列中去; 队列存放的都是一次put操作的<code>WriteBatch</code>对象，可想而知，这里的writebatch目前都还是单次操作的数据</li>
+<li>让某一个线程去对队列中的WriteBatch操作进行合并</li>
+<li>记入WAL</li>
+<li>写入Memtable；这边需要注意的是:<strong>wal写入成功之后才会写memtable</strong></li>
+<li>唤醒一些线程，然后返回结果;</li>
+</ol>
+<p>所以这个流程中，需要关注的点在于WriteBatch的合并、高性能的原因、wal和memtable的写入过程，当然还是有seqId的变化;</p>
+<h3 id="2-WriteBatch合并"><a href="#2-WriteBatch合并" class="headerlink" title="2. WriteBatch合并"></a>2. WriteBatch合并</h3><p>首先WriteBatch是一个非常简单的合并的对象，它线程不安全；那如何在多线程操作的时候去保证写入是线程安全的呢？这个其实真的是leveldb的一个不错的优化，导致后期的很多的代码都按照这个模式进行优化;</p>
+<h4 id="2-1-如何做到多线程写入安全？"><a href="#2-1-如何做到多线程写入安全？" class="headerlink" title="2.1 如何做到多线程写入安全？"></a>2.1 如何做到多线程写入安全？</h4><p>其实看dbimpl可以看出它的<code>mutex</code>其实就只有一个，如果在减少锁粒度的情况下，保证高性能的呢; 本身我觉得对于资源竞争这个问题，能解决的方式其实可以归类于几种：</p>
+<ul>
+<li>锁，一定是最安全的；根据不同的场景，使用不同的锁可以有着不错的性能</li>
+<li>原子变量； 本质上是内存模型+cas的方式进行，与锁的不同在于底层保证原子性，缺点在于：不通用，只能针对某一些数据类型</li>
+<li>threadlocal变量; 性能上应该问题不大，问题在于场景上还是很收到限制的；假如你要中心管理的时候，就比较难受，而且可见的内存占用；典型的用空间换时间的方案；但是大部分时候可以用用，反正可以用方案绕过上面的这些问题，只是不优雅而已;</li>
+<li>让所有的资源的操作都放到一个线程去操作；这样可以保证绝对的线程安全；但是问题在于不是所有的场景你都能接受这个，之前的问题在于需要返回结果，目前貌似用futurn + promise可以进行;</li>
+</ul>
+<p>而锁的优化大部分的方式就是：1. 用不同的锁 2. 缩小锁的粒度，通过使用细粒度锁来进行保证 3. 尽可能的减少锁的范围，不知道算不算和第二种类似; </p>
+<p>但是在leveldb中，它就通过一个mutex是如何保证高性能呢？答案是：</p>
+<ul>
+<li>leveldb的场景; 因为leveldb本身是一个io密集性的应用，这就代表了cpu大部分时候等待着io，那么多线程的优势就没有多少价值；</li>
+<li>让一个线程尽可能多做点事情；批量写入只是选择了一个线程，并且让它做合并、写入wal、写入memtable的操作；其他的线程等待即可; 当然这个也是因为上面的leveldb的场景才能这样，如果是一个cpu密集性的应用，那这个方式基本上不行，因为多核优势就没有了；</li>
+</ul>
+<h4 id="2-2-WriteBatch分析"><a href="#2-2-WriteBatch分析" class="headerlink" title="2.2 WriteBatch分析"></a>2.2 WriteBatch分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void WriteBatchInternal::Append(WriteBatch* dst, const WriteBatch* src) &#123;</span><br><span class="line">  SetCount(dst, Count(dst) + Count(src));</span><br><span class="line">  assert(src-&gt;rep_.size() &gt;= kHeader);</span><br><span class="line">  dst-&gt;rep_.append(src-&gt;rep_.data() + kHeader, src-&gt;rep_.size() - kHeader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>合并结构的分析</li>
+</ul>
+<p><img src="media/15946849685529.jpg" alt></p>
+<ul>
+<li><p>前面12个字节是header，用来保存</p>
+<ul>
+<li>seqId：这个批量操作的起始seqId</li>
+<li>count: 合并操作的个数</li>
+</ul>
+</li>
+<li><p>后面就是：kv的list；第一个字节是操作的类型;</p>
+</li>
+</ul>
+<h4 id="2-3-合并时机"><a href="#2-3-合并时机" class="headerlink" title="2.3 合并时机"></a>2.3 合并时机</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">while (!w.done &amp;&amp; &amp;w != writers_.front()) &#123;</span><br><span class="line">  w.cv.Wait();</span><br><span class="line">&#125;</span><br><span class="line">if (w.done) &#123;</span><br><span class="line">  return w.status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是上面写入过程中会遇到的一段代码，通常put进来之后必定会运行这段代码，这段代码的含义是: 假如w没有完成 或者 w不是队列中最早进来的那个写入，那么就进行等待；是不是很神奇；其实这个原因在于：大部分写入的操作只是将写入操作放入队列；但是肯定有那么一个write它进来的时候就是第一个写入，所以它不会进入等待状态，就开始后面的操作；</p>
+<p>那你问题肯定是，那也只有一个是第一个写入操作啊，当然在后期写入完成之后会唤醒这种等待，那个时候写完就会被提出队列，那么自然会有新的最早的写入咯</p>
+<h3 id="3-腾出空间进行写入操作"><a href="#3-腾出空间进行写入操作" class="headerlink" title="3. 腾出空间进行写入操作"></a>3. 腾出空间进行写入操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 看名字就是说为写入过程预留空间，可能会检查</span><br><span class="line"> *</span><br><span class="line"> * 1. level0的文件个数是否已经操作一个阈值</span><br><span class="line"> * 2. memtable是否已经满</span><br><span class="line"> * 3. 如果memtable是full。并且immtable 为空，所以内存中已经满了，需要进行compaction，这个时候就唤醒背后线程</span><br><span class="line"> * 4. l0文件依然还是很多，需要唤醒compaction</span><br><span class="line"> * * @param force</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">Status DBImpl::MakeRoomForWrite(bool force) &#123;</span><br><span class="line">  mutex_.AssertHeld();</span><br><span class="line">  assert(!writers_.empty());</span><br><span class="line">  bool allow_delay = !force;</span><br><span class="line">  Status s;</span><br><span class="line">  while (true) &#123;</span><br><span class="line">    if (!bg_error_.ok()) &#123;</span><br><span class="line">      // Yield previous error</span><br><span class="line">      s = bg_error_;</span><br><span class="line">      break;</span><br><span class="line">    &#125; else if (allow_delay &amp;&amp; versions_-&gt;NumLevelFiles(0) &gt;=</span><br><span class="line">                                  config::kL0_SlowdownWritesTrigger) &#123;</span><br><span class="line">      // 判断当前的level0层次的文件是否已经达到需要慢慢写入的过程，可能写的太快，compaction来不及</span><br><span class="line">      // We are getting close to hitting a hard limit on the number of</span><br><span class="line">      // L0 files.  Rather than delaying a single write by several</span><br><span class="line">      // seconds when we hit the hard limit, start delaying each</span><br><span class="line">      // individual write by 1ms to reduce latency variance.  Also,</span><br><span class="line">      // this delay hands over some CPU to the compaction thread in</span><br><span class="line">      // case it is sharing the same core as the writer.</span><br><span class="line">      mutex_.Unlock();</span><br><span class="line">      env_-&gt;SleepForMicroseconds(1000);</span><br><span class="line">      allow_delay = false;  // Do not delay a single write more than once</span><br><span class="line">      mutex_.Lock();</span><br><span class="line">    &#125; else if (!force &amp;&amp;</span><br><span class="line">               (mem_-&gt;ApproximateMemoryUsage() &lt;= options_.write_buffer_size)) &#123;</span><br><span class="line">      // There is room in current memtable</span><br><span class="line">      break;</span><br><span class="line">    &#125; else if (imm_ != nullptr) &#123;</span><br><span class="line">      // We have filled up the current memtable, but the previous</span><br><span class="line">      // one is still being compacted, so we wait.</span><br><span class="line">      Log(options_.info_log, &quot;Current memtable full; waiting...\n&quot;);</span><br><span class="line">      background_work_finished_signal_.Wait();</span><br><span class="line">    &#125; else if (versions_-&gt;NumLevelFiles(0) &gt;= config::kL0_StopWritesTrigger) &#123;</span><br><span class="line">      // There are too many level-0 files.</span><br><span class="line">      Log(options_.info_log, &quot;Too many L0 files; waiting...\n&quot;);</span><br><span class="line">      background_work_finished_signal_.Wait();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      /**</span><br><span class="line">       * 判断到最后的情况就是：mem已经满，但是imm还没有，这个时候就切换memtable，生成一个新memtable，顺便切换了wal</span><br><span class="line">       * wal的大小和memtable大小数据差不多吧，每次都切换memtable都会切换wal</span><br><span class="line">       */</span><br><span class="line">      // Attempt to switch to a new memtable and trigger compaction of old</span><br><span class="line">      assert(versions_-&gt;PrevLogNumber() == 0);</span><br><span class="line">      uint64_t new_log_number = versions_-&gt;NewFileNumber();</span><br><span class="line">      WritableFile* lfile = nullptr;</span><br><span class="line">      s = env_-&gt;NewWritableFile(LogFileName(dbname_, new_log_number), &amp;lfile);</span><br><span class="line">      if (!s.ok()) &#123;</span><br><span class="line">        // Avoid chewing through file number space in a tight loop.</span><br><span class="line">        versions_-&gt;ReuseFileNumber(new_log_number);</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      delete log_;</span><br><span class="line">      delete logfile_;</span><br><span class="line">      logfile_ = lfile;</span><br><span class="line">      logfile_number_ = new_log_number;</span><br><span class="line">      log_ = new log::Writer(lfile);</span><br><span class="line">      imm_ = mem_;</span><br><span class="line">      has_imm_.store(true, std::memory_order_release);</span><br><span class="line">      mem_ = new MemTable(internal_comparator_);</span><br><span class="line">      mem_-&gt;Ref();</span><br><span class="line">      force = false;  // Do not force another compaction if have room</span><br><span class="line">      MaybeScheduleCompaction();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次写操作都会进行这样的判断，用来确定当前写入是否要进行必要的变化；这种变化可能会有：</p>
+<ul>
+<li>memtable转成immutable</li>
+<li></li>
+</ul>
+
+  </section>
+  <footer class="post-footer">
+    <!--
+    <section class="author">
+      <h4>nomoshen</h4>
+      <p></p>
+    </section>
+    -->
+  </footer>
+</article>
+
+<nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2020/07/14/从leveldb的wal恢复到hbase的hlog恢复看seqId/">
+        ← prev <!--从leveldb的wal恢复到hbase的hlog恢复看seqId-->
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2020/07/06/LevelDB源码-四、leveldb-open流程/">
+        <!--LevelDB源码(四、leveldb open流程)--> next →
+    </a>
+    
+</nav>
+
+
+        </main>
+        <footer id="footer">
+            <section id="footer-message">&copy; 2020 nomoshen. All rights reserved. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. <a href="https://github.com/guolin/crisp-hexo-theme" target="_blank">crisp</a> theme by <a href="guolin.github.io" target="_blank">Guo Lin</a>.</section>
+        </footer>
+    </body>
+</html>
+
+

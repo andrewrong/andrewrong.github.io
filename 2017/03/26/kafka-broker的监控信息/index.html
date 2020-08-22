@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+    <head><meta name="generator" content="Hexo 3.9.0">
+		
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content>
+        <link rel="shortcut icon" href="/asset/guolin.png">
+        <link rel="canonical" href="http://guolinn.com/">
+        <link rel="alternate" type="application/rss+xml" title="nomoshen" href="/atom.xml">
+        <title>kafka broker的监控信息 | nomoshen</title>
+        <meta name="description" content="{{meta_description}}">
+
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/crisp.css">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    
+		<body class="post-template">
+	
+
+        <header id="header">
+            <a id="logo" href="/"><img src="/asset/guolin.png" alt="nomoshen"></a>
+            <h1><a href="/">nomoshen</a></h1>
+            <p>尽可能努力一点点</p>
+            <div id="follow-icons">
+                  <a href="/atom.xml"><i class="fa fa-rss-square fa-2x"></i></a>
+  </div>
+<h6><a href="/about">About</a></h6>
+        </header>
+
+        <main id="content">
+        
+
+<article class="post">
+  March 26, 2017
+  
+    <span class="taglist">  &middot; 
+    
+    
+      <a href="/tags/monitor/">monitor</a> 
+    
+    </span>
+  
+
+  <h1 class="post-title">kafka broker的监控信息</h1>
+  <section class="post-content article-entry">
+    <h3 id="1-broker的监控信息"><a href="#1-broker的监控信息" class="headerlink" title="1. broker的监控信息"></a>1. broker的监控信息</h3><table>
+<thead>
+<tr>
+<th>标题</th>
+<th>mbean name</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message in rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec</code></td>
+<td>当前broker每秒的消息个数</td>
+</tr>
+<tr>
+<td>Byte in rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec</code></td>
+<td>当前broker的每秒的入口流量</td>
+</tr>
+<tr>
+<td>Byte out rate</td>
+<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec</code></td>
+<td>当前broker的每秒的出口流量</td>
+</tr>
+<tr>
+<td>Request rate</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>当前broker的每秒的请求量; 根据request的不同会返回不同类型的数据</td>
+</tr>
+<tr>
+<td>Log flush rate and time</td>
+<td><code>kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs</code></td>
+<td>日志刷盘的频率和时间；其中<em>OneMinuteRate:表示一分钟内每秒钟的刷盘次数; </em>999thPercentile:99.9%的刷盘需要的时间</td>
+</tr>
+<tr>
+<td>of under replicated partitions</td>
+<td><code>kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions</code></td>
+<td>ISR &lt; 备份次数的分区个数，这样的分区应该=0，如果大于0就进行报警最好;</td>
+</tr>
+<tr>
+<td>Is controller active on broker</td>
+<td><code>kafka.controller:type=KafkaController,name=ActiveControllerCount</code></td>
+<td>当前集群中controller的个数,一个集群只能有一个controller</td>
+</tr>
+<tr>
+<td>Leader election rate</td>
+<td><code>kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs</code></td>
+<td>leader选举的频率和需要的时间；其中<em>OneMinuteRate:表示一分钟内出现选举的次数; </em>999thPercentile:99.9%的选举需要的时间</td>
+</tr>
+<tr>
+<td>Unclean leader election rate</td>
+<td><code>kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec</code></td>
+<td>非正常的备份被选举成leader的频率;</td>
+</tr>
+<tr>
+<td>Partition counts</td>
+<td><code>kafka.server:type=ReplicaManager,name=PartitionCount</code></td>
+<td>当前broker的分区个数,就是在存储数据的目录下面的分区个数;</td>
+</tr>
+<tr>
+<td>Leader replica counts</td>
+<td><code>kafka.server:type=ReplicaManager,name=LeaderCount</code></td>
+<td>当前broker中的leader分区的个数</td>
+</tr>
+<tr>
+<td>ISR shrink rate</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrShrinksPerSec</code></td>
+<td>当前broker每分钟分区缩减的频率;</td>
+</tr>
+<tr>
+<td>ISR expansion rate</td>
+<td><code>kafka.server:type=ReplicaManager,name=IsrExpandsPerSec</code></td>
+<td>当前broker每分钟分区扩展的频率;</td>
+</tr>
+<tr>
+<td>Max lag in messages btw follower and leader replicas</td>
+<td><code>kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica</code></td>
+<td>当前broker中分区与leader之前同步的最大lag数</td>
+</tr>
+<tr>
+<td>Lag in messages per follower replica</td>
+<td><code>kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=([-.\w]+),topic=([-.\w]+),partition=([0-9]+)</code></td>
+<td>当前broker中备本分区与leader之间的lag数</td>
+</tr>
+<tr>
+<td>Requests waiting in the producer purgatory</td>
+<td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
+<td>broker中，在等待ack的producer请求个数;还有Fetch、topic、Rebalance、Heartbeat请求</td>
+</tr>
+<tr>
+<td>Request total time</td>
+<td><code>kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求所需要的全部时间;根据不同的类型求个不一样的结果</td>
+</tr>
+<tr>
+<td>Time the request waits in the request queue</td>
+<td><code>kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求在队列中等待的时间</td>
+</tr>
+<tr>
+<td>Time the request is processed at the leader</td>
+<td><code>kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>请求被leader节点处理的时间</td>
+</tr>
+<tr>
+<td>Time the request waits for the follower</td>
+<td><code>kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>一个请求等待follower的时间;假如ack=all，那么这个值就是非0</td>
+</tr>
+<tr>
+<td>Time the request waits in the response queue</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>一个请求在response队列中的时间</td>
+</tr>
+<tr>
+<td>Time to send the response</td>
+<td><code>kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
+<td>发送请求的时间</td>
+</tr>
+<tr>
+<td>Number of messages the consumer lags behind the producer by. Published by the consumer, not broker.</td>
+<td><code>Old consumer: kafka.consumer:type=ConsumerFetcherManager,name=MaxLag,clientId=([-.\w]+) New consumer: kafka.consumer:type=consumer-fetch-manager-metrics,client-id={client-id} Attribute: records-lag-max</code></td>
+<td>consumer落后producer的lag</td>
+</tr>
+<tr>
+<td>The average fraction of time the network processors are idle</td>
+<td><code>kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent</code></td>
+<td>网络处理空闲的因子，在0，1之间，通常是&gt; 0.3</td>
+</tr>
+<tr>
+<td>The average fraction of time the request handler threads are idle</td>
+<td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
+<td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-关于zookeeper相关的监控信息"><a href="#2-关于zookeeper相关的监控信息" class="headerlink" title="2. 关于zookeeper相关的监控信息"></a>2. 关于zookeeper相关的监控信息</h3><table>
+<thead>
+<tr>
+<th>mbean name</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectedPerSec</code></td>
+<td>当前broker与zk之间的每秒断链的次数；也就是频率</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectedPerSec</code></td>
+<td>ZooKeeper client is connected to the ensemble and ready to execute operations</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailedPerSec</code></td>
+<td>与zk进行连接并且是因为认证失败的每秒的次数</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperConnectedReadOnlyPerSec</code></td>
+<td>The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING. Consequently, the client can only read the ZooKeeper state, but not make any changes (create, delete, or set the data of znodes).</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticatedPerSec</code></td>
+<td>zkclient被验证成功每秒的次数</td>
+</tr>
+<tr>
+<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec</code></td>
+<td>当前zkclient被过期的每秒次数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-consumer和producer的监控信息"><a href="#3-consumer和producer的监控信息" class="headerlink" title="3. consumer和producer的监控信息"></a>3. consumer和producer的监控信息</h3><ul>
+<li><a href="http://docs.confluent.io/3.0.0/kafka/monitoring.html#producer-global-request-metrics" target="_blank" rel="noopener">confluent doc</a></li>
+<li><a href="https://kafka.apache.org/documentation/#monitoring" target="_blank" rel="noopener">kafka doc</a></li>
+</ul>
+
+  </section>
+  <footer class="post-footer">
+    <!--
+    <section class="author">
+      <h4>nomoshen</h4>
+      <p></p>
+    </section>
+    -->
+  </footer>
+</article>
+
+<nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2017/03/27/为新的jmxtrans添加新的outputwriter/">
+        ← prev <!--为新的jmxtrans添加新的outputwriter-->
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/03/03/同步、异步、阻塞、非阻塞/">
+        <!--同步、异步、阻塞、非阻塞--> next →
+    </a>
+    
+</nav>
+
+
+        </main>
+        <footer id="footer">
+            <section id="footer-message">&copy; 2020 nomoshen. All rights reserved. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. <a href="https://github.com/guolin/crisp-hexo-theme" target="_blank">crisp</a> theme by <a href="guolin.github.io" target="_blank">Guo Lin</a>.</section>
+        </footer>
+    </body>
+</html>
+
+

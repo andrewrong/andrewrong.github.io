@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+    <head><meta name="generator" content="Hexo 3.9.0">
+		
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content>
+        <link rel="shortcut icon" href="/asset/guolin.png">
+        <link rel="canonical" href="http://guolinn.com/">
+        <link rel="alternate" type="application/rss+xml" title="nomoshen" href="/atom.xml">
+        <title>整理 | nomoshen</title>
+        <meta name="description" content="{{meta_description}}">
+
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/crisp.css">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    
+		<body class="post-template">
+	
+
+        <header id="header">
+            <a id="logo" href="/"><img src="/asset/guolin.png" alt="nomoshen"></a>
+            <h1><a href="/">nomoshen</a></h1>
+            <p>尽可能努力一点点</p>
+            <div id="follow-icons">
+                  <a href="/atom.xml"><i class="fa fa-rss-square fa-2x"></i></a>
+  </div>
+<h6><a href="/about">About</a></h6>
+        </header>
+
+        <main id="content">
+        
+
+<article class="post">
+  January 10, 2019
+  
+    <span class="taglist">  &middot; 
+    
+    
+      <a href="/tags/存储/">存储</a> 
+    
+    </span>
+  
+
+  <h1 class="post-title">整理</h1>
+  <section class="post-content article-entry">
+    <p>2018年末2019年初，又开始新的一年面试;昨天晚上面了一个做存储的公司，全程基本上都是被压着问，通过这次面试给我最大的感悟就是基础知识需要扎实，并且要互联起来; 知识点除了要知道还要知道为什么这么设计; 这次面试对基础询问真的很多很多;</p>
+<h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h3><ul>
+<li>面试题: 对于一个有序数组，找到第一个大于等于目标value的index; </li>
+</ul>
+<blockquote>
+<p>一看就是一个二分法查询的过程，但是我当时脑中一片混乱，实在是不知道怎么办; 这个对二分法需要进行改造，主要是在小于等于中间值的时候，需要去比较前面一个值的大小，如果小那就指定的值，如果大于目标值那就在二分查找一下;</p>
+</blockquote>
+<ul>
+<li><p>C++系列的问题</p>
+<ul>
+<li><p>new、delete和free、malloc的区别; 为什么对于数组new和delete需要加上<code>[]</code>来做区别</p>
+<ol>
+<li>new 除了可以在堆上使用，也可以用户自定义内存地址来申请;</li>
+<li>new即会申请内存空间也会调用数据类型的构造函数初始化;</li>
+<li>为什么数组new需要带上<code>[]</code>, 本质上依然还是需要告诉编译器去调用构造函数; 而delete带有<code>[]</code>则是为了调用析构函数</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>右值引用是什么? 推出的目的又是什么?</p>
+</li>
+<li>vector的push_back的时间复杂度是多少? O(1), 均摊下来应该是常量</li>
+<li><p>C++ 6种内存模型;</p>
+<ul>
+<li>内存模型用来解决什么问题</li>
+<li>具体的区别什么</li>
+</ul>
+</li>
+<li><p>linux的问题</p>
+<ul>
+<li>进程、线程、协程之前的区别点;<ul>
+<li>进程、线程、协程切换上下文切换需要保存哪些信息</li>
+</ul>
+</li>
+<li>load定义</li>
+<li>虚拟地址空间的排布</li>
+</ul>
+</li>
+<li><p>网络</p>
+<ul>
+<li>tcp三次握手和断开的4次握手;  这边深究了一下为什么三次握手需要三次而不是二次或者其他</li>
+<li>epoll的作用，实现原理，为什么高效</li>
+</ul>
+</li>
+<li><p>存储</p>
+<ul>
+<li>介绍一下LSM-Tree结构</li>
+<li><p>rocksdb查询过程; </p>
+<ul>
+<li>假如没有分层会怎么样,都聚集在L0层查询效率会变差很多</li>
+<li>compaction的过程？写放大是如何计算方式?</li>
+<li>writeBatch的作用</li>
+<li>writeBatch的原子性是如何实现的</li>
+<li>rocksdb对读优化有哪些   </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>共识</p>
+<ul>
+<li>raft整体过程</li>
+</ul>
+</li>
+<li><p>事务</p>
+<ul>
+<li>acid</li>
+<li>隔离性的几种</li>
+</ul>
+</li>
+</ul>
+
+  </section>
+  <footer class="post-footer">
+    <!--
+    <section class="author">
+      <h4>nomoshen</h4>
+      <p></p>
+    </section>
+    -->
+  </footer>
+</article>
+
+<nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2019/03/29/关于线程、进程、协程的了解/">
+        ← prev <!--关于线程、进程、协程的了解-->
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/04/12/进程调度之死循环/">
+        <!--进程调度之死循环--> next →
+    </a>
+    
+</nav>
+
+
+        </main>
+        <footer id="footer">
+            <section id="footer-message">&copy; 2020 nomoshen. All rights reserved. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. <a href="https://github.com/guolin/crisp-hexo-theme" target="_blank">crisp</a> theme by <a href="guolin.github.io" target="_blank">Guo Lin</a>.</section>
+        </footer>
+    </body>
+</html>
+
+

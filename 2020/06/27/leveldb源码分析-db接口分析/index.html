@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head><meta name="generator" content="Hexo 3.9.0">
+		
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content>
+        <link rel="shortcut icon" href="/asset/guolin.png">
+        <link rel="canonical" href="http://guolinn.com/">
+        <link rel="alternate" type="application/rss+xml" title="nomoshen" href="/atom.xml">
+        <title>LevelDB源码(一、leveldb接口分析) | nomoshen</title>
+        <meta name="description" content="{{meta_description}}">
+
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/crisp.css">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    
+		<body class="post-template">
+	
+
+        <header id="header">
+            <a id="logo" href="/"><img src="/asset/guolin.png" alt="nomoshen"></a>
+            <h1><a href="/">nomoshen</a></h1>
+            <p>尽可能努力一点点</p>
+            <div id="follow-icons">
+                  <a href="/atom.xml"><i class="fa fa-rss-square fa-2x"></i></a>
+  </div>
+<h6><a href="/about">About</a></h6>
+        </header>
+
+        <main id="content">
+        
+
+<article class="post">
+  June 27, 2020
+  
+    <span class="taglist">  &middot; 
+    
+    
+      <a href="/tags/leveldb/">leveldb</a> 
+    
+    </span>
+  
+
+  <h1 class="post-title">LevelDB源码(一、leveldb接口分析)</h1>
+  <section class="post-content article-entry">
+    <p>本系列文章主要是针对leveldb的源码分析; 个人也是重温这份源码，希望能在重新看的过程中学习到更多的知识;</p>
+<h3 id="1-基本接口"><a href="#1-基本接口" class="headerlink" title="1. 基本接口"></a>1. 基本接口</h3><p><a href="https://github.com/google/leveldb/blob/master/include/leveldb/db.h" target="_blank" rel="noopener">db.h</a>这个头文件几乎包含了所有leveldb提供的所有功能；这套接口是标准的存储引擎的接口，接口非常简洁，主要提供了修改、删除、读取的三大基本功能；其他的接口主要是一些附带的功能;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">/**</span><br><span class="line"> * 打开leveldb,</span><br><span class="line"> * @param options: 打开leveldb的一些参数</span><br><span class="line"> * @param name: 路径</span><br><span class="line"> * @param dbptr: 返回值,如果成功打开就会在这个参数中返回;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">static Status Open(const Options&amp; options, const std::string&amp; name,</span><br><span class="line">                   DB** dbptr);</span><br><span class="line"></span><br><span class="line">DB() = default;</span><br><span class="line"></span><br><span class="line">//db不能被copy或者赋值</span><br><span class="line">DB(const DB&amp;) = delete;</span><br><span class="line">DB&amp; operator=(const DB&amp;) = delete;</span><br><span class="line"></span><br><span class="line">virtual ~DB();</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 将key和value存储到db里面；</span><br><span class="line"> * @param options ： 写参数设置，默认可以空对象</span><br><span class="line"> * @param key </span><br><span class="line"> * @param value </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Put(const WriteOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   const Slice&amp; value) = 0;</span><br><span class="line"> </span><br><span class="line">//删除key</span><br><span class="line">virtual Status Delete(const WriteOptions&amp; options, const Slice&amp; key) = 0;</span><br><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> * 批量写的接口; </span><br><span class="line"> * @param options: 同Put接口 </span><br><span class="line"> * @param updates : 批量参数，里面可以包含有写、delete的操作; </span><br><span class="line"> * @return </span><br><span class="line"> */</span><br><span class="line">virtual Status Write(const WriteOptions&amp; options, WriteBatch* updates) = 0;</span><br><span class="line"></span><br><span class="line">//查询接口，指定key,返回结果在value中；状态看Status，如果为ok的话，value就是取到的值;</span><br><span class="line">virtual Status Get(const ReadOptions&amp; options, const Slice&amp; key,</span><br><span class="line">                   std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 返回一个iterator，这个需要调用者自己去清理掉的,</span><br><span class="line"> * 返回的iterator通常是无效的，需要在调用seek之后才有效</span><br><span class="line"> * @param options</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual Iterator* NewIterator(const ReadOptions&amp; options) = 0;</span><br></pre></td></tr></table></figure>
+<p>上面这些接口机会是最为常用的接口,提供了打开db、读key、存储key的功能；存储引擎的功能就在于：</p>
+<ul>
+<li>存储数据</li>
+<li>读取数据</li>
+</ul>
+<p>关于<code>NewIterator</code>接口需要注意的在于返回是一个指针类型的<code>Iterator*</code>,这个指针内存释放需要调用者来执行的，所以如果每次调用之后不调用delete的话，会出现内存泄露; 这是我第一次注意到这个问题，我发现自己在其他的代码中几乎都没有显示的delete的; 用shared_ptr来封装掉这个过程,这样就不需要手动去delete这个指针;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;Iterator&gt; tmp = new std::shared_ptr&lt;Iterator&gt;(db-&gt;NewIterator(options), [](void* raw)&#123;</span><br><span class="line">  if (raw != nullptr) &#123;</span><br><span class="line">    delete static_cast&lt;Iterator*&gt;(raw);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">tmp-&gt;SeekToFirst();</span><br></pre></td></tr></table></figure>
+<h3 id="2-附加接口"><a href="#2-附加接口" class="headerlink" title="2. 附加接口"></a>2. 附加接口</h3><p>附加接口主要是一些其他功能的介绍；比如快照、如何获得leveldb的监控信息等等;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获得快照; 需要调用者负责清理;</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual const Snapshot* GetSnapshot() = 0;</span><br><span class="line"></span><br><span class="line">// Release a previously acquired snapshot.  The caller must not</span><br><span class="line">// use &quot;snapshot&quot; after this call.</span><br><span class="line">virtual void ReleaseSnapshot(const Snapshot* snapshot) = 0;</span><br><span class="line"></span><br><span class="line">// DB implementations can export properties about their state</span><br><span class="line">// via this method.  If &quot;property&quot; is a valid property understood by this</span><br><span class="line">// DB implementation, fills &quot;*value&quot; with its current value and returns</span><br><span class="line">// true.  Otherwise returns false.</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">// Valid property names include:</span><br><span class="line">//</span><br><span class="line">//  &quot;leveldb.num-files-at-level&lt;N&gt;&quot; - return the number of files at level &lt;N&gt;,</span><br><span class="line">//     where &lt;N&gt; is an ASCII representation of a level number (e.g. &quot;0&quot;).</span><br><span class="line">//  &quot;leveldb.stats&quot; - returns a multi-line string that describes statistics</span><br><span class="line">//     about the internal operation of the DB.</span><br><span class="line">//  &quot;leveldb.sstables&quot; - returns a multi-line string that describes all</span><br><span class="line">//     of the sstables that make up the db contents.</span><br><span class="line">//  &quot;leveldb.approximate-memory-usage&quot; - returns the approximate number of</span><br><span class="line">//     bytes of memory in use by the DB.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * leveldb会有自己的统计信息，这个函数可以获得这些信息;</span><br><span class="line"> * @param property</span><br><span class="line"> * @param value</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">virtual bool GetProperty(const Slice&amp; property, std::string* value) = 0;</span><br><span class="line"></span><br><span class="line">// For each i in [0,n-1], store in &quot;sizes[i]&quot;, the approximate</span><br><span class="line">// file system space used by keys in &quot;[range[i].start .. range[i].limit)&quot;.</span><br><span class="line">//</span><br><span class="line">// Note that the returned sizes measure file system space usage, so</span><br><span class="line">// if the user data compresses by a factor of ten, the returned</span><br><span class="line">// sizes will be one-tenth the size of the corresponding user data size.</span><br><span class="line">//</span><br><span class="line">// The results may not include the sizes of recently written data.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 给key的范围、给level的层数，获得这些key大概的磁盘占用空间</span><br><span class="line"> * @param range</span><br><span class="line"> * @param n</span><br><span class="line"> * @param sizes</span><br><span class="line"> */</span><br><span class="line">virtual void GetApproximateSizes(const Range* range, int n,</span><br><span class="line">                                 uint64_t* sizes) = 0;</span><br><span class="line"></span><br><span class="line">// Compact the underlying storage for the key range [*begin,*end].</span><br><span class="line">// In particular, deleted and overwritten versions are discarded,</span><br><span class="line">// and the data is rearranged to reduce the cost of operations</span><br><span class="line">// needed to access the data.  This operation should typically only</span><br><span class="line">// be invoked by users who understand the underlying implementation.</span><br><span class="line">//</span><br><span class="line">// begin==nullptr is treated as a key before all keys in the database.</span><br><span class="line">// end==nullptr is treated as a key after all keys in the database.</span><br><span class="line">// Therefore the following call will compact the entire database:</span><br><span class="line">//    db-&gt;CompactRange(nullptr, nullptr);</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 手动触发指定key范围的compaction</span><br><span class="line"> * @param begin</span><br><span class="line"> * @param end</span><br><span class="line"> */</span><br><span class="line">virtual void CompactRange(const Slice* begin, const Slice* end) = 0;</span><br></pre></td></tr></table></figure>
+<p><code>ReleaseSnapshot</code>这个也可以通过<code>shared_ptr</code>来进行封装，这样就省的自己操作了; <code>GetProperty</code>这个函数对后期真正线上使用的时候会特别有用，因为可以让leveldb吐出来很多leveldb自身的信息，方便查问题并且调整leveldb; 对于db来说，能清楚的知道db的状态是非常重要的;</p>
+
+  </section>
+  <footer class="post-footer">
+    <!--
+    <section class="author">
+      <h4>nomoshen</h4>
+      <p></p>
+    </section>
+    -->
+  </footer>
+</article>
+
+<nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2020/06/28/LevelDB源码-二、leveldb-option分析/">
+        ← prev <!--LevelDB源码(二、leveldb option分析)-->
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2020/06/12/想好要去试试看了/">
+        <!--想好要去试试看了--> next →
+    </a>
+    
+</nav>
+
+
+        </main>
+        <footer id="footer">
+            <section id="footer-message">&copy; 2020 nomoshen. All rights reserved. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. <a href="https://github.com/guolin/crisp-hexo-theme" target="_blank">crisp</a> theme by <a href="guolin.github.io" target="_blank">Guo Lin</a>.</section>
+        </footer>
+    </body>
+</html>
+
+

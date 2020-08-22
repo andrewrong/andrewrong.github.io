@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head><meta name="generator" content="Hexo 3.9.0">
+		
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content>
+        <link rel="shortcut icon" href="/asset/guolin.png">
+        <link rel="canonical" href="http://guolinn.com/">
+        <link rel="alternate" type="application/rss+xml" title="nomoshen" href="/atom.xml">
+        <title>关于Linux内存的一些知识 | nomoshen</title>
+        <meta name="description" content="{{meta_description}}">
+
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/crisp.css">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    
+		<body class="post-template">
+	
+
+        <header id="header">
+            <a id="logo" href="/"><img src="/asset/guolin.png" alt="nomoshen"></a>
+            <h1><a href="/">nomoshen</a></h1>
+            <p>尽可能努力一点点</p>
+            <div id="follow-icons">
+                  <a href="/atom.xml"><i class="fa fa-rss-square fa-2x"></i></a>
+  </div>
+<h6><a href="/about">About</a></h6>
+        </header>
+
+        <main id="content">
+        
+
+<article class="post">
+  April 4, 2019
+  
+
+  <h1 class="post-title">关于Linux内存的一些知识</h1>
+  <section class="post-content article-entry">
+    <ol>
+<li><p>页表</p>
+<p> 每个进程都会有自己的页表，页表的主要的作用就是将虚拟地址转化为真实的物理地址；通过页表的架构是这样的：</p>
+<p> <img src="media/9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E.png" alt="9C2C6E33-E0C4-4EEC-9F24-37C2C6E6917E"></p>
+</li>
+</ol>
+<p>有三个部分组成</p>
+<pre><code>* 页表目录
+* 页表
+* 偏移量
+</code></pre><p>多级的好处是节省内存占用率，如果只有一级的话，那么即使不用全部的线程地址，也会占用很多无效内存; 所以多级可以有效的介绍这部分的开销;</p>
+<p>那不同进程是如何找到自己的页表的物理地址呢？那么就要靠<code>cr3(控制寄存器)</code>，每次进程切换会把这个寄存器恢复，那么每次查找页表的时候就可以轻而易举的找到页表；</p>
+<ol start="2">
+<li><p>页表和页的权限控制</p>
+<p> 根据User/Supervisor这个flag来设置权限;这个flag是存在页表项的;</p>
+<ul>
+<li>0: 必须是内核态才能访问</li>
+<li><p>1: 总能访问</p>
+<p>通过这个就可以保护内存的访问，有的只有内核态的进程才能访问;</p>
+</li>
+</ul>
+</li>
+<li><p>PAE（物理地址扩展）</p>
+<p> 明明地址空间只有32bit，如何能使用超过4GB的物理内存空间呢；就出现了PAE了; 其本质在于在cr3这个寄存器上做了手段；cr3本身指向页表的物理地址，所以cr3可以变化，可以指向多个页表的物理地址就可以访问多个物理地址了；<br> 寻址空间依然是4GB，只不过通过切换来使用更多的内存；但是由于用户态的进程不能修改页表，所以它无法使用超过4GB的物理内存；</p>
+</li>
+<li><p>高速缓存和TLB</p>
+<p> 高速缓存主要解决的是cpu与ram速度的巨大差异，用来缓解这个过程；在cpu和ram之间加入高速缓存，cpu直接访问cache而不是RAM；使用的原理当时就是局部性原理；</p>
+<pre><code>* 时间局部性: 在一定返回内会重复执行某一些东西
+* 空间局部性: 访问了一个地址空间的内容，有极大的概率会访问周边的内存
+</code></pre><p> 高速缓存的组成是cacheline，每一个cacheline大概是64kb; 那么如果确定当前地址是否在cache中呢，其实方式依然还是用虚拟地址中的各个地址位来进行判断;目前有三种；</p>
+<p> TLB: 我们知道虚拟地址转为物理地址需要通过查找页表来进行；那么我们也知道RAM的速率和cpu相比很慢，如果每次都走一次RAM那基本上就没得玩了；所以TLB就是一个保存virtual-&gt;phyical的一个kv硬件缓存；但是当cr3这个寄存器修改的时候，TLB就会失效；so 切换进程是多么耗时的事情;</p>
+</li>
+<li><p>物理内存分布</p>
+<p> 内核会将下面的页框保留下来，不会被动态分配和交换到磁盘上去 </p>
+<ul>
+<li>在不可用的物理地址范围内的页框</li>
+<li><p>含有内核代码和已初始化的数据结构的页框</p>
+<p>内核通常为了能保存在物理内存上连续存储，会选择跳过第一个MB，从0x00100000的物理地址开始使用;</p>
+</li>
+</ul>
+</li>
+<li><p>内核页表</p>
+<p> 进程的页表在内核部分的页表是公用的；通过的方式是每次生成一个新的进程的时候，新的页表中内核页表是指向原来的进程是一样的；而用户态的页表是使用cow的方式，虽然也是一样的，从一开始来说;</p>
+</li>
+<li><p>缓存和tlb</p>
+<ul>
+<li><p>TLB高速缓存的刷新是内核而不是硬件；</p>
+<p>  通常情况来说，进程切换的时候就会让tlb失效；内核在进行cr3变更的时候就会触发这个操作; 下面的几个情况，内核会避免TLB切换:</p>
+<ul>
+<li>当两个使用相同页表集的普通进程之间执行切换的时候；比如线程的切换</li>
+<li>当一个普通进程和一个内核线程间进行切换的时候；因为内核线程是没有自己单独的页表的，而是内核统一的页表；所以切换的时候内核其实还是用进程之前的页表;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  </section>
+  <footer class="post-footer">
+    <!--
+    <section class="author">
+      <h4>nomoshen</h4>
+      <p></p>
+    </section>
+    -->
+  </footer>
+</article>
+
+<nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2020/01/20/2019年-年终总结/">
+        ← prev <!--2019年-年终总结-->
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2019/03/29/关于线程、进程、协程的了解/">
+        <!--关于线程、进程、协程的了解--> next →
+    </a>
+    
+</nav>
+
+
+        </main>
+        <footer id="footer">
+            <section id="footer-message">&copy; 2020 nomoshen. All rights reserved. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. <a href="https://github.com/guolin/crisp-hexo-theme" target="_blank">crisp</a> theme by <a href="guolin.github.io" target="_blank">Guo Lin</a>.</section>
+        </footer>
+    </body>
+</html>
+
+
