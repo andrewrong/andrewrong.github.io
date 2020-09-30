@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-29T07:33:05.496Z</updated>
+  <updated>2020-09-30T01:06:34.567Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>债券基金如何波动</title>
+    <link href="http://yoursite.com/2020/09/29/%E5%80%BA%E5%88%B8%E5%9F%BA%E9%87%91%E5%A6%82%E4%BD%95%E6%B3%A2%E5%8A%A8/"/>
+    <id>http://yoursite.com/2020/09/29/债券基金如何波动/</id>
+    <published>2020-09-28T22:30:25.000Z</published>
+    <updated>2020-09-30T01:06:34.567Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>当利率处于下行空间的时候，债市往往容易出现一个所谓的债市牛市。<br>当利率处于上行空间的时候，债市往往容易出现一个所谓的债市熊市。<br>这里的利率就是市场利率。</p>
+</blockquote>
+<p>上面这句话其实我一直没怎么理解，所以导致我对债券基金整体都不是很了解；今天早上找了一篇文章看了一下感觉越来越清晰，所以记录一下心得; </p>
+<h3 id="1-债券市场"><a href="#1-债券市场" class="headerlink" title="1. 债券市场"></a>1. 债券市场</h3><p>在<a href="http://nomoshen.com/2020/03/03/%E4%BD%95%E4%B8%BA%E5%9B%BD%E5%80%BA/" target="_blank" rel="noopener">何为债券</a>中我解释了为什么有债券市场的问题；主要的原因是债券流动性的保证，人们不需要等到真正的债券到期才能拿到收益和本金; 比如我购买了10年的债券，但是由于我急需要现金，但是债券也没有到期，这个时候在古代就很难弄，但是现代就你就可以吧这个债券放到债券市场卖掉，马上就可以变成现金；</p>
+<p>而且债券市场的流动性很强，因为债券的收益相对是可计算的和稳定的，所以很好交易；可以认为是类似于美元一样的大家都很认同的东西，交易过程中的信用成本就很低;</p>
+<h3 id="2-债券价格"><a href="#2-债券价格" class="headerlink" title="2. 债券价格"></a>2. 债券价格</h3><p>既然在债券市场上做买卖，那么债券的价格是如何确定的；如果把债券当作商品，那么它的价格就有下面的来决定：</p>
+<ul>
+<li>价值: 债券到期能赚到的钱;专业术语: 票面利率，而这个是由国债利率决定的;</li>
+<li>需求关系: 如果市场上有很多很多债券可以购买，那么你的债券价格就会适当下降; </li>
+</ul>
+<p>所以你在卖出你的债券的时候价格就被这两者所限制；而且债券的价值是一个能被很好计算出来的，所以债券的价格波动和国债利率的走势就是一种强关联的；利率上行价格就往下，利率下行价格就往上; 供需起到相对弱的影响，只是因为市场上的债券多了，可选择的机会就多了，买方购买债券的时候就不一定能选择到你，那你最好降低价格，看是否合适;</p>
+<h3 id="3-债券基金"><a href="#3-债券基金" class="headerlink" title="3. 债券基金"></a>3. 债券基金</h3><p>基金就是一个组合或者是一揽子计划；债券基金就是购买几个债券的组合；这个的好处是风险<strong>相对</strong>可控，债券本质是一种借贷关系，那么一定会出现欠钱不还的问题，这就导致了很大的损失；虽然债券稳但不表示无风险，所以买债券基金比你直接买债券会更加好操作，当然所有的都是相对的；之前出现过的<strong>华商固收</strong>就因为自己的组合中有两支暴雷，那个跌幅不低于股票基金的; 所以风险都是有的，基金相对低一些;</p>
+<h3 id="4-你在购买债券基金的时候发生了什么？"><a href="#4-你在购买债券基金的时候发生了什么？" class="headerlink" title="4. 你在购买债券基金的时候发生了什么？"></a>4. 你在购买债券基金的时候发生了什么？</h3><ol>
+<li>你在利率5%的时候购买了一支债券基金; </li>
+<li>债券基金本身的债券组合是相对固定的，比如就是一些国开债+一些企业的债券</li>
+<li>这个时候基金的经理就会去二级市场上收<strong>等值份额</strong>的债券组合中的债券给你; 这个份额很好计算，因为每支债券在二级市场都是有价格的，所以基金经理的操作也很简单，拿着你的钱直接买他组合就好;</li>
+<li>你的债券基金份额已经到手，成功</li>
+</ol>
+<h3 id="5-为什么会有波动？"><a href="#5-为什么会有波动？" class="headerlink" title="5. 为什么会有波动？"></a>5. 为什么会有波动？</h3><p>那为什么会波动呢？ 因为市场利率是会变化的; 市场利率的变化就导致借贷成本不一样，本来我借你钱的利息是3%，但是现在整体的利率变高了，我借你钱就需要4%的利率了，这就导致借钱的成本不一样了，这里是升高了; 反应到债券上的逻辑是这样的:</p>
+<ol>
+<li>2000年,你购买了利率为3%的债券为期5年(我们简单点到期才能拿到本金和利息)</li>
+<li>2001年,市场利率变成了4%，现在购买债券的话利息就高1%，但是你手头的债券是3%的，你有点不开心; 所以你想卖掉这个老的债券购买新的债券，这个时候就会产生一个问题；因为大家都知道购买现在的债券才是最划算的，没必要购买你的3%的债券啊，所以你就需要便宜卖给人家；当然这个计算有点复杂，我也不是很会, 大家可以自己操作一把; 那么就可以发现在<strong>当下时代</strong>本来值100元的债券你需要降价卖掉，这就导致了债券价格下降</li>
+<li>债券市场每天都在做这个操作，而且债券当下的价格除了利率还有很多因素影响，所以会出现一些价格远低于价值的情况，这个时候就可以通过购买指定债券来保证确定性收益;</li>
+<li>还记得上面购买债券基金的过程吗；在结尾处你拿到了一些指定份额的债券，而这个时候由于利率上升从而导致了你的这些指定份额的债券账面价值就减少了，这就导致了你看到的亏损；这就是波动;</li>
+</ol>
+<p>和股票类似，债券每天的净值都是在变化的，因为债券有确定性收益，所以计算的方式会相对于股票来说简单一些，这也是为什么债券收益率想对于股票要低，因为确定性收益很确定，风险小很多；如果你觉得实在是亏钱难受，你只要不卖，到了时间点拿最后的本金+利息就好，问题也不大; </p>
+<h3 id="6-分析一开始结论"><a href="#6-分析一开始结论" class="headerlink" title="6. 分析一开始结论"></a>6. 分析一开始结论</h3><ul>
+<li>利率下行是债券牛市的开始; 因为这个时候你购买的债券在未来一定是会涨价的；所以现在购买债券基金你会发现整体上涨;可以赚价格差；</li>
+<li>利率上行是债市熊市的开始; 因为你持有的债券会在为了很长时间内都是会跌的；因为后面的债券都是比你有价值的，所以这个时候主要就是要注意了；</li>
+<li>这里的利率是市场利率，有的人会说是十年期的国债收益率，其实不是这样的，这是一个因果倒置的问题，是因为市场利率上升了，才会让债券的收益变高了,毕竟票面利率变高了，导致整体的收益率会上来;</li>
+</ul>
+<blockquote>
+<p>债券价格和收益率呈反比例变动。以十年期国债收益率为例，<strong>当前收益率</strong>上涨是由国债价格下跌引起的，而不是收益率上涨引起了债券价格的下跌。</p>
+</blockquote>
+<h3 id="7-老齐对于债券的投资思路"><a href="#7-老齐对于债券的投资思路" class="headerlink" title="7. 老齐对于债券的投资思路"></a>7. 老齐对于债券的投资思路</h3><p>债券的收益=票面利息 + 价格差; 但是大部分投资者拿债券不是真的为了票息，因为票息是一种保底的操作，假设你什么都不操作等到票息，收益固定，但是时间成本很高；这也就是股市中说的机会成本，因为你把钱放在债券上，那你这部分就不能投入到其他的投资；所以大家那债券大部分时候是为了流动性和相对稳定的波动;</p>
+<ol>
+<li>当市场利率升高的时候，投资债券不赚钱甚至亏钱，这时候<strong>短债优先</strong>，因为短债都是拿到还本付息的，所以交易价差影响极小;</li>
+<li>当市场利率下降的时候，这就是债券牛市的开始，这个时候就可以投资债券，并且要投资<strong>长期债券</strong>,为什么要长期呢？因为未来利率下行，那就代表目前你这个票面利率是未来很有竞争力的存在，可能会产生超额收益；</li>
+</ol>
+<ul>
+<li>问题：为什么债券的价值都那么固定，它的价格还会波动呢？</li>
+</ul>
+<blockquote>
+<p>其实本质在于没有多少人会选择真的拿票息的；机会成本时间成本都是很大的，你硬扛在债券中，你损失的其他机会成本就会很高，所以折价卖也是可能的；还有就是情绪和恐慌，大家怕公司倒闭什么的，就会便宜卖了;</p>
+</blockquote>
+<ul>
+<li>如何确定债券的牛市和熊市?</li>
+</ul>
+<blockquote>
+<ol>
+<li>通过比较资产价格；将债券的年华收益与货币基金的7天年华收益率进行比较，如果已经跑不赢的话，就因为避险债券了；债券熊市要来了; 原因很简单的，货币基金本身就是短债 + 超短债 + 现金资产，很好的反应了市场利率的波动，如果货币基金收益率提升，也就表示利率变高了，借钱变难了, 所以这个评判标准貌似很简单;而且债券本身有票面利息，大部分时候是少赚而不会赔</li>
+<li>指标:信用利差;这个指标跟国债收益率几乎同时波动，有时候信用利差反应更快，信用利差，也就是3年的3A中票，减去3年国债的收益率，这个利差超过2%的时候，<strong>意味着利率基本到顶</strong>(表示利率要下行，进入牛市)，而这个利差低到0.5%附近的时候，说明信用极宽松，对中小企业和信用债有利，也是债券牛市最后末尾阶段</li>
+</ol>
+</blockquote>
+<ul>
+<li>问题:债券基金通常购买的是什么？</li>
+</ul>
+<p><img src="/images/16014271828437.jpg" alt></p>
+<blockquote>
+<p>这是一支<code>新华纯债添利债券发起A</code>,可以看到它的债券占用的比例; 你在购买的时候其实就是按照当天净值来购买了这些债券的份额; 通常基金经理会帮我们调整这些债券；也不需要你真的去调整长期债券或者什么的; 债券通常是不大会亏钱的，而且说难听点，债券本身价值是确定的，所以真的拿到了票息也不会亏钱；在债熊的时候也没必要去抄底，到了牛市在购买债券就可以；而且债熊的时候通常是股市牛，这个时候你可以投资股票会更加好;</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;当利率处于下行空间的时候，债市往往容易出现一个所谓的债市牛市。&lt;br&gt;当利率处于上行空间的时候，债市往往容易出现一个所谓的债市熊市。&lt;br&gt;这里的利率就是市场利率。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上面这句话其实我一直没怎么理解，所以导致
+    
+    </summary>
+    
+      <category term="金融" scheme="http://yoursite.com/categories/%E9%87%91%E8%9E%8D/"/>
+    
+    
+      <category term="债券基金" scheme="http://yoursite.com/tags/%E5%80%BA%E5%88%B8%E5%9F%BA%E9%87%91/"/>
+    
+  </entry>
   
   <entry>
     <title>新起步却是一个不一样的开始</title>
@@ -2006,205 +2093,6 @@ curl: (7) Failed connect to localhost:3000; Connection refused        curl: (7) 
       <category term="monitor" scheme="http://yoursite.com/tags/monitor/"/>
     
       <category term="jmxtrans" scheme="http://yoursite.com/tags/jmxtrans/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>kafka broker的监控信息</title>
-    <link href="http://yoursite.com/2017/03/26/kafka-broker%E7%9A%84%E7%9B%91%E6%8E%A7%E4%BF%A1%E6%81%AF/"/>
-    <id>http://yoursite.com/2017/03/26/kafka-broker的监控信息/</id>
-    <published>2017-03-26T13:35:09.000Z</published>
-    <updated>2017-04-06T23:17:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-broker的监控信息"><a href="#1-broker的监控信息" class="headerlink" title="1. broker的监控信息"></a>1. broker的监控信息</h3><table>
-<thead>
-<tr>
-<th>标题</th>
-<th>mbean name</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Message in rate</td>
-<td><code>kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec</code></td>
-<td>当前broker每秒的消息个数</td>
-</tr>
-<tr>
-<td>Byte in rate</td>
-<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec</code></td>
-<td>当前broker的每秒的入口流量</td>
-</tr>
-<tr>
-<td>Byte out rate</td>
-<td><code>kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec</code></td>
-<td>当前broker的每秒的出口流量</td>
-</tr>
-<tr>
-<td>Request rate</td>
-<td><code>kafka.network:type=RequestMetrics,name=RequestsPerSec,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>当前broker的每秒的请求量; 根据request的不同会返回不同类型的数据</td>
-</tr>
-<tr>
-<td>Log flush rate and time</td>
-<td><code>kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs</code></td>
-<td>日志刷盘的频率和时间；其中<em>OneMinuteRate:表示一分钟内每秒钟的刷盘次数; </em>999thPercentile:99.9%的刷盘需要的时间</td>
-</tr>
-<tr>
-<td>of under replicated partitions</td>
-<td><code>kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions</code></td>
-<td>ISR &lt; 备份次数的分区个数，这样的分区应该=0，如果大于0就进行报警最好;</td>
-</tr>
-<tr>
-<td>Is controller active on broker</td>
-<td><code>kafka.controller:type=KafkaController,name=ActiveControllerCount</code></td>
-<td>当前集群中controller的个数,一个集群只能有一个controller</td>
-</tr>
-<tr>
-<td>Leader election rate</td>
-<td><code>kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs</code></td>
-<td>leader选举的频率和需要的时间；其中<em>OneMinuteRate:表示一分钟内出现选举的次数; </em>999thPercentile:99.9%的选举需要的时间</td>
-</tr>
-<tr>
-<td>Unclean leader election rate</td>
-<td><code>kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec</code></td>
-<td>非正常的备份被选举成leader的频率;</td>
-</tr>
-<tr>
-<td>Partition counts</td>
-<td><code>kafka.server:type=ReplicaManager,name=PartitionCount</code></td>
-<td>当前broker的分区个数,就是在存储数据的目录下面的分区个数;</td>
-</tr>
-<tr>
-<td>Leader replica counts</td>
-<td><code>kafka.server:type=ReplicaManager,name=LeaderCount</code></td>
-<td>当前broker中的leader分区的个数</td>
-</tr>
-<tr>
-<td>ISR shrink rate</td>
-<td><code>kafka.server:type=ReplicaManager,name=IsrShrinksPerSec</code></td>
-<td>当前broker每分钟分区缩减的频率;</td>
-</tr>
-<tr>
-<td>ISR expansion rate</td>
-<td><code>kafka.server:type=ReplicaManager,name=IsrExpandsPerSec</code></td>
-<td>当前broker每分钟分区扩展的频率;</td>
-</tr>
-<tr>
-<td>Max lag in messages btw follower and leader replicas</td>
-<td><code>kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica</code></td>
-<td>当前broker中分区与leader之前同步的最大lag数</td>
-</tr>
-<tr>
-<td>Lag in messages per follower replica</td>
-<td><code>kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=([-.\w]+),topic=([-.\w]+),partition=([0-9]+)</code></td>
-<td>当前broker中备本分区与leader之间的lag数</td>
-</tr>
-<tr>
-<td>Requests waiting in the producer purgatory</td>
-<td><code>kafka.server:type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=Produce</code></td>
-<td>broker中，在等待ack的producer请求个数;还有Fetch、topic、Rebalance、Heartbeat请求</td>
-</tr>
-<tr>
-<td>Request total time</td>
-<td><code>kafka.network:type=RequestMetrics,name=TotalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>请求所需要的全部时间;根据不同的类型求个不一样的结果</td>
-</tr>
-<tr>
-<td>Time the request waits in the request queue</td>
-<td><code>kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>请求在队列中等待的时间</td>
-</tr>
-<tr>
-<td>Time the request is processed at the leader</td>
-<td><code>kafka.network:type=RequestMetrics,name=LocalTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>请求被leader节点处理的时间</td>
-</tr>
-<tr>
-<td>Time the request waits for the follower</td>
-<td><code>kafka.network:type=RequestMetrics,name=RemoteTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>一个请求等待follower的时间;假如ack=all，那么这个值就是非0</td>
-</tr>
-<tr>
-<td>Time the request waits in the response queue</td>
-<td><code>kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>一个请求在response队列中的时间</td>
-</tr>
-<tr>
-<td>Time to send the response</td>
-<td><code>kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request={Produce or FetchConsumer or FetchFollower}</code></td>
-<td>发送请求的时间</td>
-</tr>
-<tr>
-<td>Number of messages the consumer lags behind the producer by. Published by the consumer, not broker.</td>
-<td><code>Old consumer: kafka.consumer:type=ConsumerFetcherManager,name=MaxLag,clientId=([-.\w]+) New consumer: kafka.consumer:type=consumer-fetch-manager-metrics,client-id={client-id} Attribute: records-lag-max</code></td>
-<td>consumer落后producer的lag</td>
-</tr>
-<tr>
-<td>The average fraction of time the network processors are idle</td>
-<td><code>kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent</code></td>
-<td>网络处理空闲的因子，在0，1之间，通常是&gt; 0.3</td>
-</tr>
-<tr>
-<td>The average fraction of time the request handler threads are idle</td>
-<td><code>kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent</code></td>
-<td>网络请求线程空闲的平均值，在0，1之间，通常是&gt; 0.3</td>
-</tr>
-</tbody>
-</table>
-<h3 id="2-关于zookeeper相关的监控信息"><a href="#2-关于zookeeper相关的监控信息" class="headerlink" title="2. 关于zookeeper相关的监控信息"></a>2. 关于zookeeper相关的监控信息</h3><table>
-<thead>
-<tr>
-<th>mbean name</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectedPerSec</code></td>
-<td>当前broker与zk之间的每秒断链的次数；也就是频率</td>
-</tr>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectedPerSec</code></td>
-<td>ZooKeeper client is connected to the ensemble and ready to execute operations</td>
-</tr>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailedPerSec</code></td>
-<td>与zk进行连接并且是因为认证失败的每秒的次数</td>
-</tr>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperConnectedReadOnlyPerSec</code></td>
-<td>The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING. Consequently, the client can only read the ZooKeeper state, but not make any changes (create, delete, or set the data of znodes).</td>
-</tr>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticatedPerSec</code></td>
-<td>zkclient被验证成功每秒的次数</td>
-</tr>
-<tr>
-<td><code>kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec</code></td>
-<td>当前zkclient被过期的每秒次数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3-consumer和producer的监控信息"><a href="#3-consumer和producer的监控信息" class="headerlink" title="3. consumer和producer的监控信息"></a>3. consumer和producer的监控信息</h3><ul>
-<li><a href="http://docs.confluent.io/3.0.0/kafka/monitoring.html#producer-global-request-metrics" target="_blank" rel="noopener">confluent doc</a></li>
-<li><a href="https://kafka.apache.org/documentation/#monitoring" target="_blank" rel="noopener">kafka doc</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-broker的监控信息&quot;&gt;&lt;a href=&quot;#1-broker的监控信息&quot; class=&quot;headerlink&quot; title=&quot;1. broker的监控信息&quot;&gt;&lt;/a&gt;1. broker的监控信息&lt;/h3&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;标题
-    
-    </summary>
-    
-      <category term="kafka" scheme="http://yoursite.com/categories/kafka/"/>
-    
-    
-      <category term="monitor" scheme="http://yoursite.com/tags/monitor/"/>
     
   </entry>
   
