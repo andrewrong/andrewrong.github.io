@@ -68,12 +68,10 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="CAP,">
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="nomoshen" type="application/atom+xml">
@@ -83,14 +81,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="分区更加指的是网络分区，看了知乎上说P这种是指CAP需要解决的故障模型；而为了解决网络分区，从而就出现了多副本的问题，而多副本就引起了一致性的问题，所以为了解决P才引起了CA的选择，而CA的不同权衡也是为了解决系统在出现网络分区的时候能一直运行">
+<meta name="keywords" content="CAP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CAP理论">
+<meta property="og:url" content="http://yoursite.com/2020/10/14/CAP理论/index.html">
 <meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="分区更加指的是网络分区，看了知乎上说P这种是指CAP需要解决的故障模型；而为了解决网络分区，从而就出现了多副本的问题，而多副本就引起了一致性的问题，所以为了解决P才引起了CA的选择，而CA的不同权衡也是为了解决系统在出现网络分区的时候能一直运行">
 <meta property="og:locale" content="english">
-<meta property="og:updated_time" content="2017-04-06T23:22:44.000Z">
+<meta property="og:updated_time" content="2020-11-23T01:44:45.423Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="CAP理论">
+<meta name="twitter:description" content="分区更加指的是网络分区，看了知乎上说P这种是指CAP需要解决的故障模型；而为了解决网络分区，从而就出现了多副本的问题，而多副本就引起了一致性的问题，所以为了解决P才引起了CA的选择，而CA的不同权衡也是为了解决系统在出现网络分区的时候能一直运行">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2020/10/14/CAP理论/">
 
 
 
 
 
-  <title>tags | nomoshen</title>
+  <title>CAP理论 | nomoshen</title>
   
 
 
@@ -221,40 +223,180 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/14/CAP理论/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nomoshen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nomoshen">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                14 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/CAP/" style="font-size: 12px; color: #ccc">CAP</a> <a href="/tags/jmxtrans/" style="font-size: 12px; color: #ccc">jmxtrans</a> <a href="/tags/leveldb/" style="font-size: 30px; color: #111">leveldb</a> <a href="/tags/monitor/" style="font-size: 21px; color: #6f6f6f">monitor</a> <a href="/tags/scylladb/" style="font-size: 12px; color: #ccc">scylladb</a> <a href="/tags/书笔记/" style="font-size: 12px; color: #ccc">书笔记</a> <a href="/tags/人生/" style="font-size: 12px; color: #ccc">人生</a> <a href="/tags/债券基金/" style="font-size: 12px; color: #ccc">债券基金</a> <a href="/tags/存储/" style="font-size: 12px; color: #ccc">存储</a> <a href="/tags/异步同步/" style="font-size: 12px; color: #ccc">异步同步</a> <a href="/tags/进程/" style="font-size: 12px; color: #ccc">进程</a> <a href="/tags/进程调度/" style="font-size: 12px; color: #ccc">进程调度</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">CAP理论</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-14T23:23:43+08:00">
+                2020-10-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-11-23T09:44:45+08:00">
+                2020-11-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <blockquote>
+<p>分区更加指的是网络分区，看了知乎上说P这种是指CAP需要解决的故障模型；而为了解决网络分区，从而就出现了多副本的问题，而多副本就引起了一致性的问题，所以为了解决P才引起了CA的选择，而CA的不同权衡也是为了解决系统在出现网络分区的时候能一直运行</p>
+</blockquote>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CAP/" rel="tag"># CAP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/29/债券基金如何波动/" rel="next" title="债券基金如何波动">
+                <i class="fa fa-chevron-left"></i> 债券基金如何波动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
