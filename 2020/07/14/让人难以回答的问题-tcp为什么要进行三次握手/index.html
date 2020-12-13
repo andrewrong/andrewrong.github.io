@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="tcp,">
 
 
 
@@ -81,14 +81,22 @@
 
 
 
+<meta name="description" content="杭州的冬天就是难受，又冷又湿，冻死我了. 今天是周末，女儿还在睡觉，在脑子里面过了很久的一个东西我给记录一下; 其实tcp的3次连接是我一直没搞懂的事情，知其然而不知其所以然可能就是我这种状态，我无数次的去看网上的文章和书籍，但是总觉得缺点为什么会这样的感觉. 最近在看分布式系统的一些书的时候就慢慢有那么点感觉了,我就把自己的不成熟的想法先写下来.  1. 关于网络连接在分布式系统中有提到从单机">
+<meta name="keywords" content="tcp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="让人难以回答的问题-tcp为什么要进行三次握手">
 <meta property="og:url" content="http://yoursite.com/2020/07/14/让人难以回答的问题-tcp为什么要进行三次握手/index.html">
 <meta property="og:site_name" content="nomoshen">
+<meta property="og:description" content="杭州的冬天就是难受，又冷又湿，冻死我了. 今天是周末，女儿还在睡觉，在脑子里面过了很久的一个东西我给记录一下; 其实tcp的3次连接是我一直没搞懂的事情，知其然而不知其所以然可能就是我这种状态，我无数次的去看网上的文章和书籍，但是总觉得缺点为什么会这样的感觉. 最近在看分布式系统的一些书的时候就慢慢有那么点感觉了,我就把自己的不成熟的想法先写下来.  1. 关于网络连接在分布式系统中有提到从单机">
 <meta property="og:locale" content="english">
-<meta property="og:updated_time" content="2020-07-13T23:20:20.000Z">
+<meta property="og:image" content="http://cdn.nomoshen.com/hoarfrost-4739176_1280.jpg">
+<meta property="og:image" content="http://cdn.nomoshen.com/16078757149265.jpg">
+<meta property="og:image" content="http://cdn.nomoshen.com/16078771565521.jpg">
+<meta property="og:updated_time" content="2020-12-13T16:46:18.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="让人难以回答的问题-tcp为什么要进行三次握手">
+<meta name="twitter:description" content="杭州的冬天就是难受，又冷又湿，冻死我了. 今天是周末，女儿还在睡觉，在脑子里面过了很久的一个东西我给记录一下; 其实tcp的3次连接是我一直没搞懂的事情，知其然而不知其所以然可能就是我这种状态，我无数次的去看网上的文章和书籍，但是总觉得缺点为什么会这样的感觉. 最近在看分布式系统的一些书的时候就慢慢有那么点感觉了,我就把自己的不成熟的想法先写下来.  1. 关于网络连接在分布式系统中有提到从单机">
+<meta name="twitter:image" content="http://cdn.nomoshen.com/hoarfrost-4739176_1280.jpg">
 
 
 
@@ -276,12 +284,34 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-07-14T07:20:20+08:00">
-                2020-07-14
+              <time title="Post modified" itemprop="dateModified" datetime="2020-12-14T00:46:18+08:00">
+                2020-12-14
               </time>
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -310,7 +340,89 @@
       
 
       
-        
+        <p><img src="http://cdn.nomoshen.com/hoarfrost-4739176_1280.jpg" alt="hoarfrost-4739176_1280"></p>
+<p>杭州的冬天就是难受，又冷又湿，冻死我了. 今天是周末，女儿还在睡觉，在脑子里面过了很久的一个东西我给记录一下; 其实tcp的3次连接是我一直没搞懂的事情，知其然而不知其所以然可能就是我这种状态，我无数次的去看网上的文章和书籍，但是总觉得缺点为什么会这样的感觉. 最近在看分布式系统的一些书的时候就慢慢有那么点感觉了,我就把自己的不成熟的想法先写下来. </p>
+<h3 id="1-关于网络连接"><a href="#1-关于网络连接" class="headerlink" title="1. 关于网络连接"></a>1. 关于网络连接</h3><p>在分布式系统中有提到从单机变成分布式系统之后就遇到了很多很多问题，有的问题在甚至是不可能的，只能不断的收缩前提条件也得到解答. 其中有一个概念就是关于完全异步网络，定义异步网络的有三个点:</p>
+<ul>
+<li>节点的时钟漂移无上限, </li>
+<li>消息的传输延迟无上限, </li>
+<li>节点计算的速度不可预料.</li>
+</ul>
+<p>其中主要还是关注第二条，消息传送延迟无上限, 你可能比较疑惑这点，在tcp的场景下面会有这种情况吗？当然会，因为消息在网络中传播的过程中会进过各种设备，如果设备因为忙碌拥堵导致你的包一直被丢弃，你的包就很长很长时间不能被对端收到；所以在现实系统中，网络是不可靠的，即使在tcp协议的保证下依然不可靠，设计系统本身的时候依然还是需要自己去cover网络出现问题的时候该怎么做.</p>
+<p>说完上面的问题，我们思考一下为什么网络是不可靠的呢，难道不能做到可靠吗，起码能保证延迟有上限保证呢;其实有，而且我们生活中常常遇到; 那就是电话线路, 虽然我不知道电话线路真实的物理结构怎么样，但是大概的描述就是每一次电话接通都会占用信号的某一个频率段，我占用的话其他的人就不能被占用了，那么消息转播的延迟基本上就可以被估算出来，大概是信号传播的时间；如果超过这个时间段没有收到对端回复的ack就可以任务消息丢失或者线路本身出现一定的问题; </p>
+<p>既然有方式解决这个网络延迟的问题，那为什么不用呢？因为资源利用率的问题；其实电话的线路就类似于目前的城市里面的地铁，而internet就类似于公路；因为地铁是专线专用，所以启停时间都完全可控，只要不需要意外你可以计算出下一班车子什么时候达到，但是如果是在公路上面的车子就不一定的，车子一多很容易就堵车，一堵车你也不知道你什么时间能到公司，所以在公路上开有的时候开很快，有的时候又很慢，慢到难以想象，比如遇到了很多个事故. 回到一开始的问题，那为什么不全部用电话线路呢，因为物理限制和资源利用率，还是用地铁来做比喻的话，不可能没两个点之间都建造一个地铁，1是成本很高 2是如果这条线就没几个人用那资源不是很浪费吗. 所以internet提高了资源利用率和吞吐率，但是带来了网络的各种可知和不可知的问题.因为大家都公用了同一条路，区别点在于如果路比较宽敞的时候就能很快的发送，但是如果路上已经车子很多的情况下，你发送的数据会直接堵在路上，坐等超时，超时完重发依然超时，所以tcp才会有拥塞控制，避免无效的增加网络负担.</p>
+<h3 id="2-关于tcp的连接"><a href="#2-关于tcp的连接" class="headerlink" title="2. 关于tcp的连接"></a>2. 关于tcp的连接</h3><p>上面说了连接，那现在说说tcp的连接. tcp是面向“连接”的协议，其实说真的很让人误解，搞的以为tcp真的有一条物理连接在似的. tcp的连接我感觉是一种在创新过程中与过去的电话线路的概念的一种借鉴吧，让大家好理解一些;</p>
+<blockquote>
+<p>tcp的连接其实并不是真正的连接，它只是tcp两端的自我状态的维护; 这种维护是上层自我概念，底层并没有真实连接存在;</p>
+</blockquote>
+<blockquote>
+<p>tcp协议要解决的是什么问题呢？本质上要解决的是在Internet这种不可靠的网络传输的现状下，如果保证消息一定送达到对方;所以tcp要解决的是消息送达的问题，它本质上就是1. 超时重发 2. ack机制 3. 排序功能,其他的功能主要是为了优化做的;</p>
+</blockquote>
+<h3 id="3-为什么tcp建立要三次握手呢"><a href="#3-为什么tcp建立要三次握手呢" class="headerlink" title="3. 为什么tcp建立要三次握手呢?"></a>3. 为什么tcp建立要三次握手呢?</h3><p>理论上第二段tcp的本质，就应该知道tcp的三次握手其实是对一下各自状态的过程，对完这个状态我就能保证tcp协议能保证消息一定送达到了对方；那么tcp之间对状态的关键点在于哪里?</p>
+<blockquote>
+<ol>
+<li>ack机制 2. 对一下你发送的下一个数据包的id是什么?</li>
+</ol>
+</blockquote>
+<p><img src="http://cdn.nomoshen.com/16078757149265.jpg" alt></p>
+<p>那我们先脱离最后tcp的三次握手来思考一个问题: </p>
+<blockquote>
+<p>假如让你设计一个协议来完成上面两个问关键点你需要怎么做？</p>
+</blockquote>
+<p>如果你这么思考你就想: </p>
+<ol>
+<li>A要告诉B我下一个包的id是多少，并且我要知道B已经收到了我的信息 </li>
+<li>B要告诉A我下一个包的Id是多少，并且我要知道A已经收到了我的信息</li>
+</ol>
+<p>为了这个目标: </p>
+<ol>
+<li>A发送了一条消息给B，内容为我现在这条消息的Id是x(意味着下一条消息应该是x+1), </li>
+<li>B收到了这条消息之后,会返回给A一条消息是ack(x+1)，本意是好的我知道了;</li>
+</ol>
+<p>而B也会要把自己的信息告诉A，走的流程和A类似，只是A与B互换了一下,那么我们就会发现，在B返回给A Ack的时候其实可以同时把自己的准备发送的消息的Id告诉A，这样就从4次交互变成了三次. 所以三次握手就理论上成立了; 至于如果中间出现了包丢了或者怎么样的，那么会不断的重试，而且在tcp三次握手没有建立起来之前，tcp是不完整的，是不能进行正常的通信，因为两端自己的状态都没有同步好，后面的消息就没办法保证tcp的保证了；</p>
+<p>至于建立完“连接”之后呢，其实之后就没关系了，因为每次发送对端都知道你下次包的id是多少，如果没收到我就不返回ack，我不返回ack你就会超时重发，直到我收到为止，就从本质上保证tcp的可靠传输的保证了;</p>
+<blockquote>
+<p>说难听点，tcp协议就是在internet这种不可靠的网络上建立的软件层面的可靠协议；协议需要至少三次通信才能保证协议的结果，当然我不知道如果用了电话线路这种模式，构建可靠协议会变成怎么样？或者会变得很简单，1. 超时可控 2. 流量也可控，我能很好预估吞吐不需要做额外的算法； 我思考可能会更加简单一些;</p>
+</blockquote>
+<h3 id="4-至于为什么要4次挥手呢"><a href="#4-至于为什么要4次挥手呢" class="headerlink" title="4. 至于为什么要4次挥手呢?"></a>4. 至于为什么要4次挥手呢?</h3><p>本质上tcp包含了两条链路，A-&gt;B和B-&gt;A两条，A往B发送和B往A发送；当A想和B断的时候B可能还不想断；现实中的例子，我觉得可能是朋友吧，A和B是好朋友，突然有一天A单方面不想和B做好朋友了，就不给东西给B；可是B还是认为A是好朋友，就不断吧自己的东西给A；当然这个例子有点牵强. </p>
+<p>所以4次挥手本质上还是在于A-&gt;B这条链路断链的过程:</p>
+<ol>
+<li>A-&gt;B</li>
+<li>B-&gt;A 我知道你和我断链了，但是我现在还不想和你断链;</li>
+</ol>
+<p>过了一段时间B也觉得这样没意思就发送断链的请求</p>
+<ol>
+<li>B-&gt;A 断链</li>
+<li>A-&gt;B 好的我收到了你的请求，你总算愿意了</li>
+</ol>
+<p><img src="http://cdn.nomoshen.com/16078771565521.jpg" alt></p>
+<h4 id="A主动请求的状态演变"><a href="#A主动请求的状态演变" class="headerlink" title="A主动请求的状态演变:"></a>A主动请求的状态演变:</h4><ol>
+<li>FIN_WAIT_1</li>
+<li>FIN_WAIT_2</li>
+<li>TIME_WAIT:这个小子总算可以和我分手了;</li>
+<li>CLOSED: 与TIME_WAIT之间需要等待2 * MSL, 也就是包在网络中存活的最长时间;</li>
+</ol>
+<p>为什么要等那么长时间呢？</p>
+<ol>
+<li>因为client在Time_wait阶段返回给服务端的ack的包可能要丢失，需要等一下服务端重试B-&gt;A的断开的包</li>
+<li>time_wait的包发送丢失最大需要MSL(这个包会彻底的消失), 服务端第二次重试包超过MSL还没有被搜到的话那肯定就再也搜不到了;client做到这步已经仁至义尽了，依然已经分开了后面我也不管了; </li>
+</ol>
+<h4 id="B的状态演变"><a href="#B的状态演变" class="headerlink" title="B的状态演变"></a>B的状态演变</h4><ol>
+<li>CLOSE_WAIT: 接受到A主动断开之后，它的状态就变成等待被关闭；</li>
+<li>LAST_ACK: B也主动发送A断开链接，然后就主动等待最后的ACK</li>
+<li>CLOSED:收到ack就正确关闭；</li>
+</ol>
+<p>如果LAST_ACK超时会怎么样，看分析有几个:</p>
+<ol>
+<li>如果超时重发之后，A还是time_wait状态的话就会重新ack，如果ack收到几句进入closed</li>
+<li>如果超时重发之后，A已经是CLosed状态那么就回复RST的回复，这个时候B收到就进行closed</li>
+<li>如果LAST_ACK一直超时一直重试，大概等到tcp的最长时间就会进行closed状态</li>
+</ol>
+<h3 id="5-一些参考文档"><a href="#5-一些参考文档" class="headerlink" title="5. 一些参考文档"></a>5. 一些参考文档</h3><ul>
+<li><a href="https://www.zhihu.com/question/27564314" target="_blank" rel="noopener">在tcp协议中处于last_ack状态的连接，如果一直收不到对方的ack，会一直处于这个状态吗？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/53374516" target="_blank" rel="noopener">“三次握手，四次挥手”你真的懂吗</a></li>
+</ul>
+
       
     </div>
     
@@ -324,6 +436,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tcp/" rel="tag"># tcp</a>
+          
+        </div>
       
 
       
@@ -398,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -425,7 +552,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -436,7 +563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -466,6 +593,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-关于网络连接"><span class="nav-number">1.</span> <span class="nav-text">1. 关于网络连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关于tcp的连接"><span class="nav-number">2.</span> <span class="nav-text">2. 关于tcp的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-为什么tcp建立要三次握手呢"><span class="nav-number">3.</span> <span class="nav-text">3. 为什么tcp建立要三次握手呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-至于为什么要4次挥手呢"><span class="nav-number">4.</span> <span class="nav-text">4. 至于为什么要4次挥手呢?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A主动请求的状态演变"><span class="nav-number">4.1.</span> <span class="nav-text">A主动请求的状态演变:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B的状态演变"><span class="nav-number">4.2.</span> <span class="nav-text">B的状态演变</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-一些参考文档"><span class="nav-number">5.</span> <span class="nav-text">5. 一些参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
