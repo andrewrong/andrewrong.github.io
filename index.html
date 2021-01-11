@@ -1968,8 +1968,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-12-14T00:46:18+08:00">
-                2020-12-14
+              <time title="Post modified" itemprop="dateModified" datetime="2021-01-11T14:01:56+08:00">
+                2021-01-11
               </time>
             
           </span>
@@ -2082,6 +2082,10 @@
 <li>A-&gt;B 好的我收到了你的请求，你总算愿意了</li>
 </ol>
 <p><img src="http://cdn.nomoshen.com/16078771565521.jpg" alt></p>
+<h4 id="是否真的需要4次挥手吗？"><a href="#是否真的需要4次挥手吗？" class="headerlink" title="是否真的需要4次挥手吗？"></a>是否真的需要4次挥手吗？</h4><ol>
+<li>如果正常的分手的话，问题都不大的；四次挥手正常走下来也ok</li>
+<li>客户端如果直接把来回的通道全部关闭了；那么其实4次挥手就不能正常结束了；通常客户端在FIN2这种状态一定时间之后就直接关闭了，这样能保证资源比较好的释放；在这个时候如果对端依然发送数据过来，会马上获得一个RST这恢复，tcp在收到这样的返回之后基本上就知道对端已经不在服务状态，于是就正常关闭这个服务;</li>
+</ol>
 <h4 id="A主动请求的状态演变"><a href="#A主动请求的状态演变" class="headerlink" title="A主动请求的状态演变:"></a>A主动请求的状态演变:</h4><ol>
 <li>FIN_WAIT_1</li>
 <li>FIN_WAIT_2</li>
@@ -2107,6 +2111,7 @@
 <h3 id="5-一些参考文档"><a href="#5-一些参考文档" class="headerlink" title="5. 一些参考文档"></a>5. 一些参考文档</h3><ul>
 <li><a href="https://www.zhihu.com/question/27564314" target="_blank" rel="noopener">在tcp协议中处于last_ack状态的连接，如果一直收不到对方的ack，会一直处于这个状态吗？</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/53374516" target="_blank" rel="noopener">“三次握手，四次挥手”你真的懂吗</a></li>
+<li><a href="http://blog.qiusuo.im/blog/2014/03/19/tcp-timeout/" target="_blank" rel="noopener">TCP协议的那些超时</a></li>
 </ul>
 
           
